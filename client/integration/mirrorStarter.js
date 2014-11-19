@@ -1,6 +1,7 @@
 var requestMirror = _.once(function () {
   var options = {
     framework: frameworks.clientIntegration.name,
+    mirrorId: frameworks.clientIntegration.name,
     rootUrlPath: '/?jasmine=true'
   }
 

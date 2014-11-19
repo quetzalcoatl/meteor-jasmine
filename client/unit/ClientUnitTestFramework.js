@@ -92,6 +92,7 @@ _.extend(ClientUnitTestFramework.prototype, {
         var ignoredFiles = [
           'packages/sanjo_jasmine.js',
           'packages/velocity_core.js',
+          'packages/velocity_test-proxy.js',
           'packages/velocity_html-reporter.js'
         ]
         return !_.contains(ignoredFiles, file.path)

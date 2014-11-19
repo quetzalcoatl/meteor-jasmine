@@ -23,21 +23,26 @@ Npm.depends({
 })
 
 Package.onUse(function (api) {
-  api.versionsFrom("METEOR@1.0");
+  api.versionsFrom('METEOR@1.0');
   api.use([
     'underscore',
     'tracker'
   ], ['server', 'client'])
   api.use([
-    'velocity:core@1.0.0-rc.5',
-    'velocity:shim@0.0.2',
-    'velocity:meteor-stubs@1.0.0_2',
+    'velocity:core@1.0.0-rc.6',
+    'velocity:meteor-stubs@1.0.0',
     'alanning:package-stubber@0.0.9',
     'sanjo:karma@0.12.24_2',
     'sanjo:karma-jasmine@0.2.3',
     'sanjo:karma-chrome-launcher@0.1.5_1',
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
+  api.use([
+    'velocity:node-soft-mirror@0.0.2',
+  ], ['server', 'client'], {unordered: true})
+  api.use([
+    'velocity:shim@0.0.3',
+  ], ['server', 'client'])
 
   api.addFiles([
     'lib/meteor.js'

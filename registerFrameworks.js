@@ -1,4 +1,3 @@
-
 frameworks = {
   //serverIntegration: new ServerIntegrationTestFramework(),
   clientIntegration: new ClientIntegrationTestFramework(),
@@ -8,7 +7,6 @@ frameworks = {
 
 if (process.env.VELOCITY !== '0' && !process.env.IS_MIRROR) {
   frameworks.clientIntegration.registerWithVelocity()
-  frameworks.clientIntegration.startFileCopier()
 
   frameworks.clientUnit.registerWithVelocity()
 

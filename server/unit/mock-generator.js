@@ -3,6 +3,10 @@
 //
 // Used to mock packages for the server unit test runner
 
+if (process.env.IS_MIRROR) {
+  return;
+}
+
 var ComponentMocker = Npm.require('component-mocker'),
     fs = Npm.require('fs'),
     path = Npm.require('path'),
