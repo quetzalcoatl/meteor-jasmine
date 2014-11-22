@@ -29,11 +29,9 @@ Package.onUse(function (api) {
     'tracker'
   ], ['server', 'client'])
   api.use([
-    'velocity:core@0.3.0',
-    'velocity:shim@0.0.2',
+    'velocity:core@1.0.0-rc.8',
+    'velocity:shim@0.0.3',
     'velocity:meteor-stubs@1.0.0_2',
-    'velocity:core@1.0.0-rc.6',
-    'velocity:meteor-stubs@1.0.0',
     'alanning:package-stubber@0.0.9',
     'sanjo:karma@0.12.24_2',
     'sanjo:karma-jasmine@0.2.3',
@@ -41,7 +39,7 @@ Package.onUse(function (api) {
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
   api.use([
-    'velocity:node-soft-mirror@0.0.3',
+    'velocity:node-soft-mirror@0.0.7',
   ], ['server', 'client'], {unordered: true})
   api.use([
     'velocity:shim@0.0.3',
