@@ -35,7 +35,7 @@ Package.onUse(function (api) {
     'alanning:package-stubber@0.0.9',
     'sanjo:karma@0.12.24_2',
     'sanjo:karma-jasmine@0.2.3',
-    'sanjo:karma-chrome-launcher@0.1.5_1',
+    'shilman:karma-phantomjs-launcher@0.1.5_1',
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
 

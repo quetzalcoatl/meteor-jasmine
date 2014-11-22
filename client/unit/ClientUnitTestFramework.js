@@ -48,10 +48,10 @@ _.extend(ClientUnitTestFramework.prototype, {
       port: freeport(),
       basePath: Velocity.getAppPath(),
       frameworks: ['jasmine'],
-      browsers: ['Chrome'],
+      browsers: ['PhantomJS'],
       plugins: [
         'karma-jasmine',
-        'karma-chrome-launcher',
+        'karma-phantomjs-launcher',
         'karma-coffee-preprocessor'
       ],
       files: files,
