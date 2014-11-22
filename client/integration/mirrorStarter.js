@@ -28,6 +28,8 @@ Meteor.startup(function () {
   if (clientIntegrationTestsCursor.count() > 0) {
     requestMirror()
   } else {
+    // Needed for `meteor --test`
+    Meteor.call('velocity/reports/completed', {framework: 'jasmine-client-integration'})
     var clientIntegrationTestsObserver = clientIntegrationTestsCursor.observe({
       added: function () {
         clientIntegrationTestsObserver.stop()

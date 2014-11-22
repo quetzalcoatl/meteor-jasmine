@@ -45,8 +45,8 @@ ServerUnitTestFramework.prototype = Object.create(JasmineTestFramework.prototype
 
 _.extend(ServerUnitTestFramework.prototype, {
 
-  start: function () {
-    var testFilesCursor = VelocityTestFiles.find({
+  _getTestFilesCursor: function () {
+    return VelocityTestFiles.find({
       targetFramework: this.name,
       relativePath: {
         $nin: [
@@ -54,7 +54,11 @@ _.extend(ServerUnitTestFramework.prototype, {
           'tests/jasmine/server/unit/package-stubs.js'
         ]
       }
-    });
+    })
+  },
+
+  start: function () {
+    var testFilesCursor = this._getTestFilesCursor()
 
     var _runTests  = _.debounce(Meteor.bindEnvironment(this.runTests.bind(this),
       '[JasmineTestFramework.start.runTests]'), 200)
@@ -64,9 +68,18 @@ _.extend(ServerUnitTestFramework.prototype, {
       changed: _runTests,
       removed: _runTests
     });
+
+    // Always run tests at least once.
+    // The CI runner needs a completed event.
+    _runTests()
   },
 
   runTests: function executeSpecsUnitMode() {
+    if (this._getTestFilesCursor().count() === 0) {
+      this._reportCompleted()
+      return
+    }
+
     MockGenerator.generateMocks()
 
     var jasmine = this.jasmineRequire.core(this.jasmineRequire)
@@ -156,7 +169,7 @@ _.extend(ServerUnitTestFramework.prototype, {
       mode: "Server Unit",
       framework: this.name,
       env: env,
-      onComplete: this._reportResults.bind(this),
+      onComplete: this._reportCompleted.bind(this),
       timer: new jasmine.Timer()
     })
 
@@ -165,7 +178,7 @@ _.extend(ServerUnitTestFramework.prototype, {
     env.execute()
   },
 
-  _reportResults: function () {
+  _reportCompleted: function () {
     Meteor.call('velocity/reports/completed', {framework: this.name})
   }
 })
