@@ -44,14 +44,17 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getTestFiles()
     )
 
+    var browser = process.env.JASMINE_BROWSER || 'Chrome';
+    var launcherPlugin = 'karma-' + browser.toLowerCase() + '-launcher';
+
     var startOptions = {
       port: freeport(),
       basePath: Velocity.getAppPath(),
       frameworks: ['jasmine'],
-      browsers: ['PhantomJS'],
+      browsers: [browser],
       plugins: [
         'karma-jasmine',
-        'karma-phantomjs-launcher',
+        launcherPlugin,
         'karma-coffee-preprocessor'
       ],
       files: files,
