@@ -97,8 +97,8 @@
       "0.2.3"
     ],
     [
-      "shilman:karma-phantomjs-launcher",
-      "0.1.4_1"
+      "sanjo:karma-phantomjs-launcher-nonet",
+      "0.1.3"
     ],
     [
       "tracker",

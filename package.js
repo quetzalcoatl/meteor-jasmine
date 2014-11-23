@@ -36,7 +36,7 @@ Package.onUse(function (api) {
     'sanjo:karma@0.12.24_2',
     'sanjo:karma-jasmine@0.2.3',
     'sanjo:karma-chrome-launcher@0.1.5_1',
-    'shilman:karma-phantomjs-launcher@0.1.4_1',
+    'sanjo:karma-phantomjs-launcher-nonet@0.1.3',
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
 
