@@ -67,7 +67,6 @@ Package.onUse(function (api) {
 
   api.addFiles([
     // set up server-side Meteor methods
-    'client/integration/mirrorStarter.js',
     'server/lib/mirror-info.js'
   ], 'server')
 
