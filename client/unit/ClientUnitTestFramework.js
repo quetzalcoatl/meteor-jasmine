@@ -1,3 +1,4 @@
+var path = Npm.require('path')
 var freeport = Meteor.wrapAsync(Npm.require('freeport'))
 
 ClientUnitTestFramework = function (options) {
@@ -44,14 +45,23 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getTestFiles()
     )
 
+    var launcherPlugins = {
+      'Chrome': 'karma-chrome-launcher',
+      'ChromeCanary': 'karma-chrome-launcher',
+      'PhantomJS': 'karma-phantomjs-launcher-nonet'
+    }
+
+    var browser = process.env.JASMINE_BROWSER || 'Chrome';
+    var launcherPlugin = launcherPlugins[browser];
+
     var startOptions = {
       port: freeport(),
       basePath: Velocity.getAppPath(),
       frameworks: ['jasmine'],
-      browsers: ['Chrome'],
+      browsers: [browser],
       plugins: [
         'karma-jasmine',
-        'karma-chrome-launcher',
+        launcherPlugin,
         'karma-coffee-preprocessor'
       ],
       files: files,
@@ -76,6 +86,19 @@ _.extend(ClientUnitTestFramework.prototype, {
         }
       }
     }
+
+    if (browser === 'PhantomJS') {
+      startOptions.phantomjsLauncher = {
+        // configure PhantomJS executable for each platform
+        cmd: {
+          linux: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs'),
+          darwin: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs'),
+          // TODO: Make sure that this path is correct when Meteor supports Windows
+          win32: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs')
+        }
+      }
+    }
+
     Karma.server.start(startOptions)
   },
   _getPreAppFiles: function () {

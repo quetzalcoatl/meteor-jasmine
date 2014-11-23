@@ -51,7 +51,13 @@ Not available yet. Will be added in the near future.
 * Nothing is automatically stubbed.
 * Place your client unit tests in the folder `tests/jasmine/client/unit/` or a subfolder of it.
 
-> __Note:__ Tests currently only run in Google Chrome. If you need support for another Browser please [open an issue](https://github.com/Sanjo/meteor-jasmine/issues/new).
+By default tests run in Google Chrome browser. To run in another browser use the `JASMINE_BROWSER` environment variable. For example:
+
+```bash
+JASMINE_BROWSER=PhantomJS meteor [options]
+```
+
+> __Note:__ Tests currently only run in Google Chrome and PhantomJS. If you need support for another Browser please [open an issue](https://github.com/Sanjo/meteor-jasmine/issues/new).
 
 ##### Client Integration Test Mode
 
@@ -67,7 +73,7 @@ Not available yet. Will be added in the near future.
 
 Use the commmand:
 
-```javascript
+```bash
 JASMINE_SINGLE_RUN=1 meteor --test
 ``
 
@@ -118,11 +124,11 @@ Create a mock service with a method `install` and `uninstall` ([example for Mete
 
   * install: Saves the original object and mocks it
   * uninstall: Restores the original object
-  
+
 This pattern allows you to enable mocks only for specific tests and have a clean and independent mock for each test.
 
 ### Copyright
 
-The code is licensed under the MIT License (see LICENSE file). 
+The code is licensed under the MIT License (see LICENSE file).
 
 The boot.js scripts are based on code that is part of Jasmine 2.0 ([LICENSE](https://github.com/pivotal/jasmine/blob/v2.0.0/MIT.LICENSE)).

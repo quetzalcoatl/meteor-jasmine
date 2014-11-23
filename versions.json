@@ -97,6 +97,10 @@
       "0.2.3"
     ],
     [
+      "sanjo:karma-phantomjs-launcher-nonet",
+      "0.1.3"
+    ],
+    [
       "tracker",
       "1.0.3"
     ],
