@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.6.7',
+  version: '0.6.8',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -36,6 +36,7 @@ Package.onUse(function (api) {
     'sanjo:karma@0.12.24_2',
     'sanjo:karma-jasmine@0.2.3',
     'sanjo:karma-chrome-launcher@0.1.5_1',
+    'shilman:karma-phantomjs-launcher@0.1.4_1',
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
 
