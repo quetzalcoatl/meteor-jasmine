@@ -22,7 +22,6 @@ if (process.env.JASMINE_SERVER_UNIT !== '0') {
 if (process.env.VELOCITY !== '0' && !process.env.IS_MIRROR) {
   if (process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
     frameworks.clientIntegration.registerWithVelocity()
-    frameworks.clientIntegration.startFileCopier()
   }
 
   if (process.env.JASMINE_CLIENT_UNIT !== '0') {
