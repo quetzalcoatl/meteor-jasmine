@@ -30,7 +30,6 @@ Package.onUse(function (api) {
   ], ['server', 'client'])
   api.use([
     'velocity:core@0.3.0',
-    'velocity:shim@0.0.2',
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
     'sanjo:karma@0.12.24_2',
@@ -45,6 +44,7 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.addFiles([
+    'velocity:shim@0.0.2',
     'lib/logHelpers.js',
     'lib/JasmineTestFramework.js',
     'lib/JasmineInterface.js',
