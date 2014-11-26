@@ -26,7 +26,8 @@ Package.onUse(function (api) {
   api.versionsFrom("METEOR@1.0");
   api.use([
     'underscore',
-    'tracker'
+    'tracker',
+    'velocity:shim@0.0.2'
   ], ['server', 'client'])
   api.use([
     'velocity:core@0.3.0',
@@ -44,7 +45,6 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.addFiles([
-    'velocity:shim@0.0.2',
     'lib/logHelpers.js',
     'lib/JasmineTestFramework.js',
     'lib/JasmineInterface.js',
