@@ -84,7 +84,7 @@ Package.onUse(function (api) {
     'server/lib/file-loader.js',
     'server/lib/html-scanner.js',
     'server/lib/load-order-sort.js',
-    'server/lib/stub-loader.js',
+    'server/lib/mock-loader.js',
 
     'server/unit/included-packages.js',
     'server/unit/mock-generator.js',

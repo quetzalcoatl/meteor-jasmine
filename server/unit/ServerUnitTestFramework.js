@@ -136,7 +136,7 @@ _.extend(ServerUnitTestFramework.prototype, {
 
     // load stubs
     try {
-      stubLoader.loadUserStubs(context)
+      mockLoader.loadUserMocks(context)
     }
     catch (ex) {
       console.log('Error loading stubs', ex.message, ex.stack)
