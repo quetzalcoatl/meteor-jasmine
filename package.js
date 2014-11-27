@@ -27,10 +27,13 @@ Package.onUse(function (api) {
   api.use([
     'underscore',
     'tracker',
+    'velocity:core@0.3.0',
+    // Note: velocity:shim must come after velocity:core
+    // because has no dependency to velocity:core
     'velocity:shim@0.0.2'
   ], ['server', 'client'])
+
   api.use([
-    'velocity:core@0.3.0',
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
     'sanjo:karma@0.12.24_2',
