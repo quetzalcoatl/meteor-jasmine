@@ -8,4 +8,4 @@ autopublish
 insecure
 velocity:core
 sanjo:jasmine
-spacejamio:munit
+velocity:html-reporter
