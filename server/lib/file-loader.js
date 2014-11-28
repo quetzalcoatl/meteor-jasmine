@@ -106,7 +106,8 @@ function filterFiles (files, options) {
  *
  * @method loadFile
  * @param {String} target file path to load, relative to meteor app
- * @param {Object} context the context to load files within
+ * @param {Object} context the context to load files within.
+ *        If omitted the file will run in this context.
  */
 function loadFile (target, context) {
   var pwd = process.env.PWD,

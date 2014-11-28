@@ -1,2 +1,4 @@
 var testFramework = new ClientIntegrationTestFramework()
-testFramework.runTests()
+Meteor.startup(function () {
+  testFramework.runTests()
+})

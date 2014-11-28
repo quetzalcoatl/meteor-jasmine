@@ -1,5 +1,4 @@
 var path = Npm.require('path')
-var freeport = Meteor.wrapAsync(Npm.require('freeport'))
 
 ClientUnitTestFramework = function (options) {
   options = options || {}

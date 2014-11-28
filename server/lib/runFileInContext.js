@@ -8,7 +8,11 @@ var vm = Npm.require('vm'),
 
 runCodeInContext = function (code, context, filename) {
   try {
-    vm.runInContext(code, context, filename)
+    if (context) {
+      vm.runInContext(code, context, filename)
+    } else {
+      vm.runInThisContext(code, filename)
+    }
   } catch(error) {
     logError('The code has syntax errors.', error)
   }
@@ -17,7 +21,11 @@ runCodeInContext = function (code, context, filename) {
 runFileInContext = function (filename, context) {
   var code = readFile(filename, {encoding: 'utf8'})
   try {
-    vm.runInContext(code, context, filename)
+    if (context) {
+      vm.runInContext(code, context, filename)
+    } else {
+      vm.runInThisContext(code, filename)
+    }
   } catch(error) {
     logError('The file "' + filename + '" has syntax errors.', error)
   }

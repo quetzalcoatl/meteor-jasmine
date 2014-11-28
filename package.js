@@ -23,7 +23,10 @@ Npm.depends({
 })
 
 Package.onUse(function (api) {
-  api.versionsFrom("METEOR@1.0");
+  api.export('Jasmine', 'server')
+
+  api.versionsFrom("METEOR@1.0")
+
   api.use([
     'underscore',
     'tracker',
@@ -44,7 +47,8 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.addFiles([
-    'lib/meteor.js'
+    'lib/meteor.js',
+    'lib/freeport.js'
   ], 'server')
 
   api.addFiles([
@@ -53,6 +57,14 @@ Package.onUse(function (api) {
     'lib/JasmineInterface.js',
     'lib/VelocityTestReporter.js'
   ], ['server', 'client'])
+
+  // ----------------------------------------
+  // Files that are needed in the main app and the mirror
+  // ----------------------------------------
+
+  api.addFiles([
+    'server/integration/ServerIntegrationTestFramework.js'
+  ], 'server')
 
   // ----------------------------------------
   // Files that are needed in the mirror
