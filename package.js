@@ -39,7 +39,7 @@ Package.onUse(function (api) {
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
   api.use([
-    'velocity:node-soft-mirror@0.0.8'
+    'velocity:node-soft-mirror@0.0.9'
   ], ['server', 'client'], {unordered: true})
   api.use([
     'velocity:shim@0.0.3'
