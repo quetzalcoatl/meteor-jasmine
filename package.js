@@ -25,15 +25,15 @@ Npm.depends({
 Package.onUse(function (api) {
   api.export('Jasmine', 'server')
 
-  api.versionsFrom("METEOR@1.0")
+  api.versionsFrom('METEOR@1.0')
 
   api.use([
     'underscore',
     'tracker',
-    'velocity:core@0.3.2',
+    'velocity:core@0.4.1',
     // Note: velocity:shim must come after velocity:core
     // because has no dependency to velocity:core
-    'velocity:shim@0.0.2'
+    'velocity:shim@0.0.3'
   ], ['server', 'client'])
 
   api.use([
@@ -45,6 +45,10 @@ Package.onUse(function (api) {
     'sanjo:karma-phantomjs-launcher-nonet@0.1.3',
     'sanjo:karma-coffee-preprocessor@0.2.1'
   ], 'server')
+
+  api.use([
+    'velocity:node-soft-mirror@0.0.9'
+  ], ['server', 'client'], {unordered: true})
 
   api.addFiles([
     'lib/meteor.js',

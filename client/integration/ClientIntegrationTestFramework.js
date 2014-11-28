@@ -94,6 +94,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
   _requestMirror: _.once(function () {
     var options = {
       framework: frameworks.clientIntegration.name,
+      mirrorId: frameworks.clientIntegration.name,
       rootUrlPath: '/?jasmine=true'
     }
 
@@ -112,21 +113,6 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       }
     )
   }),
-
-  startFileCopier: function () {
-    var fileCopier = new Velocity.FileCopier({
-      targetFramework: this.name,
-      shouldCopy: function (filepath) {
-        var isClient = filepath.absolutePath.indexOf('server') === -1
-
-        return isClient
-      },
-      convertTestPathToMirrorPath: function (filePath) {
-        return filePath.replace('jasmine/client', 'client/jasmine');
-      }
-    })
-    fileCopier.start()
-  },
 
   runTests: function () {
     var self = this
@@ -240,7 +226,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         })
 
         Tracker.autorun(function (computation) {
-          var mirror = VelocityMirrors.findOne({framework: self.name})
+          var mirror = VelocityMirrors.findOne({mirrorId: self.name})
           if (mirror) {
             computation.stop()
             insertMirrorIframe(mirror)
