@@ -34,7 +34,6 @@ if (process.env.VELOCITY !== '0' && !process.env.IS_MIRROR) {
 
   Meteor.startup(function () {
     if (process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
-      frameworks.clientIntegration.startFileCopier()
       frameworks.clientIntegration.startMirror()
     }
     //if (process.env.JASMINE_SERVER_INTEGRATION !== '0') {
