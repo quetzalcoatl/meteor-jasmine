@@ -2,9 +2,6 @@
 // This allows us to stub Meteor while testing.
 (function (Meteor, Tracker, DDP, __meteor_runtime_config__) {
 
-  // We pre hook the original Karma start method to do our initialisation
-  var karmaStart = window.__karma__.start
-
   var createStartFn = function () {
     return function (config) {
       window.ddpParentConnection = DDP.connect(__meteor_runtime_config__.ROOT_URL)
@@ -28,21 +25,35 @@
             jasmineEnv.addReporter(velocityReporter)
 
             // Start the Karma test run
-            karmaStart.call(this, config)
+            window.__karma__._original_start.apply(this, arguments)
           })
         }
       })
     }
   }
 
+  // Note: window.__karma__ comes from the parent context
+  // and is always the same object for each run.
+  // This is why we have to check if window.__karma__
+  // is already hooked from a previous run.
+  // We also need to store the original functions on window.__karma__.
+
+  if (!window.__karma__._original_start) {
+    window.__karma__._original_start = window.__karma__.start
+  }
+
+  // We pre hook the original Karma start method to do our initialisation
   window.__karma__.start = createStartFn(window.__karma__)
 
 
+  if (!window.__karma__._original_complete) {
+    window.__karma__._original_complete = window.__karma__.complete
+  }
+
   // Give DDP some extra time to send all results before Karma shuts down
-  var karmaComplete = window.__karma__.complete
   window.__karma__.complete = function (result) {
     setTimeout(function () {
-      karmaComplete.call(window.__karma__, result)
+      window.__karma__._original_complete.apply(this, arguments)
     }, 1000)
   }
 
