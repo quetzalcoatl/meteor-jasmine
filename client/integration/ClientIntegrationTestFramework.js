@@ -82,7 +82,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
   _getCustomPort: function () {
     var customPort = parseInt(process.env.JASMINE_MIRROR_PORT, 10)
-    if (_.isNumber(customPort)) {
+    if (!_.isNaN(customPort)) {
       return customPort
     }
   },
