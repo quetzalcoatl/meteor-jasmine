@@ -70,27 +70,6 @@ ServerIntegrationTestFramework.prototype = Object.create(JasmineTestFramework.pr
 
 _.extend(ServerIntegrationTestFramework.prototype, {
 
-  startFileCopier: function () {
-    var fileCopier = new Velocity.FileCopier({
-      targetFramework: this.name,
-      shouldCopy: function (filepath) {
-        var isServer = filepath.absolutePath.indexOf('server') !== -1
-
-        return isServer
-      },
-      convertTestPathToMirrorPath: function (filePath) {
-        return filePath.replace('jasmine/server', 'server/jasmine');
-      }
-    })
-    fileCopier.start()
-  },
-
-  _getTestFilesCursor: function () {
-    return VelocityTestFiles.find({
-      targetFramework: this.name
-    })
-  },
-
   start: function () {
     debug('Starting Server Integration mode')
     this._connectToMainApp()
@@ -120,7 +99,6 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     //var consoleReporter = getJasmineConsoleReporter("tests/jasmine/server/unit/", false);
     var env = jasmine.getEnv()
 
-    debugger
     var velocityReporter = new VelocityTestReporter({
       mode: "Server Integration",
       framework: this.name,
@@ -168,7 +146,8 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
   _requestMirror: _.once(function () {
     var options = {
-      framework: this.name
+      framework: this.name,
+      mirrorId: this.name
     }
 
     var customPort = parseInt(process.env.JASMINE_SERVER_MIRROR_PORT, 10)
@@ -178,14 +157,17 @@ _.extend(ServerIntegrationTestFramework.prototype, {
       options.port = freeport()
     }
 
-    Meteor.call(
-      'velocity/mirrors/request',
-      options,
-      function (error) {
-        if (error) {
-          logError(error)
+    // HACK: need to make sure after the proxy package adds the test files
+    Meteor.setTimeout(function() {
+      Meteor.call(
+        'velocity/mirrors/request',
+        options,
+        function (error) {
+          if (error) {
+            logError(error)
+          }
         }
-      }
-    )
+      )
+    }, 100)
   })
 })
