@@ -226,7 +226,10 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         })
 
         Tracker.autorun(function (computation) {
-          var mirror = VelocityMirrors.findOne({mirrorId: self.name})
+          var mirror = VelocityMirrors.findOne({
+            mirrorId: self.name,
+            state: 'ready'
+          })
           if (mirror) {
             computation.stop()
             insertMirrorIframe(mirror)
