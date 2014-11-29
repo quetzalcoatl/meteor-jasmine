@@ -11,7 +11,11 @@ var ComponentMocker = Npm.require('component-mocker'),
     packageMetadata = {}
 
 function shouldIgnorePackage (packageName) {
-  var packagesToIgnore = ['meteor', 'minifiers']
+  var packagesToIgnore = [
+    'meteor',
+    'minifiers',
+    'spacejamio:chai' // Collides with expect of Jasmine
+  ]
     .concat(getEnvironmentIgnoredPackages())
     .concat(packagesToIncludeInUnitTests)
 

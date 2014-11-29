@@ -68,7 +68,7 @@ coffeeRequire = function (target, context) {
     if (!err) {
       runCodeInContext(code, context, target)
     } else {
-      logError(err)
+      log.error(err)
     }
   })
 }

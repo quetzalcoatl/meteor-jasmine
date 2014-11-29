@@ -96,7 +96,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       } else if (mirrorInfo.isMirror) {
         Meteor.setTimeout(function() {
           if (/jasmine=true/.test(document.location.href.split("?")[1])) {
-            logInfo('Running Jasmine tests');
+            log.info('Running Jasmine tests');
 
             window.ddpParentConnection = DDP.connect(mirrorInfo.parentUrl)
 

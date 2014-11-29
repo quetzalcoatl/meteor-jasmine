@@ -30,6 +30,7 @@ Package.onUse(function (api) {
   api.use([
     'underscore',
     'tracker',
+    'practicalmeteor:loglevel@1.1.0_2',
     'velocity:core@0.4.2',
     // Note: velocity:shim must come after velocity:core
     // because it has no dependency to velocity:core
@@ -50,6 +51,8 @@ Package.onUse(function (api) {
     'velocity:node-soft-mirror@0.0.9'
   ], ['server', 'client'], {unordered: true})
 
+  api.addFiles('lib/log.js', ['server', 'client'])
+
   api.addFiles([
     'lib/meteor.js',
     'lib/freeport.js',
@@ -57,7 +60,6 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.addFiles([
-    'lib/logHelpers.js',
     'lib/JasmineTestFramework.js',
     'lib/JasmineInterface.js',
     'lib/VelocityTestReporter.js'

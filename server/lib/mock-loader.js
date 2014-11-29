@@ -5,7 +5,7 @@ mockLoader = {
   loadUserMocks: function (context) {
     var basePath = path.join(Velocity.getAppPath(), 'tests/jasmine/server/unit')
     this._getMockFiles(basePath).forEach(function (file) {
-      debug('loading mock file:', file)
+      log.debug('loading mock file:', file)
       fileLoader.loadFile(file, context)
     })
   },

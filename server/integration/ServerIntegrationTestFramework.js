@@ -86,13 +86,13 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   },
 
   start: function () {
-    debug('Starting Server Integration mode')
+    log.debug('Starting Server Integration mode')
     this._connectToMainApp()
     this.runTests()
   },
 
   runTests: function () {
-    debug('Running Server Integration test mode')
+    log.debug('Running Server Integration test mode')
 
     this.ddpParentConnection.call('velocity/reports/reset', {framework: this.name})
 
@@ -132,7 +132,7 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
   _connectToMainApp: function () {
     if (!this.ddpParentConnection) {
-      debug('Connect to parent app "' + process.env.PARENT_URL + '" via DDP')
+      log.debug('Connect to parent app "' + process.env.PARENT_URL + '" via DDP')
       this.ddpParentConnection = DDP.connect(process.env.PARENT_URL)
     }
   },

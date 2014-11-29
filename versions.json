@@ -25,6 +25,10 @@
       "1.0.2"
     ],
     [
+      "coffeescript",
+      "1.0.4"
+    ],
+    [
       "ddp",
       "1.0.11"
     ],
@@ -69,6 +73,10 @@
       "1.0.1"
     ],
     [
+      "practicalmeteor:loglevel",
+      "1.1.0_2"
+    ],
+    [
       "random",
       "1.0.1"
     ],
@@ -95,6 +103,10 @@
     [
       "sanjo:karma-phantomjs-launcher-nonet",
       "0.1.3"
+    ],
+    [
+      "spacejamio:chai",
+      "1.9.2_2"
     ],
     [
       "tracker",

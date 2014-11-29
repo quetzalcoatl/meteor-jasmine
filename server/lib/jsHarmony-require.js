@@ -56,7 +56,7 @@ jsHarmonyRequire = function (target, context) {
       context.$traceurRuntime = $traceurRuntime
       runCodeInContext(code, context, target)
     } else {
-      logError(err)
+      log.error(err)
     }
   })
 }

@@ -1,5 +1,4 @@
 var PWD = process.env.PWD,
-    DEBUG = process.env.DEBUG,
     fs = Npm.require('fs'),
     path = Npm.require('path'),
     glob = Npm.require('glob')
@@ -117,13 +116,13 @@ function loadFile (target, context) {
   if (fs.existsSync(filename)) {
     ext = path.extname(filename)
     if (/\.next\.js$/.test(target)) {
-      DEBUG && console.log('loading es6 source file:', filename)
+      log.debug('loading es6 source file:', filename)
       jsHarmonyRequire(filename, context)
     } else if ('.js' === ext) {
-      DEBUG && console.log('loading source file:', filename)
+      log.debug('loading source file:', filename)
       runFileInContext(filename, context)
     } else if (/\.(coffee|litcoffee|coffee\.md)$/.test(target)) {
-      DEBUG && console.log('loading source file:', filename)
+      log.debug('loading source file:', filename)
       coffeeRequire(filename, context)
     }
   }
