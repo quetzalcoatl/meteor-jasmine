@@ -81,7 +81,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       requestMirror()
     } else {
       // Needed for `meteor --test`
-      Meteor.call('velocity/reports/completed', {framework: 'jasmine-client-integration'})
+      Meteor.call('velocity/reports/completed', {framework: this.name})
       var clientIntegrationTestsObserver = clientIntegrationTestsCursor.observe({
         added: function () {
           clientIntegrationTestsObserver.stop()
@@ -93,8 +93,8 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
   _requestMirror: _.once(function () {
     var options = {
-      framework: frameworks.clientIntegration.name,
-      mirrorId: frameworks.clientIntegration.name,
+      framework: this.name,
+      mirrorId: this.name,
       rootUrlPath: '/?jasmine=true'
     }
 
@@ -103,15 +103,18 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       options.port = customPort
     }
 
-    Meteor.call(
-      'velocity/mirrors/request',
-      options,
-      function (error) {
-        if (error) {
-          logError(error)
+    // HACK: need to make sure after the proxy package adds the test files
+    Meteor.setTimeout(function() {
+      Meteor.call(
+        'velocity/mirrors/request',
+        options,
+        function (error) {
+          if (error) {
+            logError(error)
+          }
         }
-      }
-    )
+      )
+    }, 100)
   }),
 
   runTests: function () {
