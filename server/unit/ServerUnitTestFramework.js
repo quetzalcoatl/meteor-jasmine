@@ -75,6 +75,8 @@ _.extend(ServerUnitTestFramework.prototype, {
   },
 
   runTests: function executeSpecsUnitMode() {
+    Meteor.call('velocity/reports/reset', {framework: this.name})
+
     if (this._getTestFilesCursor().count() === 0) {
       this._reportCompleted()
       return

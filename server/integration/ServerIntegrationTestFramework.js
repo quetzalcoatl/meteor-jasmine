@@ -94,6 +94,8 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   runTests: function () {
     debug('Running Server Integration test mode')
 
+    this.ddpParentConnection.call('velocity/reports/reset', {framework: this.name})
+
     var jasmine = this.jasmineRequire.core(this.jasmineRequire)
     var jasmineInterface = new JasmineInterface({jasmine: jasmine})
 

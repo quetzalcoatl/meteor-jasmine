@@ -13,11 +13,14 @@
 
           // Force to not run in a computation
           setTimeout(function () {
+            var frameworkName = 'jasmine-client-unit'
+            window.ddpParentConnection.call('velocity/reports/reset', {framework: frameworkName})
+
             // Add the Velocity Reporter
             var jasmineEnv = window.jasmine.getEnv()
             var velocityReporter = new VelocityTestReporter({
               mode: 'Client Unit',
-              framework: 'jasmine-client-unit',
+              framework: frameworkName,
               env: jasmineEnv,
               timer: new window.jasmine.Timer(),
               ddpParentConnection: window.ddpParentConnection
