@@ -70,6 +70,21 @@ ServerIntegrationTestFramework.prototype = Object.create(JasmineTestFramework.pr
 
 _.extend(ServerIntegrationTestFramework.prototype, {
 
+  startMirror: function () {
+    var mirrorOptions = {
+      port: this._getCustomPort()
+    }
+    var mirrorStarter = new MirrorStarter(this.name)
+    mirrorStarter.lazyStartMirror(mirrorOptions)
+  },
+
+  _getCustomPort: function () {
+    var customPort = parseInt(process.env.JASMINE_SERVER_MIRROR_PORT, 10)
+    if (_.isNumber(customPort)) {
+      return customPort
+    }
+  },
+
   start: function () {
     debug('Starting Server Integration mode')
     this._connectToMainApp()
@@ -122,52 +137,5 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
   _reportCompleted: function () {
     this.ddpParentConnection.call('velocity/reports/completed', {framework: this.name})
-  },
-
-  startMirror: function () {
-    var requestMirror = this._requestMirror.bind(this)
-    var serverIntegrationTestsCursor = VelocityTestFiles.find(
-      {targetFramework: this.name}
-    )
-
-    if (serverIntegrationTestsCursor.count() > 0) {
-      requestMirror()
-    } else {
-      // Needed for `meteor --test`
-      Meteor.call('velocity/reports/completed', {framework: this.name})
-      var clientIntegrationTestsObserver = serverIntegrationTestsCursor.observe({
-        added: function () {
-          clientIntegrationTestsObserver.stop()
-          requestMirror()
-        }
-      })
-    }
-  },
-
-  _requestMirror: _.once(function () {
-    var options = {
-      framework: this.name,
-      mirrorId: this.name
-    }
-
-    var customPort = parseInt(process.env.JASMINE_SERVER_MIRROR_PORT, 10)
-    if (_.isNumber(customPort)) {
-      options.port = customPort
-    } else {
-      options.port = freeport()
-    }
-
-    // HACK: need to make sure after the proxy package adds the test files
-    Meteor.setTimeout(function() {
-      Meteor.call(
-        'velocity/mirrors/request',
-        options,
-        function (error) {
-          if (error) {
-            logError(error)
-          }
-        }
-      )
-    }, 100)
-  })
+  }
 })

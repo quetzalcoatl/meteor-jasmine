@@ -52,7 +52,8 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/meteor.js',
-    'lib/freeport.js'
+    'lib/freeport.js',
+    'lib/MirrorStarter.js'
   ], 'server')
 
   api.addFiles([
