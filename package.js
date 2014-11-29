@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.8.0-rc.2',
+  version: '0.8.0-rc.3',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -30,9 +30,9 @@ Package.onUse(function (api) {
   api.use([
     'underscore',
     'tracker',
-    'velocity:core@0.4.1',
+    'velocity:core@0.4.2',
     // Note: velocity:shim must come after velocity:core
-    // because has no dependency to velocity:core
+    // because it has no dependency to velocity:core
     'velocity:shim@0.0.3'
   ], ['server', 'client'])
 
