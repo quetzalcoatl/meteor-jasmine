@@ -22,7 +22,8 @@
               mode: 'Client Unit',
               framework: 'jasmine-client-unit',
               env: jasmineEnv,
-              timer: new window.jasmine.Timer()
+              timer: new window.jasmine.Timer(),
+              ddpParentConnection: window.ddpParentConnection
             })
             jasmineEnv.addReporter(velocityReporter)
 

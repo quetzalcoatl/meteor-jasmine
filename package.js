@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.7.5',
+  version: '0.8.0-rc.2',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -23,7 +23,10 @@ Npm.depends({
 })
 
 Package.onUse(function (api) {
-  api.versionsFrom('METEOR@1.0');
+  api.export('Jasmine', 'server')
+
+  api.versionsFrom('METEOR@1.0')
+
   api.use([
     'underscore',
     'tracker',
@@ -48,7 +51,8 @@ Package.onUse(function (api) {
   ], ['server', 'client'], {unordered: true})
 
   api.addFiles([
-    'lib/meteor.js'
+    'lib/meteor.js',
+    'lib/freeport.js'
   ], 'server')
 
   api.addFiles([
@@ -57,6 +61,14 @@ Package.onUse(function (api) {
     'lib/JasmineInterface.js',
     'lib/VelocityTestReporter.js'
   ], ['server', 'client'])
+
+  // ----------------------------------------
+  // Files that are needed in the main app and the mirror
+  // ----------------------------------------
+
+  api.addFiles([
+    'server/integration/ServerIntegrationTestFramework.js'
+  ], 'server')
 
   // ----------------------------------------
   // Files that are needed in the mirror

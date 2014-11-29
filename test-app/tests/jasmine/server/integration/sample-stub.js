@@ -1,1 +1,3 @@
-console.log('Server Integration Stub loaded');
+Jasmine.onTest(function () {
+  console.log('Server Integration Stub loaded');
+});

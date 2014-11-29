@@ -6,6 +6,5 @@
 meteor-platform
 autopublish
 insecure
-velocity:core
 sanjo:jasmine
 velocity:html-reporter
