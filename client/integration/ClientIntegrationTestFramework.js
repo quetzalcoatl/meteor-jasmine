@@ -190,8 +190,11 @@ _.extend(ClientIntegrationTestFramework.prototype, {
           }
         }.bind(self), 0)
       } else {
+        var iframeId = 'jasmine-mirror';
+
         var insertMirrorIframe = _.once(function (mirrorInfo) {
           var iframe = document.createElement('iframe')
+          iframe.id = iframeId
           iframe.src = mirrorInfo.rootUrl
           // Make the iFrame invisible
           iframe.style.width = 0
@@ -200,14 +203,22 @@ _.extend(ClientIntegrationTestFramework.prototype, {
           document.body.appendChild(iframe)
         })
 
-        Tracker.autorun(function (computation) {
-          var mirror = VelocityMirrors.findOne({
-            mirrorId: self.name,
-            state: 'ready'
-          })
+        var updateMirrorIframe = function (mirrorInfo) {
+          var iframe = document.getElementById(iframeId)
+          if (iframe) {
+            iframe.src = mirrorInfo.rootUrl
+          } else {
+            insertMirrorIframe(mirrorInfo)
+          }
+        }
+
+        Tracker.autorun(function () {
+          var mirror = VelocityMirrors.findOne(
+            {mirrorId: self.name, state: 'ready'},
+            {fields: {state: 1, rootUrl: 1}}
+          )
           if (mirror) {
-            computation.stop()
-            insertMirrorIframe(mirror)
+            updateMirrorIframe(mirror)
           }
         })
       }
