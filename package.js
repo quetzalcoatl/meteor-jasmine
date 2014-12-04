@@ -34,17 +34,13 @@ Package.onUse(function (api) {
     'velocity:core@0.4.3',
     // Note: velocity:shim must come after velocity:core
     // because it has no dependency to velocity:core
-    'velocity:shim@0.0.3'
+    'velocity:shim@0.1.0'
   ], ['server', 'client'])
 
   api.use([
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
-    'sanjo:karma@0.12.24_2',
-    'sanjo:karma-jasmine@0.2.3',
-    'sanjo:karma-chrome-launcher@0.1.5_1',
-    'sanjo:karma-phantomjs-launcher-nonet@0.1.3',
-    'sanjo:karma-coffee-preprocessor@0.2.1'
+    'sanjo:karma@1.0.0'
   ], 'server')
 
   api.use([

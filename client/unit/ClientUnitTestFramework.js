@@ -98,7 +98,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       }
     }
 
-    Karma.server.start(startOptions)
+    Karma.start('jasmine', startOptions)
   },
   _getPreAppFiles: function () {
     return [
