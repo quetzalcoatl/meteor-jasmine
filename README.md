@@ -1,7 +1,6 @@
 # jasmine
 
-Easily write and run Jasmine client and server unit and integration tests.
-You can use all [Jasmine 2.0 features](http://jasmine.github.io/2.0/introduction.html).
+Easily write and run [Jasmine 2.0 features](http://jasmine.github.io/2.0/introduction.html) tests for all your Meteor code.
 
 ### Installation
 
