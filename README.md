@@ -1,6 +1,6 @@
 # jasmine
 
-Easily write and run [Jasmine 2.0 features](http://jasmine.github.io/2.0/introduction.html) tests for all your Meteor code.
+Easily write and run [Jasmine 2.0](http://jasmine.github.io/2.0/introduction.html) tests for all your Meteor code.
 
 ### Installation
 
