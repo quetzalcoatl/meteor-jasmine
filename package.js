@@ -44,7 +44,7 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.use([
-    'velocity:node-soft-mirror@0.0.9'
+    'velocity:node-soft-mirror@0.1.0'
   ], ['server', 'client'], {unordered: true})
 
   api.addFiles('lib/log.js', ['server', 'client'])
