@@ -116,13 +116,22 @@ _.extend(ClientUnitTestFramework.prototype, {
           'packages/sanjo_jasmine.js',
           'packages/velocity_core.js',
           'packages/velocity_test-proxy.js',
-          'packages/velocity_html-reporter.js',
+          'packages/velocity_html-reporter.js'
         ]
         return !_.contains(ignoredFiles, file.path)
       })
       .map(function (file) {
-        return '.meteor/local/build/programs/web.browser/' + file.path
-      })
+        var mockedFiles = [
+          'packages/autoupdate.js',
+          'packages/reload.js'
+        ]
+
+        if (_.contains(mockedFiles, file.path)) {
+          return this._getAssetPath('client/unit/assets/mocks/' + file.path)
+        } else {
+          return '.meteor/local/build/programs/web.browser/' + file.path
+        }
+      }, this)
       .value()
   },
   _getCssFiles: function () {

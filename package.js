@@ -142,7 +142,9 @@ Package.onUse(function (api) {
     'lib/VelocityTestReporter.js',
     'client/unit/assets/__meteor_runtime_config__.js',
     'client/unit/assets/adapter.js',
-    'client/unit/assets/jasmine-jquery.js'
+    'client/unit/assets/jasmine-jquery.js',
+    'client/unit/assets/mocks/packages/autoupdate.js',
+    'client/unit/assets/mocks/packages/reload.js'
   ], 'server', {isAsset: true})
 
 })
