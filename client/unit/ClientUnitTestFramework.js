@@ -40,6 +40,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getPackageFiles(),
       this._getHelperFiles(),
       this._getStubFiles(),
+      this._getCssFiles(),
       this._getAppFiles(),
       this._getTestFiles()
     )
@@ -118,6 +119,16 @@ _.extend(ClientUnitTestFramework.prototype, {
           'packages/velocity_html-reporter.js'
         ]
         return !_.contains(ignoredFiles, file.path)
+      })
+      .map(function (file) {
+        return '.meteor/local/build/programs/web.browser/' + file.path
+      })
+      .value()
+  },
+  _getCssFiles: function () {
+    return _.chain(WebApp.clientPrograms['web.browser'].manifest)
+      .filter(function (file) {
+        return file.type === 'css'
       })
       .map(function (file) {
         return '.meteor/local/build/programs/web.browser/' + file.path
