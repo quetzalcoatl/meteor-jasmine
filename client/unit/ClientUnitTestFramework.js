@@ -116,7 +116,7 @@ _.extend(ClientUnitTestFramework.prototype, {
           'packages/sanjo_jasmine.js',
           'packages/velocity_core.js',
           'packages/velocity_test-proxy.js',
-          'packages/velocity_html-reporter.js'
+          'packages/velocity_html-reporter.js',
         ]
         return !_.contains(ignoredFiles, file.path)
       })
@@ -147,10 +147,11 @@ _.extend(ClientUnitTestFramework.prototype, {
   },
   _getHelperFiles: function () {
     return [
-      this._getAssetPath('lib/VelocityTestReporter.js'),
-      this._getAssetPath('client/unit/assets/adapter.js'),
       this._getAssetPath('client/unit/assets/jasmine-jquery.js'),
-      this._getAssetPath('lib/mock.js')
+      this._getAssetPath('.npm/package/node_modules/component-mocker/index.js'),
+      this._getAssetPath('lib/mock.js'),
+      this._getAssetPath('lib/VelocityTestReporter.js'),
+      this._getAssetPath('client/unit/assets/adapter.js')
     ]
   },
   _getStubFiles: function () {

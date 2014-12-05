@@ -130,6 +130,7 @@ Package.onUse(function (api) {
     'server/unit/sample-tests/sample/src/Player.js',
     'server/unit/sample-tests/sample/src/Song.js',
     // Other
+    '.npm/package/node_modules/component-mocker/index.js',
     'server/unit/package-stubs.js.tpl',
     'server/unit/metadata-reader.js.tpl',
     'lib/mock.js',
