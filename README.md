@@ -74,7 +74,7 @@ Use the commmand:
 
 ```bash
 JASMINE_SINGLE_RUN=1 meteor --test
-``
+```
 
 ### Stubs
 
