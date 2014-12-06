@@ -35,7 +35,7 @@ if (process.env.VELOCITY !== '0') {
       frameworks.serverUnit.registerWithVelocity()
     }
 
-    Meteor.startup(function () {
+    Velocity.startup(function () {
       if (process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
         frameworks.clientIntegration.startMirror()
       }
