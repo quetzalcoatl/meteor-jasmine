@@ -41,6 +41,7 @@ Each testing mode has different characteristics. Each testing mode has an own fo
 
 * You can run tests inside a copy of your app.
 * You can test packages by including them in an app.
+* Tests must be wrapped in `Jasmine.onTest(function () { /* YOUR TESTS */ });`
 * Place your server integration tests in the folder `tests/jasmine/server/integration/` or a subfolder of it.
 
 #### Client
