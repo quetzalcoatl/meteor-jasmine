@@ -70,6 +70,15 @@ JASMINE_BROWSER=PhantomJS meteor [options]
 > __Tip:__ Use this mode when you want to test the communication between client and server.
 > In other cases you should probably use the Client Unit Test mode.
 
+### Disabling testing modes
+
+If you don't use some of the testing modes you can disable them with an environment variable:
+
+* `JASMINE_SERVER_UNIT=0`
+* `JASMINE_SERVER_INTEGRATION=0`
+* `JASMINE_CLIENT_UNIT=0`
+* `JASMINE_CLIENT_INTEGRATION=0`
+
 ### Running tests once (for Continuous Integration)
 
 Use the commmand:
