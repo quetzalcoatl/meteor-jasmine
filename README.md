@@ -39,7 +39,9 @@ Each testing mode has different characteristics. Each testing mode has an own fo
 
 ##### Server Integration Test Mode
 
-Not available yet. Will be added in the near future.
+* You can run tests inside a copy of your app.
+* You can test packages by including them in an app.
+* Place your server integration tests in the folder `tests/jasmine/server/integration/` or a subfolder of it.
 
 #### Client
 
