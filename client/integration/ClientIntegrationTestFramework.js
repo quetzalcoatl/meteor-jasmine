@@ -100,17 +100,17 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
             window.ddpParentConnection = DDP.connect(mirrorInfo.parentUrl)
 
-            window.ddpParentConnection.call('velocity/reports/reset', {framework: this.name})
+            window.ddpParentConnection.call('velocity/reports/reset', {framework: self.name})
 
             /**
              * Since this is being run in a browser and the results should populate to an HTML page, require the HTML-specific Jasmine code, injecting the same reference.
              */
-            this.jasmineRequire.html(this.jasmine)
+            self.jasmineRequire.html(self.jasmine)
 
             /**
              * Create the Jasmine environment. This is used to run all specs in a project.
              */
-            var env = this.jasmine.getEnv()
+            var env = self.jasmine.getEnv()
 
             /**
              * ## Runner Parameters
@@ -118,7 +118,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
              * More browser specific code - wrap the query string in an object and to allow for getting/setting parameters from the runner user interface.
              */
 
-            var queryString = new this.jasmine.QueryString({
+            var queryString = new self.jasmine.QueryString({
               getWindowLocation: function () {
                 return window.location
               }
@@ -132,9 +132,9 @@ _.extend(ClientIntegrationTestFramework.prototype, {
              */
             var velocityReporter = new VelocityTestReporter({
               mode: "Client Integration",
-              framework: this.name,
+              framework: self.name,
               env: env,
-              timer: new this.jasmine.Timer(),
+              timer: new self.jasmine.Timer(),
               ddpParentConnection: window.ddpParentConnection
             })
 
@@ -162,13 +162,13 @@ _.extend(ClientIntegrationTestFramework.prototype, {
             /**
              * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
              */
-            env.addReporter(this.jasmineInterface.jsApiReporter)
+            env.addReporter(self.jasmineInterface.jsApiReporter)
             env.addReporter(velocityReporter)
 
             /**
              * Filter which specs will be run by matching the start of the full name against the `spec` query param.
              */
-            var specFilter = new this.jasmine.HtmlSpecFilter({
+            var specFilter = new self.jasmine.HtmlSpecFilter({
               filterString: function () {
                 return queryString.getParam('spec')
               }
@@ -188,7 +188,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
             env.execute()
           }
-        }.bind(self), 0)
+        }, 0)
       } else {
         var iframeId = 'jasmine-mirror';
 
