@@ -36,6 +36,20 @@ ClientUnitTestFramework.prototype = Object.create(JasmineTestFramework.prototype
 
 _.extend(ClientUnitTestFramework.prototype, {
   start: function () {
+    var karmaId = this.name
+    Karma.start(karmaId, this.getKarmaConfig())
+
+    // Listen for SIGUSR2, which signals that a client asset has changed.
+    var self = this
+    process.on('SIGUSR2', Meteor.bindEnvironment(function () {
+      // Wait a bit to get the updated file catalog
+      Meteor.setTimeout(function () {
+        log.debug('Client assets have changed. Updating Karma config.')
+        Karma.setConfig(karmaId, self.getKarmaConfig())
+      }, 100)
+    }));
+  },
+  getKarmaConfig: function () {
     var files = this._getPreAppFiles().concat(
       this._getPackageFiles(),
       this._getHelperFiles(),
@@ -55,7 +69,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     var launcherPlugin = launcherPlugins[browser];
 
     var startOptions = {
-      port: freeport(),
+      port: 9876,
       basePath: Velocity.getAppPath(),
       frameworks: ['jasmine'],
       browsers: [browser],
@@ -66,7 +80,12 @@ _.extend(ClientUnitTestFramework.prototype, {
       ],
       files: files,
       client: {
-        args: [__meteor_runtime_config__]
+        args: [_.defaults({
+          // Make those values constant to avoid unnecessary Karma restarts
+          autoupdateVersion: 'unknown',
+          autoupdateVersionRefreshable: 'unknown',
+          autoupdateVersionCordova: 'none'
+        }, __meteor_runtime_config__)]
       },
       browserDisconnectTimeout: 10000,
       browserNoActivityTimeout: 15000,
@@ -99,7 +118,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       }
     }
 
-    Karma.start('jasmine', startOptions)
+    return startOptions
   },
   _getPreAppFiles: function () {
     return [
@@ -178,21 +197,5 @@ _.extend(ClientUnitTestFramework.prototype, {
   _getAssetPath: function (fileName) {
     var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/'
     return assetsPath + fileName;
-  },
-  generateKarmaConfig: function () {
-    var karmaConfTemplate = Assets.getText('client/unit/karma.conf.js.tpl')
-    var karmaConf = _.template(karmaConfTemplate, {
-      DATE: new Date().toISOString(),
-      BASE_PATH: '../../../../',
-      FRAMEWORKS: "'jasmine'",
-      FILES: 'TODO', // TODO: Read and order app files. And also add tests with wildcard.
-      EXCLUDE: 'TODO',
-      PREPROCESSORS: 'TODO',
-      AUTO_WATCH: 'false',
-      BROWSERS: "'Chrome'"
-    })
-    // TODO: Write file
-    // TODO: Allow user to overwrite template
-    // TODO: Read default config from karma.json
   }
 });
