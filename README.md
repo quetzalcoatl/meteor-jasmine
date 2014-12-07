@@ -85,7 +85,7 @@ If you don't use some of the testing modes you can disable them with an environm
 Use the commmand:
 
 ```bash
-JASMINE_SINGLE_RUN=1 meteor --test
+meteor --test
 ```
 
 ### Stubs

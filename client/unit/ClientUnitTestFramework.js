@@ -89,7 +89,6 @@ _.extend(ClientUnitTestFramework.prototype, {
       },
       browserDisconnectTimeout: 10000,
       browserNoActivityTimeout: 15000,
-      singleRun: !!process.env.JASMINE_SINGLE_RUN,
 
       preprocessors: {
         '**/*.{coffee,litcoffee,coffee.md}': ['coffee']
