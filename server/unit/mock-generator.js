@@ -14,7 +14,9 @@ function shouldIgnorePackage (packageName) {
   var packagesToIgnore = [
     'meteor',
     'minifiers',
-    'spacejamio:chai' // Collides with expect of Jasmine
+    // Collides with expect of Jasmine
+    'spacejamio:chai',
+    'practicalmeteor:chai'
   ]
     .concat(getEnvironmentIgnoredPackages())
     .concat(packagesToIncludeInUnitTests)
