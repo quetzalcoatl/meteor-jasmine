@@ -3,8 +3,10 @@
 */
 
 var path = Npm.require('path'),
+    fs = Npm.require('fs'),
     util = Npm.require('util'),
     vm = Npm.require('vm'),
+    Future = Npm.require(path.join('fibers', 'future')),
     ComponentMocker = Npm.require('component-mocker'),
     jasmineRequire = Npm.require('jasmine-core/lib/jasmine-core/jasmine.js')
 
@@ -104,6 +106,36 @@ _.extend(ServerUnitTestFramework.prototype, {
       }
     }
 
+    var getAsset = function (assetPath, encoding, callback) {
+      var fut;
+      if (! callback) {
+        fut = new Future();
+        callback = fut.resolver();
+      }
+      var _callback = Package.meteor.Meteor.bindEnvironment(function (err, result) {
+        if (result && ! encoding)
+        // Sadly, this copies in Node 0.10.
+          result = new Uint8Array(result);
+        callback(err, result);
+      }, function (e) {
+        console.log("Exception in callback of getAsset", e.stack);
+      });
+
+      var filePath = path.join(Velocity.getAppPath(), 'private', assetPath);
+      fs.readFile(filePath, encoding, _callback);
+      if (fut)
+        return fut.wait();
+    };
+
+    globalContext.__jasmine.Assets = {
+      getText: function (assetPath, callback) {
+        return getAsset(assetPath, "utf8", callback);
+      },
+      getBinary: function (assetPath, callback) {
+        return getAsset(assetPath, undefined, callback);
+      }
+    };
+
     // Add all available packages that should be included
     packagesToIncludeInUnitTests.forEach(function (packageName) {
       var packageGlobals = Package[packageName]
@@ -127,6 +159,7 @@ _.extend(ServerUnitTestFramework.prototype, {
     globalContext.Meteor.isClient = false
     globalContext.Meteor.settings = Meteor.settings
     globalContext.Meteor.npmRequire = Meteor.npmRequire
+    globalContext.Assets = globalContext.__jasmine.Assets
 
     var context = vm.createContext(globalContext)
 
