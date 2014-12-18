@@ -6,5 +6,6 @@ packagesToIncludeInUnitTests = [
   'underscore',
   'digilord:sugarjs',
   'mrt:moment',
-  'rzymek:moment'
+  'rzymek:moment',
+  'xolvio:webdriver'
 ]
