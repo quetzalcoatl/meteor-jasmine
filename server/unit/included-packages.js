@@ -5,6 +5,7 @@ packagesToIncludeInUnitTests = [
   'stevezhu:lodash',
   'underscore',
   'digilord:sugarjs',
+  'momentjs:moment',
   'mrt:moment',
   'rzymek:moment',
   'xolvio:webdriver'
