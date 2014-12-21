@@ -214,7 +214,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
         Tracker.autorun(function () {
           var mirror = VelocityMirrors.findOne(
-            {mirrorId: self.name, state: 'ready'},
+            {framework: self.name, state: 'ready'},
             {fields: {state: 1, rootUrl: 1}}
           )
           if (mirror) {
