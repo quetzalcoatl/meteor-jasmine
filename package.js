@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.9.0',
+  version: '0.9.1',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -31,7 +31,7 @@ Package.onUse(function (api) {
     'underscore',
     'tracker',
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.4.3',
+    'velocity:core@0.4.5',
     // Note: velocity:shim must come after velocity:core
     // because it has no dependency to velocity:core
     'velocity:shim@0.1.0'
@@ -44,7 +44,7 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.use([
-    'velocity:node-soft-mirror@0.1.0'
+    'velocity:node-soft-mirror@0.2.4'
   ], ['server', 'client'], {unordered: true})
 
   api.addFiles('lib/log.js', ['server', 'client'])
