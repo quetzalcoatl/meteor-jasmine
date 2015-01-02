@@ -61,6 +61,9 @@ JASMINE_BROWSER=PhantomJS meteor [options]
 
 > __Note:__ Tests currently only run in Google Chrome, PhantomJS, and Firefox. If you need support for another Browser please [open an issue](https://github.com/Sanjo/meteor-jasmine/issues/new).
 
+If you want to use PhantomJS for running your tests, you must install PhantomJS
+globally with `npm install -g phantomjs`.
+
 ##### Client Integration Test Mode
 
 * You can test client code.
