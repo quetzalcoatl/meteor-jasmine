@@ -109,10 +109,9 @@ _.extend(ClientUnitTestFramework.prototype, {
       startOptions.phantomjsLauncher = {
         // configure PhantomJS executable for each platform
         cmd: {
-          linux: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs'),
-          darwin: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs'),
-          // TODO: Make sure that this path is correct when Meteor supports Windows
-          win32: path.join(Velocity.getAppPath(), '.meteor/local/build/programs/server/node_modules/.bin/phantomjs')
+          linux: 'phantomjs',
+          darwin: 'phantomjs',
+          win32: 'phantomjs.exe'
         }
       }
     }
