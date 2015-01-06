@@ -62,7 +62,9 @@ _.extend(ClientUnitTestFramework.prototype, {
     var launcherPlugins = {
       'Chrome': 'karma-chrome-launcher',
       'ChromeCanary': 'karma-chrome-launcher',
-      'PhantomJS': 'karma-phantomjs-launcher-nonet'
+      'Firefox': 'karma-firefox-launcher',
+      'PhantomJS': 'karma-phantomjs-launcher-nonet',
+      'SauceLabs': 'karma-sauce-launcher'
     }
 
     var browser = process.env.JASMINE_BROWSER || 'Chrome';
