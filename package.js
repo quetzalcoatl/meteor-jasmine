@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.9.1',
+  version: '0.9.2',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -44,7 +44,7 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.use([
-    'velocity:node-soft-mirror@0.2.4'
+    'velocity:node-soft-mirror@0.2.7'
   ], ['server', 'client'], {unordered: true})
 
   api.addFiles('lib/log.js', ['server', 'client'])
