@@ -1,8 +1,6 @@
 Jasmine.onTest(function () {
-  describe('Server Integration', function () {
-    it('should work', function () {
-      expect(true).toBe(true)
-    });
+
+  describe('Server Integration 2', function () {
 
     // This test must not be in the first executed describe block.
     // For this reason the test exists two times to ensure this condition.
@@ -13,10 +11,6 @@ Jasmine.onTest(function () {
       expect(callMeteorMethod).not.toThrow()
     });
 
-    describe('mock', function () {
-      it('should be available', function () {
-        expect(mock).toBeDefined()
-      });
-    });
   });
-});
+
+})

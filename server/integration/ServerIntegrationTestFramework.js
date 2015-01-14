@@ -97,6 +97,10 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     this.ddpParentConnection.call('velocity/reports/reset', {framework: this.name})
 
     var jasmine = this.jasmineRequire.core(this.jasmineRequire)
+    var env = jasmine.getEnv({
+      setTimeout: Meteor.setTimeout.bind(Meteor),
+      clearTimeout: Meteor.clearTimeout.bind(Meteor)
+    })
     var jasmineInterface = new JasmineInterface({jasmine: jasmine})
 
     _.extend(global, {
@@ -114,7 +118,6 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
     // TODO: Do we need it in this mode?
     //var consoleReporter = getJasmineConsoleReporter("tests/jasmine/server/unit/", false);
-    var env = jasmine.getEnv()
 
     var velocityReporter = new VelocityTestReporter({
       mode: "Server Integration",
