@@ -12,7 +12,7 @@ Package.describe({
 })
 
 Npm.depends({
-  'jasmine-core': '2.0.0',
+  'jasmine-core': 'https://github.com/Sanjo/jasmine/archive/52e7382c16952eb6a491d54bd94a9952341389b5.tar.gz',
   'component-mocker': '0.2.0',
   'mkdirp': '0.5.0',
   'glob': '3.2.9',
