@@ -10,3 +10,10 @@ packagesToIncludeInUnitTests = [
   'rzymek:moment',
   'xolvio:webdriver'
 ]
+
+var customIncludedPackages =
+  process.env.JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS
+if (customIncludedPackages) {
+  packagesToIncludeInUnitTests = packagesToIncludeInUnitTests
+    .concat(customIncludedPackages.split(','))
+}
