@@ -197,7 +197,6 @@ _.extend(ServerUnitTestFramework.prototype, {
       fileLoader.loadFile(specs[i], context)
     }
 
-    var consoleReporter = getJasmineConsoleReporter("tests/jasmine/server/unit/", false);
     var env = jasmine.getEnv()
 
     var velocityReporter = new VelocityTestReporter({
@@ -208,7 +207,6 @@ _.extend(ServerUnitTestFramework.prototype, {
       timer: new jasmine.Timer()
     })
 
-    env.addReporter(consoleReporter)
     env.addReporter(velocityReporter)
     env.execute()
   },

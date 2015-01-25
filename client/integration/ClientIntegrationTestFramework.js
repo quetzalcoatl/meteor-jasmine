@@ -2,29 +2,6 @@
  Velocity: false
  */
 
-if (Meteor.isServer) {
-
-  var consoleClientReporter;
-
-  Meteor.methods({
-    'jasmine/startedConsumer': function () {
-      consoleClientReporter = getJasmineConsoleReporter("integration", true)
-      consoleClientReporter.jasmineStarted();
-      return consoleClientReporter.id;
-    },
-    'jasmine/doneConsumer': function (id) {
-      check(id, Match.OneOf(null, Match.Integer))
-      // id prevents multiple postings to to the same console from various runs
-      consoleClientReporter.jasmineDone()
-    },
-    'jasmine/specDoneConsumer': function (result, id) {
-      check(result, Object)
-      check(id, Match.OneOf(null, Match.Integer))
-      consoleClientReporter.specDone(result)
-    }
-  })
-}
-
 ClientIntegrationTestFramework = function (options) {
   options = options || {}
 

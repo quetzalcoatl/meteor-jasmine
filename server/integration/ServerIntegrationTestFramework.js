@@ -116,9 +116,6 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     // Load specs
     Jasmine._runOnTestCallbacks()
 
-    // TODO: Do we need it in this mode?
-    //var consoleReporter = getJasmineConsoleReporter("tests/jasmine/server/unit/", false);
-
     var velocityReporter = new VelocityTestReporter({
       mode: "Server Integration",
       framework: this.name,
@@ -128,7 +125,6 @@ _.extend(ServerIntegrationTestFramework.prototype, {
       ddpParentConnection: this.ddpParentConnection
     })
 
-    //env.addReporter(consoleReporter)
     env.addReporter(velocityReporter)
     env.execute()
   },
