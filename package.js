@@ -47,6 +47,12 @@ Package.onUse(function (api) {
     'velocity:node-soft-mirror@0.2.8'
   ], ['server', 'client'], {unordered: true})
 
+  api.addFiles([
+    '.npm/package/node_modules/component-mocker/index.js',
+    '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine.js',
+    '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js'
+  ], 'client')
+
   api.addFiles('lib/log.js', ['server', 'client'])
 
   api.addFiles([
@@ -75,9 +81,6 @@ Package.onUse(function (api) {
 
   // Client side integration testing
   api.addFiles([
-    '.npm/package/node_modules/component-mocker/index.js',
-    '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine.js',
-    '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js',
     'client/integration/ClientIntegrationTestFramework.js',
     'client/integration/clientsideSetup.js',
     'lib/mock.js'
