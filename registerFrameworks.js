@@ -51,7 +51,9 @@ if (process.env.VELOCITY !== '0') {
     })
   } else {
     Meteor.startup(function () {
-      if (process.env.JASMINE_SERVER_INTEGRATION !== '0') {
+      if (process.env.JASMINE_SERVER_INTEGRATION !== '0' &&
+          process.env.FRAMEWORK === frameworks.serverIntegration.name
+      ) {
         frameworks.serverIntegration.start()
       }
     })
