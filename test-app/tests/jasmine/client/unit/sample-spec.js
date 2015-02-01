@@ -1,5 +1,5 @@
 describe('Client Unit', function () {
   it('should work', function () {
-    expect(true).toBe(true)
+    expect(Foo).toBeDefined()
   });
 });
