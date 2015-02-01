@@ -40,11 +40,11 @@ Package.onUse(function (api) {
   api.use([
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
-    'sanjo:karma@1.4.0'
+    'sanjo:karma@1.4.1'
   ], 'server')
 
   api.use([
-    'velocity:node-soft-mirror@0.2.8'
+    'velocity:node-soft-mirror@0.3.1'
   ], ['server', 'client'], {unordered: true})
 
   api.addFiles([
