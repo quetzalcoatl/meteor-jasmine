@@ -248,8 +248,8 @@
           ddpParentConnection.call('velocity/reports/submit', velocityResult, function (error){
             if (error){
               console.error('ERROR WRITING TEST', error)
-              callback()
             }
+            callback()
           })
         } else {
           callback()
