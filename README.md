@@ -14,6 +14,10 @@ meteor add velocity:html-reporter
 Tests run automatically while the app runs in development mode locally.
 You can see the test results in the terminal and in the html-reporter overlay.
 
+### Troubleshooting
+
+Each test mode (except server unit mode) creates a log file in the folder `.meteor/local/log/`. If something is not working you should have a look in the log file.
+
 ### Further reading
 
 * [Jasmine 2.1 Documentation](http://jasmine.github.io/2.1/introduction.html)
