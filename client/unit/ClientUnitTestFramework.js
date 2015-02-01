@@ -63,7 +63,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       'Chrome': 'karma-chrome-launcher',
       'ChromeCanary': 'karma-chrome-launcher',
       'Firefox': 'karma-firefox-launcher',
-      'PhantomJS': 'karma-phantomjs-launcher-nonet',
+      'PhantomJS': 'karma-phantomjs-launcher',
       'SauceLabs': 'karma-sauce-launcher'
     }
 
@@ -103,17 +103,6 @@ _.extend(ClientUnitTestFramework.prototype, {
         },
         transformPath: function (path) {
           return path.replace(/\.(coffee|litcoffee|coffee\\.md)$/, '.js');
-        }
-      }
-    }
-
-    if (browser === 'PhantomJS') {
-      startOptions.phantomjsLauncher = {
-        // configure PhantomJS executable for each platform
-        cmd: {
-          linux: 'phantomjs',
-          darwin: 'phantomjs',
-          win32: 'phantomjs.exe'
         }
       }
     }
