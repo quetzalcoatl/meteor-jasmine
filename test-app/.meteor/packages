@@ -7,3 +7,4 @@ meteor-platform
 sanjo:jasmine
 velocity:html-reporter
 audit-argument-checks
+package-to-include
