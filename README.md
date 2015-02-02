@@ -25,8 +25,9 @@ Each test mode (except server unit mode) creates a log file in the folder `.mete
 
 ### Examples and Tutorials
 
-* [Integration and Unit tests for a refactored version of the Leaderboard example (by Jonas Aschenbrenner)](https://github.com/meteor-velocity/velocity-example/tree/jasmine-only/tests/jasmine/).
-* [Comprehensive tutorial about testing all common aspects of a Meteor app (by Tomas Trescak)](http://doctorllama.wordpress.com/2014/09/22/bullet-proof-internationalised-meteor-applications-with-velocity-unit-testing-integration-testing-and-jasmine/)
+* [Leaderboard example with Jasmine tests](https://github.com/meteor-velocity/velocity-example/tree/jasmine-only/tests/jasmine/) (by Jonas Aschenbrenner)
+* [Bullet-proof Meteor applications](http://doctorllama.wordpress.com/2014/09/22/bullet-proof-internationalised-meteor-applications-with-velocity-unit-testing-integration-testing-and-jasmine/) (by Tomas Trescak)
+* [Introduction to Client Integration Tests](http://webtempest.com/meteor-js-testing) (by Web Tempest)
 
 ### Testing modes
 
