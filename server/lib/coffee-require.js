@@ -30,6 +30,10 @@ var coffeePreprocessor = function (options, content, file, done) {
   // Clone the options because coffee.compile mutates them
   var opts = _.clone(options)
 
+  if (coffee.helpers.isLiterate(file.originalPath)) {
+    opts.literate = true;
+  }
+
   try {
     result = coffee.compile(content, opts)
   } catch (e) {
