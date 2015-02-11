@@ -115,27 +115,6 @@ _.extend(ClientIntegrationTestFramework.prototype, {
               ddpParentConnection: window.ddpParentConnection
             })
 
-            var currentId;
-
-            var serverReporter = {
-              jasmineStarted: function () {
-                window.ddpParentConnection.call("jasmine/startedConsumer",
-                  function (err, result) {
-                    currentId = result;
-                  });
-              },
-              jasmineDone: function () {
-                window.ddpParentConnection.call("jasmine/doneConsumer", currentId)
-              },
-              specDone: function (result) {
-                window.ddpParentConnection.call("jasmine/specDoneConsumer",
-                  result,
-                  currentId)
-              }
-            }
-
-            env.addReporter(serverReporter);
-
             /**
              * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
              */
