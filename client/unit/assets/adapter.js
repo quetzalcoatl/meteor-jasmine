@@ -238,7 +238,7 @@
             result: specResult.status,
             duration: time,
             ancestors: ancestors,
-            timestamp: new Date().toTimeString()
+            timestamp: new Date()
           }
           if (specResult.failedExpectations[0]){
             velocityResult.failureMessage = specResult.failedExpectations[0].message
