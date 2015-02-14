@@ -6,8 +6,9 @@ Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.htm
 
 ```bash
 meteor add sanjo:jasmine
-meteor add velocity:html-reporter
 ```
+
+You also need to install a [Velocity Reporter package](https://github.com/meteor-velocity/velocity#reporters) to see the test results.
 
 ### Usage
 
