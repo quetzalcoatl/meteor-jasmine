@@ -116,7 +116,10 @@ afterEach(function () {
 });
 ```
 
-This is done automatically for server unit tests.
+This is done automatically for server unit tests. To disable on the server for certain packages set the environment variable `JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS`. For example
+
+    export JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS=dburles:factory 
+
 You need to do it yourself for your client tests if you want to write
 unit tests that run in the browser.
 
