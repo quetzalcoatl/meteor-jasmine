@@ -6,13 +6,13 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.12.3',
+  version: '0.12.4',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
 
 Npm.depends({
-  'jasmine-core': 'https://github.com/Sanjo/jasmine/archive/52e7382c16952eb6a491d54bd94a9952341389b5.tar.gz',
+  'jasmine-core': 'https://github.com/Sanjo/jasmine/archive/be80c78105b5309b42b9c39b6d535478ec4ac747.tar.gz',
   'component-mocker': '0.2.0',
   'mkdirp': '0.5.0',
   'glob': '3.2.9',
