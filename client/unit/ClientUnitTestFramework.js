@@ -124,7 +124,8 @@ _.extend(ClientUnitTestFramework.prototype, {
           'packages/sanjo_jasmine.js',
           'packages/velocity_core.js',
           'packages/velocity_test-proxy.js',
-          'packages/velocity_html-reporter.js'
+          'packages/velocity_html-reporter.js',
+          'packages/meteorhacks_fast-render.js'
         ]
         return !_.contains(ignoredFiles, file.path)
       })
