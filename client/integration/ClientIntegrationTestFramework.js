@@ -151,7 +151,13 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         var insertMirrorIframe = _.once(function (mirrorInfo) {
           var iframe = document.createElement('iframe')
           iframe.id = iframeId
-          iframe.src = mirrorInfo.rootUrl
+          var src = mirrorInfo.rootUrl;
+          // Handle the breaking change in velocity:core 0.5
+          // See: https://github.com/meteor-velocity/velocity/issues/260
+          if (src.indexOf(mirrorInfo.rootUrlPath) === -1) {
+            src += mirrorInfo.rootUrlPath
+          }
+          iframe.src = src;
           // Make the iFrame invisible
           iframe.style.width = 0
           iframe.style.height = 0
