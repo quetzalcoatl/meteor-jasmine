@@ -1,13 +1,11 @@
 var PWD = process.env.PWD,
     fs = Npm.require('fs'),
+    readDir = Meteor.wrapAsync(fs.readdir, fs),
     path = Npm.require('path'),
-    glob = Npm.require('glob')
+    glob = Meteor.wrapAsync(Npm.require('glob'))
 
 fileLoader = {
   loadFiles: loadFiles,
-  getJsFiles: getJsFiles,
-  getCoffeeFiles: getCoffeeFiles,
-  filterFiles: filterFiles,
   loadFile: loadFile
 }
 
@@ -22,9 +20,8 @@ fileLoader = {
  * @param {Object} [options]
  * @param {Array|String} [options.ignoreDirs] Directories to ignore
  */
-function loadFiles (context, options) {
-  var files = _.union(getJsFiles(options), getCoffeeFiles(options))
-
+function loadFiles(context, options) {
+  var files = getFiles(options)
   files.sort(loadOrderSort([]))
   _.each(files, function (file) {
     loadFile(file, context)
@@ -32,69 +29,45 @@ function loadFiles (context, options) {
 }
 
 /**
- * Returns list of javascript filenames in Meteor app.
- *
- * Excluded directories: private, public, programs, packages, tests
- *
- * @method getJsFiles
- * @param {Object} [options]
- * @param {Array|String} [options.ignoreDirs] Directories to ignore
- * @return {Array.<String>} list of filenames
+ * Get all files that should be loaded.
+ * @param options
+ * @returns {Array}
  */
-function getJsFiles (options) {
-  var files = glob.sync('**/*.js', { cwd: PWD })
+function getFiles(options) {
+  options = _.extend({
+    ignoreDirs: []
+  }, options)
 
-  return filterFiles(files, options)
-}
-
-/**
- * Returns list of coffeescript files in Meteor app.
- *
- * Excluded directories: private, public, programs, packages, tests
- *
- * @method getCoffeeFiles
- * @param {Object} [options]
- * @param {Array|String} [options.ignoreDirs] Directories to ignore
- * @return {Array.<String>} list of filenames
- */
-function getCoffeeFiles (options) {
-  var files = glob.sync('**/*.{coffee,litcoffee,coffee.md}', { cwd: PWD })
-
-  return filterFiles(files, options)
-}
-
-/**
- * Filters out any files in the following directories:
- *   private,
- *   public,
- *   programs,
- *   packages,
- *   tests
- *
- * @method filterFiles
- * @param {Array} files array of filenames to filter
- * @param {Object} [options]
- * @param {Array|String} [options.ignoreDirs] Directories to ignore
- * @return {Array} filenames
- */
-function filterFiles (files, options) {
   var shouldIgnore = ['tests', 'private', 'public', 'programs', 'packages']
+  shouldIgnore = shouldIgnore.concat(options.ignoreDirs)
 
-  options = options || {}
+  var relevantDirs = readdirNoDots(PWD)
+  relevantDirs = _.filter(relevantDirs, function (dir) {
+    return !_.contains(shouldIgnore, dir)
+  })
 
-  if (options.ignoreDirs) {
-    if ('string' === typeof options.ignoreDirs) {
-      shouldIgnore.push(options.ignoreDirs)
-    } else if (_.isArray(options.ignoreDirs)) {
-      shouldIgnore = shouldIgnore.concat(options.ignoreDirs)
-    }
+  return _.reduce(relevantDirs, function (files, dir) {
+    var newFiles = glob(
+      '*.{js,coffee,litcoffee,coffee.md}',
+      {
+        cwd: path.join(PWD, dir),
+        matchBase: true
+      }
+    )
+    return files.concat(newFiles)
+  }, [])
+}
+
+function readdirNoDots(path) {
+  try {
+    var entries = readDir(path);
+  } catch (e) {
+    if (e.code === 'ENOENT')
+      return []
+    throw e;
   }
-
-  return _.filter(files, function (filepath) {
-    return !_.some(shouldIgnore, function (dirName) {
-      var startPath = filepath.substring(0, dirName.length)
-      return startPath === dirName
-    })
+  return _.filter(entries, function (entry) {
+    return entry && entry[0] !== '.'
   })
 }
 

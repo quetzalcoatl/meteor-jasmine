@@ -179,7 +179,7 @@ _.extend(ServerUnitTestFramework.prototype, {
 
     // load Meteor app source files prior to running tests
     try {
-      fileLoader.loadFiles(context, {ignoreDirs: 'client'})
+      fileLoader.loadFiles(context, {ignoreDirs: ['client']})
     }
     catch (ex) {
       console.log('Error loading app files', ex.message, ex.stack)
