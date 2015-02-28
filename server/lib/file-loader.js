@@ -39,6 +39,17 @@ function getFiles(options) {
     ignoreDirs: []
   }, options)
 
+  var filePattern = '*.{js,coffee,litcoffee,coffee.md}';
+
+  // Find files in the root folder
+  var files = glob(filePattern,
+    {
+      cwd: PWD,
+      ignore: 'mobile-config.js'
+    }
+  )
+
+  // Find files in the sub folders that we don't ignore
   var shouldIgnore = ['tests', 'private', 'public', 'programs', 'packages']
   shouldIgnore = shouldIgnore.concat(options.ignoreDirs)
 
@@ -47,9 +58,8 @@ function getFiles(options) {
     return !_.contains(shouldIgnore, dir)
   })
 
-  return _.reduce(relevantDirs, function (files, dir) {
-    var newFiles = glob(
-      '*.{js,coffee,litcoffee,coffee.md}',
+  files = _.reduce(relevantDirs, function (files, dir) {
+    var newFiles = glob(filePattern,
       {
         cwd: path.join(PWD, dir),
         matchBase: true
@@ -60,7 +70,7 @@ function getFiles(options) {
     });
 
     return files.concat(newFiles)
-  }, [])
+  }, files)
 }
 
 function readdirNoDots(path) {
