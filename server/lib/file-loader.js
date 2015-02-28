@@ -23,6 +23,7 @@ fileLoader = {
 function loadFiles(context, options) {
   var files = getFiles(options)
   files.sort(loadOrderSort([]))
+  log.debug('loadFiles', files)
   _.each(files, function (file) {
     loadFile(file, context)
   })
@@ -54,6 +55,10 @@ function getFiles(options) {
         matchBase: true
       }
     )
+    newFiles = _.map(newFiles, function (filePath) {
+      return path.join(dir, filePath);
+    });
+
     return files.concat(newFiles)
   }, [])
 }
