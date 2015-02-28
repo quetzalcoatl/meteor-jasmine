@@ -71,6 +71,8 @@ function getFiles(options) {
 
     return files.concat(newFiles)
   }, files)
+
+  return files;
 }
 
 function readdirNoDots(path) {
