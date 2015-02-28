@@ -4,6 +4,7 @@
 
 // coffeeRequire
 var fs = Npm.require('fs'),
+    readFile = Meteor.wrapAsync(fs.readFile),
     path = Npm.require('path'),
     PWD = process.env.PWD,
     coffee = Npm.require('coffee-script')
@@ -63,7 +64,7 @@ var coffeePreprocessor = function (options, content, file, done) {
  */
 coffeeRequire = function (target, context) {
   var file = {originalPath: target},
-      code = fs.readFileSync(target).toString()
+      code = readFile(target, {encoding: 'utf8'})
 
   coffeePreprocessor({
     bare: true,
