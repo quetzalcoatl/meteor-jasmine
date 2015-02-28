@@ -103,5 +103,10 @@ function loadFile (target, context) {
       log.debug('loading source file:', filename)
       coffeeRequire(filename, context)
     }
+  } else {
+    log.error(
+      'loadFile could not load "' + filename + '". ' +
+      'The file does not exist.'
+    );
   }
 }
