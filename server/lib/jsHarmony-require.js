@@ -4,6 +4,7 @@
 
 // jsHarmonyRequire
 var fs = Npm.require('fs'),
+    readFile = Meteor.wrapAsync(fs.readFile),
     path = Npm.require('path'),
     traceur = Npm.require('traceur')
 
@@ -48,7 +49,7 @@ var jsHarmonyPreprocessor = function (content, file, done) {
  */
 jsHarmonyRequire = function (target, context) {
   var file = {originalPath: target},
-      code = fs.readFileSync(target).toString()
+      code = readFile(target, {encoding: 'utf8'})
 
   jsHarmonyPreprocessor(code, file, function (err, code) {
     if (!err) {
