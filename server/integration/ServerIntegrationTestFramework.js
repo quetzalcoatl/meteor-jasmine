@@ -86,9 +86,29 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   },
 
   start: function () {
+    var self = this;
+
     log.debug('Starting Server Integration mode')
     this._connectToMainApp()
-    this.runTests()
+
+    var runServerIntegrationTests = _.once(function () {
+      serverIntegrationMirrorObserver.stop();
+      self.runTests();
+    });
+
+    var VelocityMirrors = new Meteor.Collection(
+      'velocityMirrors',
+      {connection: this.ddpParentConnection}
+    );
+    this.ddpParentConnection.subscribe('VelocityMirrors');
+
+    var serverIntegrationMirrorObserver = VelocityMirrors.find({
+      framework: frameworks.serverIntegration.name,
+      state: 'ready'
+    }).observe({
+      added: runServerIntegrationTests,
+      changed: runServerIntegrationTests
+    });
   },
 
   runTests: function () {
