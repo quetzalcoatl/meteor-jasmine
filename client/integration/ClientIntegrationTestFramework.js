@@ -159,6 +159,8 @@ _.extend(ClientIntegrationTestFramework.prototype, {
           }
           iframe.src = src;
           // Make the iFrame invisible
+          iframe.style.display = 'block'
+          iframe.style.position = 'absolute'
           iframe.style.width = 0
           iframe.style.height = 0
           iframe.style.border = 0
