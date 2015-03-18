@@ -40,7 +40,7 @@ Package.onUse(function (api) {
   api.use([
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
-    'sanjo:karma@1.4.1'
+    'sanjo:karma@1.4.2'
   ], 'server')
 
   api.use([
