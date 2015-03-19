@@ -36,12 +36,18 @@ ClientUnitTestFramework.prototype = Object.create(JasmineTestFramework.prototype
 
 _.extend(ClientUnitTestFramework.prototype, {
   start: function () {
+    var self = this
     var karmaId = this.name
     Karma.start(karmaId, this.getKarmaConfig())
 
-    // Listen for SIGUSR2, which signals that a client asset has changed.
-    var self = this
-    process.on('SIGUSR2', Meteor.bindEnvironment(function () {
+    // Listen for SIGUSR2/SIGHUP, which signals that a client asset has changed.
+
+    var meteorVersion = MeteorVersion.getSemanticVersion();
+    var reloadSignal = (meteorVersion && PackageVersion.lessThan(meteorVersion, '1.0.4')) ?
+      'SIGUSR2' :
+      'SIGHUP'
+
+    process.on(reloadSignal, Meteor.bindEnvironment(function () {
       // Wait a bit to get the updated file catalog
       Meteor.setTimeout(function () {
         log.debug('Client assets have changed. Updating Karma config.')

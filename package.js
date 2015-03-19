@@ -25,7 +25,7 @@ Npm.depends({
 Package.onUse(function (api) {
   api.export('Jasmine', 'server')
 
-  api.versionsFrom('METEOR@1.0')
+  api.versionsFrom('METEOR@1.0.3.2')
 
   api.use([
     'underscore',
@@ -40,7 +40,9 @@ Package.onUse(function (api) {
   api.use([
     'velocity:meteor-stubs@1.0.0_2',
     'alanning:package-stubber@0.0.9',
-    'sanjo:karma@1.4.2'
+    'sanjo:karma@1.4.2',
+    'sanjo:meteor-version@1.0.0',
+    'package-version-parser'
   ], 'server')
 
   api.use([
