@@ -45,10 +45,6 @@ Package.onUse(function (api) {
     'package-version-parser'
   ], 'server')
 
-  api.use([
-    'velocity:node-soft-mirror@0.3.1'
-  ], ['server', 'client'], {unordered: true})
-
   api.addFiles([
     '.npm/package/node_modules/component-mocker/index.js',
     '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine.js',

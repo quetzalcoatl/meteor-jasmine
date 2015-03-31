@@ -70,21 +70,6 @@ ServerIntegrationTestFramework.prototype = Object.create(JasmineTestFramework.pr
 
 _.extend(ServerIntegrationTestFramework.prototype, {
 
-  startMirror: function () {
-    var mirrorOptions = {
-      port: this._getCustomPort()
-    }
-    var mirrorStarter = new MirrorStarter(this.name)
-    mirrorStarter.lazyStartMirror(mirrorOptions)
-  },
-
-  _getCustomPort: function () {
-    var customPort = parseInt(process.env.JASMINE_SERVER_MIRROR_PORT, 10)
-    if (!_.isNaN(customPort)) {
-      return customPort
-    }
-  },
-
   start: function () {
     var self = this;
 
