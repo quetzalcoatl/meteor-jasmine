@@ -14,6 +14,7 @@ if (process.env.VELOCITY !== '0') {
 
   if (isMainApp()) {
     frameworks.serverIntegration.registerWithVelocity()
+    frameworks.serverIntegration.startMirror();
   }
 
   if (shouldRun('jasmine-server-integration')) {
