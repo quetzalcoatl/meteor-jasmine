@@ -100,7 +100,7 @@ MockGenerator = {
         METADATA: JSON.stringify(metadata, null, '  ')
       })
 
-      var outputPath = path.join(process.env.PWD, destination)
+      var outputPath = path.join(process.cwd(), destination)
       mkdirp.sync(path.dirname(outputPath))
       writeFile(outputPath, output, {encoding: 'utf8'})
     }

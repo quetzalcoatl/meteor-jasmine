@@ -1,4 +1,4 @@
-var PWD = process.env.PWD,
+var PWD = process.cwd(),
     fs = Npm.require('fs'),
     readDir = Meteor.wrapAsync(fs.readdir, fs),
     path = Npm.require('path'),
@@ -99,7 +99,7 @@ function readdirNoDots(path) {
  *        If omitted the file will run in this context.
  */
 function loadFile (target, context) {
-  var pwd = process.env.PWD,
+  var pwd = process.cwd(),
       filename = path.resolve(pwd, target),
       ext
 

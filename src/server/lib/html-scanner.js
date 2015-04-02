@@ -1,4 +1,4 @@
-var PWD = process.env.PWD,
+var PWD = process.cwd(),
   fs = Npm.require('fs'),
   readFile = wrapAsync(fs.readFile),
   path = Npm.require('path'),
