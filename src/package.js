@@ -39,7 +39,7 @@ Package.onUse(function (api) {
 
   api.use([
     'velocity:meteor-stubs@1.0.3',
-    'sanjo:karma@1.4.2',
+    'sanjo:karma@1.5.0-rc.2',
     'sanjo:meteor-version@1.0.0',
     'package-version-parser'
   ], 'server')

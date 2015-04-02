@@ -51,7 +51,8 @@ _.extend(ClientIntegrationTestFramework.prototype, {
   startMirror: function () {
     var mirrorOptions = {
       port: this._getCustomPort(),
-      rootUrlPath: '/?jasmine=true'
+      rootUrlPath: '/?jasmine=true',
+      testsPath: 'jasmine/client/integration'
     }
     var mirrorStarter = new MirrorStarter(this.name)
     mirrorStarter.lazyStartMirror(mirrorOptions)
