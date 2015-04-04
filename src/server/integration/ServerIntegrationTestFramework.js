@@ -75,6 +75,13 @@ _.extend(ServerIntegrationTestFramework.prototype, {
       port: this._getCustomPort(),
       testsPath: 'jasmine/server/integration'
     }
+
+    if (process.env.JASMINE_SERVER_MIRROR_APP_PATH) {
+      mirrorOptions.args = [
+        '--test-app-path', process.env.JASMINE_SERVER_MIRROR_APP_PATH
+      ]
+    }
+
     var mirrorStarter = new MirrorStarter(this.name)
     mirrorStarter.lazyStartMirror(mirrorOptions)
   },

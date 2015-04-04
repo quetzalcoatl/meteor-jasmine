@@ -54,6 +54,13 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       rootUrlPath: '/?jasmine=true',
       testsPath: 'jasmine/client/integration'
     }
+
+    if (process.env.JASMINE_CLIENT_MIRROR_APP_PATH) {
+      mirrorOptions.args = [
+        '--test-app-path', process.env.JASMINE_CLIENT_MIRROR_APP_PATH
+      ]
+    }
+
     var mirrorStarter = new MirrorStarter(this.name)
     mirrorStarter.lazyStartMirror(mirrorOptions)
   },
