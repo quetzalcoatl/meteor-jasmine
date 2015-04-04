@@ -105,10 +105,7 @@ function loadFile (target, context) {
 
   if (fs.existsSync(filename)) {
     ext = path.extname(filename)
-    if (/\.next\.js$/.test(target)) {
-      log.debug('loading es6 source file:', filename)
-      jsHarmonyRequire(filename, context)
-    } else if ('.js' === ext) {
+    if ('.js' === ext) {
       log.debug('loading source file:', filename)
       runFileInContext(filename, context)
     } else if (/\.(coffee|litcoffee|coffee\.md)$/.test(target)) {
