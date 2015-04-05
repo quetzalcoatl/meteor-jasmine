@@ -6,7 +6,6 @@
 var fs = Npm.require('fs'),
     readFile = Meteor.wrapAsync(fs.readFile),
     path = Npm.require('path'),
-    PWD = process.cwd(),
     coffee = Npm.require('coffee-script')
 
 var merge = function () {

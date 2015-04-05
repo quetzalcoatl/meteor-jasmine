@@ -38,9 +38,10 @@ Package.onUse(function (api) {
 
   api.use([
     'velocity:meteor-stubs@1.0.3',
-    'sanjo:karma@1.5.0-rc.2',
+    'sanjo:karma@1.5.0',
     'sanjo:meteor-version@1.0.0',
-    'package-version-parser'
+    'package-version-parser',
+    'sanjo:meteor-files-helpers@1.1.0_2'
   ], 'server')
 
   api.addFiles([

@@ -1,4 +1,4 @@
-var PWD = process.cwd(),
+var appPath = MeteorFilesHelpers.getAppPath(),
   fs = Npm.require('fs'),
   readFile = wrapAsync(fs.readFile),
   path = Npm.require('path'),
@@ -18,7 +18,7 @@ htmlScanner = {
         templateNames,
         templateTag
 
-    files = glob.sync('**/*.html', { cwd: targetDir || PWD })
+    files = glob.sync('**/*.html', { cwd: targetDir || appPath })
 
     templateNames = []
 
@@ -29,7 +29,7 @@ htmlScanner = {
 
 
     _.each(files, function (filename) {
-      var fileContents = readFile(path.join(PWD, filename), 'utf-8'),
+      var fileContents = readFile(path.join(appPath, filename), 'utf-8'),
           matches = fileContents.match(templateTag)
 
       if (matches) {

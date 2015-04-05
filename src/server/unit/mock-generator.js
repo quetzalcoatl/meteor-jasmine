@@ -100,7 +100,7 @@ MockGenerator = {
         METADATA: JSON.stringify(metadata, null, '  ')
       })
 
-      var outputPath = path.join(process.cwd(), destination)
+      var outputPath = path.join(MeteorFilesHelpers.getAppPath(), destination)
       mkdirp.sync(path.dirname(outputPath))
       writeFile(outputPath, output, {encoding: 'utf8'})
     }

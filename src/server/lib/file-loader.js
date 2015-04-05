@@ -1,4 +1,4 @@
-var PWD = process.cwd(),
+var appPath = MeteorFilesHelpers.getAppPath(),
     fs = Npm.require('fs'),
     readDir = Meteor.wrapAsync(fs.readdir, fs),
     path = Npm.require('path'),
@@ -44,7 +44,7 @@ function getFiles(options) {
   // Find files in the root folder
   var files = glob(filePattern,
     {
-      cwd: PWD,
+      cwd: appPath,
       ignore: 'mobile-config.js'
     }
   )
@@ -53,7 +53,7 @@ function getFiles(options) {
   var shouldIgnore = ['tests', 'private', 'public', 'programs', 'packages']
   shouldIgnore = shouldIgnore.concat(options.ignoreDirs)
 
-  var relevantDirs = readdirNoDots(PWD)
+  var relevantDirs = readdirNoDots(appPath)
   relevantDirs = _.filter(relevantDirs, function (dir) {
     return !_.contains(shouldIgnore, dir)
   })
@@ -61,7 +61,7 @@ function getFiles(options) {
   files = _.reduce(relevantDirs, function (files, dir) {
     var newFiles = glob(filePattern,
       {
-        cwd: path.join(PWD, dir),
+        cwd: path.join(appPath, dir),
         matchBase: true
       }
     )
@@ -71,6 +71,8 @@ function getFiles(options) {
 
     return files.concat(newFiles)
   }, files)
+
+  log.debug('getFiles has found the following files', files)
 
   return files;
 }
@@ -99,8 +101,7 @@ function readdirNoDots(path) {
  *        If omitted the file will run in this context.
  */
 function loadFile (target, context) {
-  var pwd = process.cwd(),
-      filename = path.resolve(pwd, target),
+  var filename = path.resolve(appPath, target),
       ext
 
   if (fs.existsSync(filename)) {
