@@ -30,9 +30,7 @@ Package.onUse(function (api) {
     'underscore',
     'tracker',
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.4.5',
-    // Note: velocity:shim must come after velocity:core
-    // because it has no dependency to velocity:core
+    'velocity:core@0.6.0-rc.2',
     'velocity:shim@0.1.0'
   ], ['server', 'client'])
 
