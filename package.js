@@ -145,8 +145,3 @@ Package.onUse(function (api) {
   ], 'server', {isAsset: true})
 
 })
-
-Package.onTest(function(api){
-  api.use(['spacejamio:munit']);
-  api.addFiles(['specs/example.js'], ['client', 'server'])
-})
