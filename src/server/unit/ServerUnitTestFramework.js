@@ -20,19 +20,19 @@ ServerUnitTestFramework = function (options) {
       return [
         {
           path: 'jasmine/server/unit/sample/spec/PlayerSpec.js',
-          contents: Assets.getText('server/unit/sample-tests/sample/spec/PlayerSpec.js')
+          contents: Assets.getText('src/server/unit/sample-tests/sample/spec/PlayerSpec.js')
         },
         {
           path: 'jasmine/server/unit/sample/spec/SpecMatchers.js',
-          contents: Assets.getText('server/unit/sample-tests/sample/spec/SpecMatchers.js')
+          contents: Assets.getText('src/server/unit/sample-tests/sample/spec/SpecMatchers.js')
         },
         {
           path: 'jasmine/server/unit/sample/src/Player.js',
-          contents: Assets.getText('server/unit/sample-tests/sample/src/Player.js')
+          contents: Assets.getText('src/server/unit/sample-tests/sample/src/Player.js')
         },
         {
           path: 'jasmine/server/unit/sample/src/Song.js',
-          contents: Assets.getText('server/unit/sample-tests/sample/src/Song.js')
+          contents: Assets.getText('src/server/unit/sample-tests/sample/src/Song.js')
         }
       ]
     },
@@ -165,7 +165,7 @@ _.extend(ServerUnitTestFramework.prototype, {
 
     // Load mock helper
     runCodeInContext(
-      Assets.getText('lib/mock.js'),
+      Assets.getText('src/lib/mock.js'),
       context
     )
 
@@ -187,7 +187,7 @@ _.extend(ServerUnitTestFramework.prototype, {
 
     // load MeteorStubs before and after each test
     runCodeInContext(
-      Assets.getText('server/lib/contextSpec.js'),
+      Assets.getText('src/server/lib/contextSpec.js'),
       context
     )
 

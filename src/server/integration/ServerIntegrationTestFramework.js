@@ -44,19 +44,19 @@ ServerIntegrationTestFramework = function (options) {
       return [
         {
           path: 'jasmine/server/integration/sample/spec/PlayerSpec.js',
-          contents: Assets.getText('server/integration/sample-tests/sample/spec/PlayerSpec.js')
+          contents: Assets.getText('src/server/integration/sample-tests/sample/spec/PlayerSpec.js')
         },
         {
           path: 'jasmine/server/integration/sample/spec/SpecMatchers.js',
-          contents: Assets.getText('server/integration/sample-tests/sample/spec/SpecMatchers.js')
+          contents: Assets.getText('src/server/integration/sample-tests/sample/spec/SpecMatchers.js')
         },
         {
           path: 'jasmine/server/integration/sample/src/Player.js',
-          contents: Assets.getText('server/integration/sample-tests/sample/src/Player.js')
+          contents: Assets.getText('src/server/integration/sample-tests/sample/src/Player.js')
         },
         {
           path: 'jasmine/server/integration/sample/src/Song.js',
-          contents: Assets.getText('server/integration/sample-tests/sample/src/Song.js')
+          contents: Assets.getText('src/server/integration/sample-tests/sample/src/Song.js')
         }
       ]
     },
@@ -139,7 +139,7 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     _.extend(global, jasmineInterface)
 
     // Load mock helper
-    runCodeInContext(Assets.getText('lib/mock.js'), null)
+    runCodeInContext(Assets.getText('src/lib/mock.js'), null)
 
     // Load specs
     Jasmine._runOnTestCallbacks()
