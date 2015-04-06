@@ -12,7 +12,7 @@ function shouldRun(frameworkName) {
 if (process.env.VELOCITY !== '0') {
 
   // Server Integration
-  if (!process.env.JASMINE_SERVER_INTEGRATION !== '0') {
+  if (process.env.JASMINE_SERVER_INTEGRATION !== '0') {
     frameworks.serverIntegration = new ServerIntegrationTestFramework()
 
     if (isMainApp()) {
@@ -29,7 +29,7 @@ if (process.env.VELOCITY !== '0') {
 
 
   // Client Integration
-  if (!process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
+  if (process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
     frameworks.clientIntegration = new ClientIntegrationTestFramework()
 
     if (isMainApp()) {
