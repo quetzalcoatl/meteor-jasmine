@@ -191,7 +191,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     ]
   },
   _getAssetPath: function (fileName) {
-    var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/'
+    var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/src/'
     return assetsPath + fileName;
   }
 });
