@@ -1,3 +1,4 @@
+/* globals frameworks: true */
 
 frameworks = {}
 
@@ -39,30 +40,29 @@ if (process.env.VELOCITY !== '0') {
   }
 
 
+  // Client Unit
   if (process.env.JASMINE_CLIENT_UNIT !== '0') {
     frameworks.clientUnit = new ClientUnitTestFramework()
+
+    if (isMainApp()) {
+      frameworks.clientUnit.registerWithVelocity()
+      Velocity.startup(function () {
+        frameworks.clientUnit.start()
+      })
+    }
   }
 
+
+  // Client Server
   if (process.env.JASMINE_SERVER_UNIT !== '0') {
     frameworks.serverUnit = new ServerUnitTestFramework()
-  }
 
-  if (!process.env.IS_MIRROR) {
-    if (process.env.JASMINE_CLIENT_UNIT !== '0') {
-      frameworks.clientUnit.registerWithVelocity()
-    }
-
-    if (process.env.JASMINE_SERVER_UNIT !== '0') {
+    if (isMainApp()) {
       frameworks.serverUnit.registerWithVelocity()
-    }
-
-    Velocity.startup(function () {
-      if (process.env.JASMINE_CLIENT_UNIT !== '0') {
-        frameworks.clientUnit.start()
-      }
-      if (process.env.JASMINE_SERVER_UNIT !== '0') {
+      Velocity.startup(function () {
         frameworks.serverUnit.start()
-      }
-    })
+      })
+    }
   }
+
 }
