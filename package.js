@@ -15,8 +15,8 @@ Npm.depends({
   'jasmine-core': 'https://github.com/Sanjo/jasmine/archive/be80c78105b5309b42b9c39b6d535478ec4ac747.tar.gz',
   'component-mocker': '0.2.0',
   'mkdirp': '0.5.0',
-  'glob': '5.0.2',
-  'rimraf': '2.2.8',
+  'glob': '5.0.3',
+  'rimraf': '2.3.2',
   'coffee-script': '1.7.1',
   'freeport': '1.0.3'
 })
