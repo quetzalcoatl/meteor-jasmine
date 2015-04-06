@@ -1,3 +1,5 @@
+/* globals Assets: true, __jasmine: false */
+
 beforeEach(function () {
   MeteorStubs.install()
   Meteor.isServer = true

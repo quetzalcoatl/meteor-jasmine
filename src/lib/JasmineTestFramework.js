@@ -1,14 +1,16 @@
+/* globals JasmineTestFramework: true */
+
 JasmineTestFramework = function (options) {
   if (!options || !options.name) {
-    throw new Error("[JasmineTestFramework] Missing required field 'name'")
+    throw new Error('[JasmineTestFramework] Missing required field "name"')
   }
 
   if (!options.regex) {
-    throw new Error("[JasmineTestFramework] Missing required field 'regex'")
+    throw new Error('[JasmineTestFramework] Missing required field "regex"')
   }
 
   if (_.isUndefined(options.jasmineRequire)) {
-    throw new Error("[JasmineTestFramework] Missing required field 'jasmineRequire'")
+    throw new Error('[JasmineTestFramework] Missing required field "jasmineRequire"')
   }
 
   this.name = options.name

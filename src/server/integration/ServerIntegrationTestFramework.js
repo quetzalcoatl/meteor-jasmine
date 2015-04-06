@@ -1,6 +1,4 @@
-/* global
-   Velocity: false
-*/
+/* globals Jasmine: true, ServerIntegrationTestFramework: true */
 
 /**
  * Design:
@@ -9,11 +7,8 @@
  *   This implicates only one test run per mirror run.
  */
 
-var path = Npm.require('path'),
-    util = Npm.require('util'),
-    vm = Npm.require('vm'),
-    ComponentMocker = Npm.require('component-mocker'),
-    jasmineRequire = Npm.require('jasmine-core/lib/jasmine-core/jasmine.js')
+var ComponentMocker = Npm.require('component-mocker');
+var jasmineRequire = Npm.require('jasmine-core/lib/jasmine-core/jasmine.js');
 
 
 Jasmine = Jasmine || {}
@@ -111,7 +106,7 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     this.ddpParentConnection.subscribe('VelocityMirrors');
 
     var serverIntegrationMirrorObserver = VelocityMirrors.find({
-      framework: frameworks.serverIntegration.name,
+      framework: self.name,
       state: 'ready'
     }).observe({
       added: runServerIntegrationTests,
@@ -145,7 +140,7 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     Jasmine._runOnTestCallbacks()
 
     var velocityReporter = new VelocityTestReporter({
-      mode: "Server Integration",
+      mode: 'Server Integration',
       framework: this.name,
       env: env,
       onComplete: this._reportCompleted.bind(this),

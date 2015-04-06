@@ -1,3 +1,5 @@
+/* globals JasmineInterface: true */
+
 var jasmineRequire = Meteor.isServer ?
   Npm.require('jasmine-core') :
   window.jasmineRequire
@@ -15,7 +17,7 @@ var jasmineRequire = Meteor.isServer ?
  */
 JasmineInterface = function (options) {
   if (!options || !options.jasmine) {
-    throw new Error("[JasmineInterface] Missing required field 'jasmine'")
+    throw new Error('[JasmineInterface] Missing required field "jasmine"')
   }
 
   var env = options.jasmine.getEnv()

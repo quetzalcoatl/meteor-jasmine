@@ -1,3 +1,5 @@
+/* globals mockLoader: true */
+
 var path = Npm.require('path'),
     glob = Npm.require('glob')
 

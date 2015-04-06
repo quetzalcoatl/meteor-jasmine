@@ -1,10 +1,7 @@
-/* global
-   Velocity: false
-*/
+/* globals ServerUnitTestFramework: true */
 
 var path = Npm.require('path'),
     fs = Npm.require('fs'),
-    util = Npm.require('util'),
     vm = Npm.require('vm'),
     Future = Npm.require(path.join('fibers', 'future')),
     ComponentMocker = Npm.require('component-mocker'),
@@ -113,23 +110,25 @@ _.extend(ServerUnitTestFramework.prototype, {
         callback = fut.resolver();
       }
       var _callback = Package.meteor.Meteor.bindEnvironment(function (err, result) {
-        if (result && ! encoding)
-        // Sadly, this copies in Node 0.10.
+        if (result && ! encoding) {
+          // Sadly, this copies in Node 0.10.
           result = new Uint8Array(result);
+        }
         callback(err, result);
       }, function (e) {
-        console.log("Exception in callback of getAsset", e.stack);
+        console.log('Exception in callback of getAsset', e.stack);
       });
 
       var filePath = path.join(Velocity.getAppPath(), 'private', assetPath);
       fs.readFile(filePath, encoding, _callback);
-      if (fut)
+      if (fut) {
         return fut.wait();
+      }
     };
 
     globalContext.__jasmine.Assets = {
       getText: function (assetPath, callback) {
-        return getAsset(assetPath, "utf8", callback);
+        return getAsset(assetPath, 'utf8', callback);
       },
       getBinary: function (assetPath, callback) {
         return getAsset(assetPath, undefined, callback);
@@ -200,7 +199,7 @@ _.extend(ServerUnitTestFramework.prototype, {
     var env = jasmine.getEnv()
 
     var velocityReporter = new VelocityTestReporter({
-      mode: "Server Unit",
+      mode: 'Server Unit',
       framework: this.name,
       env: env,
       onComplete: this._reportCompleted.bind(this),

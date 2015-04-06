@@ -1,3 +1,6 @@
+/* globals __meteor_runtime_config__: false */
+/* jshint camelcase: false */
+
 /**
  * This file is based on:
  * https://github.com/karma-runner/karma-jasmine/blob/master/src/adapter.js

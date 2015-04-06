@@ -1,3 +1,5 @@
+/* globals MockGenerator: true */
+
 // goal: write all package metadata to file so we can create
 // the package mocks when running out-of-context
 //
@@ -7,7 +9,7 @@ var ComponentMocker = Npm.require('component-mocker'),
     fs = Npm.require('fs'),
     path = Npm.require('path'),
     mkdirp = Npm.require('mkdirp'),
-    writeFile = wrapAsync(fs.writeFile),
+    writeFile = Meteor.wrapAsync(fs.writeFile),
     packageMetadata = {}
 
 function shouldIgnorePackage (packageName) {

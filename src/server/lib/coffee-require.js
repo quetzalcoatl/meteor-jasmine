@@ -1,18 +1,10 @@
-/*jshint -W117 */
-/* global
- */
+/* globals coffeeRequire: true */
 
 // coffeeRequire
 var fs = Npm.require('fs'),
     readFile = Meteor.wrapAsync(fs.readFile),
     path = Npm.require('path'),
     coffee = Npm.require('coffee-script')
-
-var merge = function () {
-  var args = Array.prototype.slice.call(arguments, 0)
-  args.unshift({})
-  return _.merge.apply({}, args)
-}
 
 /**
  * A coffee processor that can add source maps to compiled files
@@ -37,7 +29,9 @@ var coffeePreprocessor = function (options, content, file, done) {
   try {
     result = coffee.compile(content, opts)
   } catch (e) {
+    /* jshint camelcase: false */
     console.log('%s\n  at %s:%d', e.message, file.originalPath, e.location.first_line)
+    /* jshint camelcase: true */
     return done(e, null)
   }
 

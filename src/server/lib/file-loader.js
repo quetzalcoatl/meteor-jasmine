@@ -1,3 +1,5 @@
+/* globals fileLoader: true, loadOrderSort: false */
+
 var appPath = MeteorFilesHelpers.getAppPath(),
     fs = Npm.require('fs'),
     readDir = Meteor.wrapAsync(fs.readdir, fs),
@@ -78,12 +80,15 @@ function getFiles(options) {
 }
 
 function readdirNoDots(path) {
+  var entries
   try {
-    var entries = readDir(path);
-  } catch (e) {
-    if (e.code === 'ENOENT')
+    entries = readDir(path);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
       return []
-    throw e;
+    } else {
+      throw error;
+    }
   }
   return _.filter(entries, function (entry) {
     return entry && entry[0] !== '.'

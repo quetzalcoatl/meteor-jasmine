@@ -1,6 +1,4 @@
-/* global
- Velocity: false
- */
+/* globals ClientIntegrationTestFramework: true */
 
 ClientIntegrationTestFramework = function (options) {
   options = options || {}
@@ -80,7 +78,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         throw error
       } else if (mirrorInfo.isMirror) {
         Meteor.setTimeout(function() {
-          if (/jasmine=true/.test(document.location.href.split("?")[1])) {
+          if (/jasmine=true/.test(document.location.href.split('?')[1])) {
             log.info('Running Jasmine tests');
 
             window.ddpParentConnection = DDP.connect(mirrorInfo.parentUrl)
@@ -116,7 +114,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
              * ## Reporters
              */
             var velocityReporter = new VelocityTestReporter({
-              mode: "Client Integration",
+              mode: 'Client Integration',
               framework: self.name,
               env: env,
               timer: new self.jasmine.Timer(),

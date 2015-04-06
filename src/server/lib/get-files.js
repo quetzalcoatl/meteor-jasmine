@@ -1,3 +1,5 @@
+/* globals getSpecFiles: true */
+
 var fs = Npm.require('fs')
 
 function getFiles(dir, matcher) {
@@ -23,9 +25,7 @@ function getFiles(dir, matcher) {
         allFiles.push(filename)
       } else if (fs.statSync(filename).isDirectory()) {
         var subfiles = getFiles(filename, matcher)
-        subfiles.forEach(function(result) {
-          allFiles.push(result)
-        })
+        allFiles.push.apply(allFiles, subfiles)
       }
     }
   }

@@ -1,3 +1,5 @@
+/* globals packagesToIncludeInUnitTests: true */
+
 // Packages that should be included in unit test mode
 // and therefore should not be mocked
 packagesToIncludeInUnitTests = [

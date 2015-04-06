@@ -1,10 +1,8 @@
-/* global
-   logError: false
- */
+/* globals runCodeInContext: true, runFileInContext: true */
 
 var vm = Npm.require('vm'),
     fs = Npm.require('fs'),
-    readFile = wrapAsync(fs.readFile)
+    readFile = Meteor.wrapAsync(fs.readFile)
 
 runCodeInContext = function (code, context, filename) {
   try {

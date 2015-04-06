@@ -51,7 +51,6 @@ Package.onUse(function (api) {
   api.addFiles('src/lib/log.js', ['server', 'client'])
 
   api.addFiles([
-    'src/lib/meteor.js',
     'src/lib/freeport.js',
     'src/lib/MirrorStarter.js'
   ], 'server')
@@ -94,7 +93,6 @@ Package.onUse(function (api) {
     'src/server/lib/runFileInContext.js',
     'src/server/lib/coffee-require.js',
     'src/server/lib/file-loader.js',
-    'src/server/lib/html-scanner.js',
     'src/server/lib/load-order-sort.js',
     'src/server/lib/mock-loader.js',
 

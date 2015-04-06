@@ -1,3 +1,5 @@
+/* globals MirrorStarter: true */
+
 MirrorStarter = function (testingFrameworkName) {
   this.name = testingFrameworkName
 }

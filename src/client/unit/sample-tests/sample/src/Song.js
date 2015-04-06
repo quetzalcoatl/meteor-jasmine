@@ -1,7 +1,8 @@
-Song = function Song() {
-};
+/* globals Song: true */
 
-Song.prototype.persistFavoriteStatus = function(value) {
+Song = function Song() {};
+
+Song.prototype.persistFavoriteStatus = function() {
   // something complicated
-  throw new Error("not yet implemented");
+  throw new Error('not yet implemented');
 };

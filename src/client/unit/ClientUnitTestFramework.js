@@ -1,4 +1,4 @@
-var path = Npm.require('path')
+/* globals ClientUnitTestFramework: true, __meteor_runtime_config__: false */
 
 ClientUnitTestFramework = function (options) {
   options = options || {}
@@ -76,6 +76,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     var browser = process.env.JASMINE_BROWSER || 'Chrome';
     var launcherPlugin = launcherPlugins[browser];
 
+    /* jshint camelcase: false */
     var startOptions = {
       port: 9876,
       basePath: Velocity.getAppPath(),
@@ -93,6 +94,7 @@ _.extend(ClientUnitTestFramework.prototype, {
           autoupdateVersion: 'unknown',
           autoupdateVersionRefreshable: 'unknown',
           autoupdateVersionCordova: 'none'
+
         }, __meteor_runtime_config__)]
       },
       browserDisconnectTimeout: 10000,
@@ -112,6 +114,7 @@ _.extend(ClientUnitTestFramework.prototype, {
         }
       }
     }
+    /* jshint camelcase: true */
 
     return startOptions
   },

@@ -59,16 +59,22 @@
           'velocity/reports/completed',
           {framework: options.framework},
           function () {
-            options.onComplete && options.onComplete()
+            if (options.onComplete) {
+              options.onComplete()
+            }
           }
         )
       }
     } else if (Meteor.isServer) {
       _jasmineDone = Meteor.bindEnvironment(function jasmineDone() {
-        options.onComplete && options.onComplete()
+        if (options.onComplete) {
+          options.onComplete()
+        }
       }, function (error) {
         console.error(error)
-        options.onComplete && options.onComplete()
+        if (options.onComplete) {
+          options.onComplete()
+        }
       })
     }
 
