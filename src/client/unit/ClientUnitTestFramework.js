@@ -175,7 +175,7 @@ _.extend(ClientUnitTestFramework.prototype, {
   _getHelperFiles: function () {
     return [
       this._getAssetPath('client/unit/assets/jasmine-jquery.js'),
-      this._getAssetPath('.npm/package/node_modules/component-mocker/index.js'),
+      this._getAssetPath('package/node_modules/component-mocker/index.js'),
       this._getAssetPath('lib/mock.js'),
       this._getAssetPath('lib/VelocityTestReporter.js'),
       this._getAssetPath('client/unit/assets/adapter.js')

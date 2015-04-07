@@ -3,7 +3,7 @@ audit-argument-checks@1.0.3
 autoupdate@1.2.1
 base64@1.0.3
 binary-heap@1.0.3
-blaze@2.1.1
+blaze@2.1.2
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
@@ -43,9 +43,9 @@ reload@1.1.3
 retry@1.0.3
 routepolicy@1.0.5
 sanjo:jasmine@0.13.0-rc.2
-sanjo:karma@1.5.0
+sanjo:karma@1.5.1
 sanjo:long-running-child-process@1.0.3
-sanjo:meteor-files-helpers@1.1.0_2
+sanjo:meteor-files-helpers@1.1.0_3
 sanjo:meteor-version@1.0.0
 session@1.1.0
 spacebars@1.0.6
@@ -56,7 +56,7 @@ ui@1.0.6
 underscore@1.0.3
 url@1.0.4
 velocity:chokidar@0.12.6_1
-velocity:core@0.6.0-rc.4
+velocity:core@0.6.0-rc.5
 velocity:html-reporter@0.4.2
 velocity:meteor-internals@1.1.0_5
 velocity:meteor-stubs@1.0.3
