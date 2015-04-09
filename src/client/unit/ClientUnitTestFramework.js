@@ -162,6 +162,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       })
       .value()
   },
+
   _getAppFiles: function () {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {

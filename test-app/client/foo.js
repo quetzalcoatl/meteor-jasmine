@@ -1,3 +1,0 @@
-/* globals Foo: true */
-
-Foo = {}
