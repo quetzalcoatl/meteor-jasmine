@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.12.7',
+  version: '0.13.0-rc.4',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -15,38 +15,32 @@ Npm.depends({
   'jasmine-core': 'https://github.com/Sanjo/jasmine/archive/be80c78105b5309b42b9c39b6d535478ec4ac747.tar.gz',
   'component-mocker': '0.2.0',
   'mkdirp': '0.5.0',
-  'glob': '5.0.2',
-  'rimraf': '2.2.8',
+  'glob': '5.0.3',
+  'rimraf': '2.3.2',
   'coffee-script': '1.7.1',
-  'traceur': '0.0.66',
   'freeport': '1.0.3'
 })
 
 Package.onUse(function (api) {
   api.export('Jasmine', 'server')
 
-  api.versionsFrom('METEOR@1.0.3.2')
+  api.versionsFrom('METEOR@1.1')
 
   api.use([
     'underscore',
     'tracker',
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.4.5',
-    // Note: velocity:shim must come after velocity:core
-    // because it has no dependency to velocity:core
+    'velocity:core@0.6.0-rc.5',
     'velocity:shim@0.1.0'
   ], ['server', 'client'])
 
   api.use([
     'velocity:meteor-stubs@1.0.3',
-    'sanjo:karma@1.4.2',
+    'sanjo:karma@1.5.1',
     'sanjo:meteor-version@1.0.0',
-    'package-version-parser'
+    'package-version-parser',
+    'sanjo:meteor-files-helpers@1.1.0_3'
   ], 'server')
-
-  api.use([
-    'velocity:node-soft-mirror@0.3.1'
-  ], ['server', 'client'], {unordered: true})
 
   api.addFiles([
     '.npm/package/node_modules/component-mocker/index.js',
@@ -54,18 +48,17 @@ Package.onUse(function (api) {
     '.npm/package/node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js'
   ], 'client')
 
-  api.addFiles('lib/log.js', ['server', 'client'])
+  api.addFiles('src/lib/log.js', ['server', 'client'])
 
   api.addFiles([
-    'lib/meteor.js',
-    'lib/freeport.js',
-    'lib/MirrorStarter.js'
+    'src/lib/freeport.js',
+    'src/lib/MirrorStarter.js'
   ], 'server')
 
   api.addFiles([
-    'lib/JasmineTestFramework.js',
-    'lib/JasmineInterface.js',
-    'lib/VelocityTestReporter.js'
+    'src/lib/JasmineTestFramework.js',
+    'src/lib/JasmineInterface.js',
+    'src/lib/VelocityTestReporter.js'
   ], ['server', 'client'])
 
   // ----------------------------------------
@@ -73,7 +66,7 @@ Package.onUse(function (api) {
   // ----------------------------------------
 
   api.addFiles([
-    'server/integration/ServerIntegrationTestFramework.js'
+    'src/server/integration/ServerIntegrationTestFramework.js'
   ], 'server')
 
   // ----------------------------------------
@@ -82,14 +75,14 @@ Package.onUse(function (api) {
 
   // Client side integration testing
   api.addFiles([
-    'client/integration/ClientIntegrationTestFramework.js',
-    'client/integration/clientsideSetup.js',
-    'lib/mock.js'
+    'src/client/integration/ClientIntegrationTestFramework.js',
+    'src/client/integration/clientsideSetup.js',
+    'src/lib/mock.js'
   ], 'client')
 
   api.addFiles([
     // set up server-side Meteor methods
-    'server/lib/mirror-info.js'
+    'src/server/lib/mirror-info.js'
   ], 'server')
 
   // ----------------------------------------
@@ -97,22 +90,20 @@ Package.onUse(function (api) {
   // ----------------------------------------
 
   api.addFiles([
-    'server/lib/runFileInContext.js',
-    'server/lib/coffee-require.js',
-    'server/lib/jsHarmony-require.js',
-    'server/lib/file-loader.js',
-    'server/lib/html-scanner.js',
-    'server/lib/load-order-sort.js',
-    'server/lib/mock-loader.js',
+    'src/server/lib/runFileInContext.js',
+    'src/server/lib/coffee-require.js',
+    'src/server/lib/file-loader.js',
+    'src/server/lib/load-order-sort.js',
+    'src/server/lib/mock-loader.js',
 
-    'server/unit/included-packages.js',
-    'server/unit/mock-generator.js',
-    'server/unit/ServerUnitTestFramework.js',
-    'client/unit/ClientUnitTestFramework.js',
-    'client/integration/ClientIntegrationTestFramework.js',
+    'src/server/unit/included-packages.js',
+    'src/server/unit/mock-generator.js',
+    'src/server/unit/ServerUnitTestFramework.js',
+    'src/client/unit/ClientUnitTestFramework.js',
+    'src/client/integration/ClientIntegrationTestFramework.js',
 
-    'server/lib/get-files.js',
-    'registerFrameworks.js'
+    'src/server/lib/get-files.js',
+    'src/registerFrameworks.js'
   ], 'server')
 
   // ----------------------------------------
@@ -121,39 +112,34 @@ Package.onUse(function (api) {
 
   api.addFiles([
     // Sample tests
-    'client/integration/sample-tests/sample/spec/PlayerSpec.js',
-    'client/integration/sample-tests/sample/spec/SpecMatchers.js',
-    'client/integration/sample-tests/sample/src/Player.js',
-    'client/integration/sample-tests/sample/src/Song.js',
-    'client/unit/sample-tests/sample/spec/PlayerSpec.js',
-    'client/unit/sample-tests/sample/spec/SpecMatchers.js',
-    'client/unit/sample-tests/sample/src/Player.js',
-    'client/unit/sample-tests/sample/src/Song.js',
-    'server/integration/sample-tests/sample/spec/PlayerSpec.js',
-    'server/integration/sample-tests/sample/spec/SpecMatchers.js',
-    'server/integration/sample-tests/sample/src/Player.js',
-    'server/integration/sample-tests/sample/src/Song.js',
-    'server/unit/sample-tests/sample/spec/PlayerSpec.js',
-    'server/unit/sample-tests/sample/spec/SpecMatchers.js',
-    'server/unit/sample-tests/sample/src/Player.js',
-    'server/unit/sample-tests/sample/src/Song.js',
+    'src/client/integration/sample-tests/sample/spec/PlayerSpec.js',
+    'src/client/integration/sample-tests/sample/spec/SpecMatchers.js',
+    'src/client/integration/sample-tests/sample/src/Player.js',
+    'src/client/integration/sample-tests/sample/src/Song.js',
+    'src/client/unit/sample-tests/sample/spec/PlayerSpec.js',
+    'src/client/unit/sample-tests/sample/spec/SpecMatchers.js',
+    'src/client/unit/sample-tests/sample/src/Player.js',
+    'src/client/unit/sample-tests/sample/src/Song.js',
+    'src/server/integration/sample-tests/sample/spec/PlayerSpec.js',
+    'src/server/integration/sample-tests/sample/spec/SpecMatchers.js',
+    'src/server/integration/sample-tests/sample/src/Player.js',
+    'src/server/integration/sample-tests/sample/src/Song.js',
+    'src/server/unit/sample-tests/sample/spec/PlayerSpec.js',
+    'src/server/unit/sample-tests/sample/spec/SpecMatchers.js',
+    'src/server/unit/sample-tests/sample/src/Player.js',
+    'src/server/unit/sample-tests/sample/src/Song.js',
     // Other
     '.npm/package/node_modules/component-mocker/index.js',
-    'server/unit/package-stubs.js.tpl',
-    'server/unit/metadata-reader.js.tpl',
-    'lib/mock.js',
-    'server/lib/contextSpec.js',
-    'lib/VelocityTestReporter.js',
-    'client/unit/assets/__meteor_runtime_config__.js',
-    'client/unit/assets/adapter.js',
-    'client/unit/assets/jasmine-jquery.js',
-    'client/unit/assets/mocks/packages/autoupdate.js',
-    'client/unit/assets/mocks/packages/reload.js'
+    'src/server/unit/package-stubs.js.tpl',
+    'src/server/unit/metadata-reader.js.tpl',
+    'src/lib/mock.js',
+    'src/server/lib/contextSpec.js',
+    'src/lib/VelocityTestReporter.js',
+    'src/client/unit/assets/__meteor_runtime_config__.js',
+    'src/client/unit/assets/adapter.js',
+    'src/client/unit/assets/jasmine-jquery.js',
+    'src/client/unit/assets/mocks/packages/autoupdate.js',
+    'src/client/unit/assets/mocks/packages/reload.js'
   ], 'server', {isAsset: true})
 
-})
-
-Package.onTest(function(api){
-  api.use(['spacejamio:munit']);
-  api.addFiles(['specs/example.js'], ['client', 'server'])
 })

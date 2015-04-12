@@ -1,1 +1,3 @@
+/* globals App: true */
+
 App = {}

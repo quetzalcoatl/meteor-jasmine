@@ -20,7 +20,6 @@
   "smarttabs": true,
   "asi": true,
   "globals": {
-    // Meteor Core
     "Meteor": false,
     "DDP": false,
     "Mongo": false, //Meteor.Collection renamed to Mongo.Collection
@@ -51,17 +50,6 @@
     "process": false,
     "WebApp": false,
     "WebAppInternals": false,
-    "'__meteor_runtime_config__": false,
-
-    // Dependencies
-    "_": false,
-    "VelocityTestFiles": false,
-    "VelocityMirrors": false,
-    "MeteorFilesHelpers": false,
-    "MeteorStubs": false,
-    "loglevel": false,
-    "Karma": false,
-    "MeteorVersion": false,
 
     // Testing
     "Velocity": false,
@@ -81,25 +69,9 @@
     "fit": false,
     "fdescribe": false,
 
-    // Package globals
-    "packagesToIncludeInUnitTests": false,
-    "VelocityTestReporter": false,
-    "fileLoader": false,
-    "getSpecFiles": false,
-    "runCodeInContext": false,
-    "runFileInContext": false,
-    "mockLoader": false,
-    "JasmineInterface": false,
-    "MockGenerator": false,
-    "ServerUnitTestFramework": false,
-    "JasmineTestFramework": false,
-    "log": false,
-    "coffeeRequire": false,
-    "MirrorStarter": false,
-    "ServerIntegrationTestFramework": false,
-    "ClientIntegrationTestFramework": false,
-    "ClientUnitTestFramework": false,
-    "freeport": false,
-    "PackageVersion": false
+    // App globals
+    "App": false,
+    "Foo": false,
+    "PackageToInclude": false
   }
 }
