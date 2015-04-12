@@ -15,6 +15,30 @@ You also need to install a [Velocity Reporter package](https://github.com/meteor
 Tests run automatically while the app runs in development mode locally.
 You can see the test results in the terminal and in the html-reporter overlay.
 
+#### Testing packages
+
+You can also test packages directly. You can find an example [here](https://github.com/Sanjo/meteor-jasmine/tree/master/test-app/packages/package-to-test).
+
+You can run the tests for this package with:
+
+```bash
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter package-to-test
+```
+
+For CI you just need to add the `--velocity` flag:
+
+```bash
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity package-to-test
+```
+
+If your package is not located in an app you can test it with:
+
+```bash
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity ./
+```
+
+You can find a list of all available command options [here](https://github.com/meteor/meteor/blob/120febbf8a40f262e436d907ff36e469a19d7698/tools/commands.js#L1295-L1339).
+
 ### Troubleshooting
 
 Each test mode (except server unit mode) creates a log file in the folder `.meteor/local/log/`. If something is not working you should have a look in the log file.
