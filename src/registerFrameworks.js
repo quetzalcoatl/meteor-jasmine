@@ -2,12 +2,20 @@
 
 frameworks = {}
 
-function isMainApp() {
-  return !process.env.FRAMEWORK;
+isMirror = function () {
+  return !!process.env.IS_MIRROR;
 }
 
-function shouldRun(frameworkName) {
-  return process.env.FRAMEWORK === frameworkName
+isMainApp = function () {
+  return !isMirror();
+}
+
+isTestPackagesMode = function () {
+  return !!process.env.VELOCITY_TEST_PACKAGES;
+}
+
+shouldRunFramework = function (frameworkName) {
+  return process.env.FRAMEWORK === frameworkName || isTestPackagesMode();
 }
 
 if (process.env.VELOCITY !== '0') {
@@ -18,10 +26,12 @@ if (process.env.VELOCITY !== '0') {
 
     if (isMainApp()) {
       frameworks.serverIntegration.registerWithVelocity()
-      frameworks.serverIntegration.startMirror()
+      if (!isTestPackagesMode()) {
+        frameworks.serverIntegration.startMirror()
+      }
     }
 
-    if (shouldRun('jasmine-server-integration')) {
+    if (shouldRunFramework('jasmine-server-integration')) {
       Meteor.startup(function () {
         frameworks.serverIntegration.start()
       })
@@ -41,7 +51,7 @@ if (process.env.VELOCITY !== '0') {
 
 
   // Client Unit
-  if (process.env.JASMINE_CLIENT_UNIT !== '0') {
+  if (process.env.JASMINE_CLIENT_UNIT !== '0' && !isTestPackagesMode()) {
     frameworks.clientUnit = new ClientUnitTestFramework()
 
     if (isMainApp()) {
@@ -53,8 +63,8 @@ if (process.env.VELOCITY !== '0') {
   }
 
 
-  // Client Server
-  if (process.env.JASMINE_SERVER_UNIT !== '0') {
+  // Server Unit
+  if (process.env.JASMINE_SERVER_UNIT !== '0' && !isTestPackagesMode()) {
     frameworks.serverUnit = new ServerUnitTestFramework()
 
     if (isMainApp()) {

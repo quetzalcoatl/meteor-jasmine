@@ -51,6 +51,21 @@ _.extend(MirrorStarter.prototype, {
         }
       )
     }, 100)
+  },
+
+  startSelfMirror: function (mirrorOptions) {
+    VelocityMirrors.upsert(
+      {framework: this.name},
+      {
+        framework: this.name,
+        mongoUrl: process.env.MONGO_URL,
+        host: process.env.ROOT_URL,
+        rootUrl: process.env.ROOT_URL,
+        rootUrlPath: mirrorOptions.rootUrlPath,
+        state: 'ready',
+        lastModified: Date.now()
+      }
+    )
   }
 
 })

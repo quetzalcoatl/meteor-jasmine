@@ -92,26 +92,31 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     var self = this;
 
     log.debug('Starting Server Integration mode')
+
     this._connectToMainApp()
 
-    var runServerIntegrationTests = _.once(function () {
-      serverIntegrationMirrorObserver.stop();
+    if (isTestPackagesMode()) {
       self.runTests();
-    });
+    } else {
+      var runServerIntegrationTests = _.once(function () {
+        serverIntegrationMirrorObserver.stop();
+        self.runTests();
+      });
 
-    var VelocityMirrors = new Meteor.Collection(
-      'velocityMirrors',
-      {connection: this.ddpParentConnection}
-    );
-    this.ddpParentConnection.subscribe('VelocityMirrors');
+      var VelocityMirrors = new Meteor.Collection(
+        'velocityMirrors',
+        {connection: this.ddpParentConnection}
+      );
+      this.ddpParentConnection.subscribe('VelocityMirrors');
 
-    var serverIntegrationMirrorObserver = VelocityMirrors.find({
-      framework: self.name,
-      state: 'ready'
-    }).observe({
-      added: runServerIntegrationTests,
-      changed: runServerIntegrationTests
-    });
+      var serverIntegrationMirrorObserver = VelocityMirrors.find({
+        framework: self.name,
+        state: 'ready'
+      }).observe({
+        added: runServerIntegrationTests,
+        changed: runServerIntegrationTests
+      });
+    }
   },
 
   runTests: function () {
@@ -154,8 +159,12 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
   _connectToMainApp: function () {
     if (!this.ddpParentConnection) {
-      log.debug('Connect to parent app "' + process.env.PARENT_URL + '" via DDP')
-      this.ddpParentConnection = DDP.connect(process.env.PARENT_URL)
+      if (isTestPackagesMode()) {
+        this.ddpParentConnection = Meteor
+      } else {
+        log.debug('Connect to parent app "' + process.env.PARENT_URL + '" via DDP')
+        this.ddpParentConnection = DDP.connect(process.env.PARENT_URL)
+      }
     }
   },
 

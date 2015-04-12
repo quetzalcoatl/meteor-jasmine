@@ -1,8 +1,16 @@
 Meteor.methods({
-  'jasmine/isMirror': function () {
-    return {
-      isMirror: !!process.env.IS_MIRROR,
-      parentUrl: process.env.PARENT_URL
+  'jasmine/environmentInfo': function () {
+    var mirrorInfo = {
+      isMirror: isMirror(),
+      isTestPackagesMode: isTestPackagesMode()
+    };
+
+    if (isTestPackagesMode()) {
+      mirrorInfo.parentUrl = process.env.ROOT_URL
+    } else {
+      mirrorInfo.parentUrl = process.env.PARENT_URL
     }
+
+    return mirrorInfo
   }
 })

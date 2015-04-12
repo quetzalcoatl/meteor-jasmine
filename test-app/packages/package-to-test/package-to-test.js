@@ -1,0 +1,3 @@
+PackageToTest = {
+  foo: 'bar'
+}
