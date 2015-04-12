@@ -10,6 +10,15 @@
 var ComponentMocker = Npm.require('component-mocker');
 var jasmineRequire = Npm.require('jasmine-core/lib/jasmine-core/jasmine.js');
 
+var showOnTestDeprecationInfo = _.once(function () {
+  log.info('You no longer need to wrap your server integration tests in Jasmine.onTest ;-)')
+});
+
+Meteor.methods({
+  'jasmine/showOnTestDeprecationInfo': function () {
+    showOnTestDeprecationInfo()
+  }
+})
 
 Jasmine = Jasmine || {}
 // Need to bring it on the global scope manually
@@ -18,14 +27,10 @@ global.Jasmine = Jasmine
 _.extend(Jasmine, {
   _registeredOnTestCallbacks: [],
 
+  // Deprecated
+  // You no longer need to wrap your tests in Jasmine.onTest.
   onTest: function (callback) {
     this._registeredOnTestCallbacks.push(callback)
-  },
-
-  _runOnTestCallbacks: function () {
-    _.forEach(this._registeredOnTestCallbacks, function (callback) {
-      callback()
-    })
   }
 })
 
@@ -88,6 +93,27 @@ _.extend(ServerIntegrationTestFramework.prototype, {
     }
   },
 
+  setupEnvironment: function () {
+    var self = this
+
+    self.jasmine = self.jasmineRequire.core(self.jasmineRequire)
+    self.env = self.jasmine.getEnv({
+      setTimeout: Meteor.setTimeout.bind(Meteor),
+      clearTimeout: Meteor.clearTimeout.bind(Meteor)
+    })
+    var jasmineInterface = new JasmineInterface({jasmine: self.jasmine})
+
+    _.extend(global, {
+      MeteorStubs: MeteorStubs,
+      ComponentMocker: ComponentMocker
+    })
+
+    _.extend(global, jasmineInterface)
+
+    // Load mock helper
+    runCodeInContext(Assets.getText('src/lib/mock.js'), null)
+  },
+
   start: function () {
     var self = this;
 
@@ -120,41 +146,38 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   },
 
   runTests: function () {
+    var self = this
+
     log.debug('Running Server Integration test mode')
 
-    this.ddpParentConnection.call('velocity/reports/reset', {framework: this.name})
+    this.ddpParentConnection.call('velocity/reports/reset', {framework: self.name})
 
-    var jasmine = this.jasmineRequire.core(this.jasmineRequire)
-    var env = jasmine.getEnv({
-      setTimeout: Meteor.setTimeout.bind(Meteor),
-      clearTimeout: Meteor.clearTimeout.bind(Meteor)
-    })
-    var jasmineInterface = new JasmineInterface({jasmine: jasmine})
-
-    _.extend(global, {
-      MeteorStubs: MeteorStubs,
-      ComponentMocker: ComponentMocker
-    })
-
-    _.extend(global, jasmineInterface)
-
-    // Load mock helper
-    runCodeInContext(Assets.getText('src/lib/mock.js'), null)
-
-    // Load specs
-    Jasmine._runOnTestCallbacks()
+    // Load specs that were wrapped with Jasmine.onTest
+    self._runOnTestCallbacks()
 
     var velocityReporter = new VelocityTestReporter({
       mode: 'Server Integration',
-      framework: this.name,
-      env: env,
-      onComplete: this._reportCompleted.bind(this),
-      timer: new jasmine.Timer(),
-      ddpParentConnection: this.ddpParentConnection
+      framework: self.name,
+      env: self.env,
+      onComplete: self._reportCompleted.bind(self),
+      timer: new self.jasmine.Timer(),
+      ddpParentConnection: self.ddpParentConnection
     })
 
-    env.addReporter(velocityReporter)
-    env.execute()
+    self.env.addReporter(velocityReporter)
+    self.env.execute()
+  },
+
+  _runOnTestCallbacks: function () {
+    var self = this
+
+    if (Jasmine._registeredOnTestCallbacks.length > 0) {
+      self.ddpParentConnection.call('jasmine/showOnTestDeprecationInfo')
+    }
+
+    _.forEach(Jasmine._registeredOnTestCallbacks, function (callback) {
+      callback()
+    })
   },
 
   _connectToMainApp: function () {

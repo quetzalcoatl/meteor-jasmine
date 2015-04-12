@@ -56,10 +56,8 @@ loadDefaultFixtures = function () {
   console.log('Finished loading default fixtures');
 };
 
-Jasmine.onTest(function () {
-  beforeAll(function () {
-    resetDatabase();
-    loadDefaultFixtures();
-    console.log('Done fixtures')
-  });
+beforeAll(function () {
+  resetDatabase();
+  loadDefaultFixtures();
+  console.log('Done fixtures')
 });

@@ -32,6 +32,7 @@ if (process.env.VELOCITY !== '0') {
     }
 
     if (shouldRunFramework('jasmine-server-integration')) {
+      frameworks.serverIntegration.setupEnvironment()
       Meteor.startup(function () {
         frameworks.serverIntegration.start()
       })

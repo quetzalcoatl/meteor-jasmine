@@ -29,6 +29,7 @@ Package.onUse(function (api) {
   api.use([
     'underscore',
     'tracker',
+    'ddp',
     'practicalmeteor:loglevel@1.1.0_2',
     'velocity:core@0.6.0-rc.8',
     'velocity:shim@0.1.0'
