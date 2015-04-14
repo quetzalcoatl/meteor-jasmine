@@ -2,6 +2,15 @@
 
 Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code.
 
+If you find this package useful, please support the further development of
+this package and Velocity with a small tip. This allows me to spend more
+time into this project. Thanks! :-)
+
+<script data-gratipay-username="Sanjo"
+        data-gratipay-widget="button"
+        src="//grtp.co/v1.js"></script>
+<img src="//img.shields.io/gratipay/Sanjo.svg">        
+
 ### Installation
 
 ```bash
@@ -10,12 +19,18 @@ meteor add sanjo:jasmine
 
 You also need to install a [Velocity Reporter package](https://github.com/meteor-velocity/velocity#reporters) to see the test results.
 
+```bash
+meteor add velocity:html-reporter
+```
+
 ### Usage
 
-Tests run automatically while the app runs in development mode locally.
-You can see the test results in the terminal and in the html-reporter overlay.
+#### Testing an application
 
-#### Testing packages
+Tests run automatically while the app runs in development mode locally.
+The test results are outputted by the reporter that you have additionally installed.
+
+#### Testing a package
 
 You can also test packages directly. You can find an example [here](https://github.com/Sanjo/meteor-jasmine/tree/master/test-app/packages/package-to-test).
 
@@ -60,27 +75,34 @@ Each testing mode has different characteristics. Each testing mode has an own fo
 
 #### Server
 
+##### Server Integration Test Mode
+
+* You can run unit and integration tests inside a copy of your app.
+* Place your server integration tests in the folder `tests/jasmine/server/integration/` or a subfolder of it.
+
 ##### Server Unit Test Mode
 
 * You can unit test server app code.
-* The tests run isolated from your app.
 * The Meteor API and all packages are stubbed in this mode.
 * Place your server unit tests in the folder `tests/jasmine/server/unit/` or a subfolder of it.
 
-##### Server Integration Test Mode
-
-* You can run tests inside a copy of your app.
-* You can test packages by including them in an app.
-* Tests must be wrapped in `Jasmine.onTest(function () { /* YOUR TESTS */ });`
-* Place your server integration tests in the folder `tests/jasmine/server/integration/` or a subfolder of it.
-
 #### Client
+
+##### Client Integration Test Mode
+
+* You can test client code.
+* The tests are executed directly inside the browser in a copy of your app.
+* Nothing is automatically stubbed.
+* Place your client integration tests in the folder `tests/jasmine/client/integration/` or a subfolder of it.
+
+> __Tip:__ Use this mode when you want to test the communication between client and server.
+> In other cases you should probably use the Client Unit Test mode.
 
 ##### Client Unit Test Mode
 
 * You can test client code.
 * The tests are executed directly inside the browser.
-* Nothing is automatically stubbed.
+* Nothing is automatically stubbed (currently).
 * Place your client unit tests in the folder `tests/jasmine/client/unit/` or a subfolder of it.
 
 By default tests run in Google Chrome browser. To run in another browser use the `JASMINE_BROWSER` environment variable. For example:
@@ -94,18 +116,9 @@ JASMINE_BROWSER=PhantomJS meteor [options]
 If you want to use PhantomJS for running your tests, you must install PhantomJS
 globally with `npm install -g phantomjs`.
 
-##### Client Integration Test Mode
-
-* You can test client code.
-* The tests are executed directly inside the browser in a copy of your app.
-* Nothing is automatically stubbed.
-* Place your client integration tests in the folder `tests/jasmine/client/integration/` or a subfolder of it.
-
-> __Tip:__ Use this mode when you want to test the communication between client and server.
-> In other cases you should probably use the Client Unit Test mode.
-
 ### Disabling testing modes
 
+By default all test modes are activated.
 If you don't use some of the testing modes you can disable them with an environment variable:
 
 * `JASMINE_SERVER_UNIT=0`
@@ -113,17 +126,13 @@ If you don't use some of the testing modes you can disable them with an environm
 * `JASMINE_CLIENT_UNIT=0`
 * `JASMINE_CLIENT_INTEGRATION=0`
 
-### Running tests once (for Continuous Integration)
+### Running tests in Continuous Integration
 
 Use the commmand:
 
 ```bash
 meteor --test
 ```
-
-### Stubs
-
-Files in `tests/jasmine` folder (or a subfolder of it) that end with `-stubs.js` or `-stub.js` are treated as stubs and are loaded before the app code.
 
 ### Mocks
 
@@ -140,6 +149,8 @@ afterEach(function () {
   MeteorStubs.uninstall();
 });
 ```
+
+This is currently not available in the Client Unit mode.
 
 This is done automatically for server unit tests. To disable on the server for certain packages set the environment variable `JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS`. For example
 
