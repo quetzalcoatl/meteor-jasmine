@@ -49,7 +49,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
   startMirror: function () {
     var mirrorStarter = new MirrorStarter(this.name)
     var mirrorOptions = {
-      rootUrlPath: '/?jasmine=true'
+      rootUrlPath: '?jasmine=true'
     }
 
     if (isTestPackagesMode()) {
@@ -95,16 +95,14 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       } else if (!mirrorInfo.isMirror) {
         var iframeId = 'jasmine-mirror'
 
+        var getMirrorUrl = function (mirrorInfo) {
+          return mirrorInfo.rootUrl + mirrorInfo.rootUrlPath;
+        }
+
         var insertMirrorIframe = _.once(function (mirrorInfo) {
           var iframe = document.createElement('iframe')
           iframe.id = iframeId
-          var src = mirrorInfo.rootUrl
-          // Handle the breaking change in velocity:core 0.5
-          // See: https://github.com/meteor-velocity/velocity/issues/260
-          if (src.indexOf(mirrorInfo.rootUrlPath) === -1) {
-            src += mirrorInfo.rootUrlPath
-          }
-          iframe.src = src;
+          iframe.src = getMirrorUrl(mirrorInfo);
           // Make the iFrame invisible
           iframe.style.display = 'block'
           iframe.style.position = 'absolute'
@@ -117,7 +115,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         var updateMirrorIframe = function (mirrorInfo) {
           var iframe = document.getElementById(iframeId)
           if (iframe) {
-            iframe.src = mirrorInfo.rootUrl
+            iframe.src = getMirrorUrl(mirrorInfo)
           } else {
             insertMirrorIframe(mirrorInfo)
           }
@@ -126,13 +124,13 @@ _.extend(ClientIntegrationTestFramework.prototype, {
         if (mirrorInfo.isTestPackagesMode) {
           updateMirrorIframe({
             rootUrl: Meteor.absoluteUrl(),
-            rootUrlPath: '/?jasmine=true'
+            rootUrlPath: '?jasmine=true'
           })
         } else {
           Tracker.autorun(function () {
             var mirror = VelocityMirrors.findOne(
               {framework: self.name, state: 'ready'},
-              {fields: {state: 1, rootUrl: 1, rootUrlPath: 1}}
+              {fields: {state: 1, rootUrl: 1, rootUrlPath: 1, lastModified: 1}}
             )
             if (mirror) {
               updateMirrorIframe(mirror)
