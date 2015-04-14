@@ -18,7 +18,3 @@ describe('Server Integration', function () {
     });
   });
 });
-
-Jasmine.onTest(function () {
-
-})
