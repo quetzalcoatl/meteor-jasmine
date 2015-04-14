@@ -2,6 +2,8 @@
 
 Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code.
 
+See [here](https://github.com/Sanjo/meteor-jasmine/wiki/What's-new) for what's new.
+
 If you find this package useful, please support the further development of
 this package and Velocity with a small tip. This allows me to spend more
 time into this project. Thanks! :-)
