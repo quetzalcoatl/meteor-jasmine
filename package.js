@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.13.0-rc.5',
+  version: '0.13.0',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -24,14 +24,14 @@ Npm.depends({
 Package.onUse(function (api) {
   api.export('Jasmine', 'server')
 
-  api.versionsFrom('METEOR@1.1')
+  api.versionsFrom('METEOR@1.1.0.2')
 
   api.use([
     'underscore',
     'tracker',
     'ddp',
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.6.0-rc.8',
+    'velocity:core@0.6.0',
     'velocity:shim@0.1.0'
   ], ['server', 'client'])
 
