@@ -8,7 +8,7 @@ If you find this package useful, please support the further development of
 this package and Velocity with a small tip. This allows me to spend more
 time into this project. Thanks! :-)
 
-[![](https://img.shields.io/gratipay/Sanjo.svg)](https://gratipay.com/Sanjo/)
+<a href="https://gratipay.com/Sanjo/"><img src="https://img.shields.io/gratipay/Sanjo.svg"></a>
 
 ### Installation
 
