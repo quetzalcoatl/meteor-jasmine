@@ -27,7 +27,9 @@ if (process.env.VELOCITY !== '0') {
     if (isMainApp()) {
       frameworks.serverIntegration.registerWithVelocity()
       if (!isTestPackagesMode()) {
-        frameworks.serverIntegration.startMirror()
+        Velocity.startup(function () {
+          frameworks.serverIntegration.startMirror()
+        })
       }
     }
 
@@ -46,7 +48,11 @@ if (process.env.VELOCITY !== '0') {
 
     if (isMainApp()) {
       frameworks.clientIntegration.registerWithVelocity()
-      frameworks.clientIntegration.startMirror()
+      Velocity.startup(function () {
+        // In test packages mode this does not really create a new mirror
+        // It just registers the app as mirror.
+        frameworks.clientIntegration.startMirror()
+      })
     }
   }
 
