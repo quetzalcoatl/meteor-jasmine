@@ -20,19 +20,54 @@ Meteor.methods({
   }
 })
 
+var registeredOnTestCallbacks = [];
+
+var onTest = function (func) {
+  registeredOnTestCallbacks.push(func)
+}
+
+// Flag for deprecation message
+var wasJasmineOnTestCalled = false;
+
 Jasmine = Jasmine || {}
 // Need to bring it on the global scope manually
 // because this package has `debugOnly: true`
 global.Jasmine = Jasmine
 _.extend(Jasmine, {
-  _registeredOnTestCallbacks: [],
-
   // Deprecated
   // You no longer need to wrap your tests in Jasmine.onTest.
-  onTest: function (callback) {
-    this._registeredOnTestCallbacks.push(callback)
+  onTest: function (func) {
+    onTest(func);
+    wasJasmineOnTestCalled = true;
   }
 })
+
+
+// Postpone the execution of the test blocks until we run the tests.
+// This makes sure that the whole app is loaded before.
+var jasmineGlobals = [
+  'describe',
+  'xdescribe',
+  'fdescribe',
+  'beforeEach',
+  'afterEach',
+  'beforeAll',
+  'afterAll'
+]
+
+jasmineGlobals.forEach(function (jasmineGlobal) {
+  global[jasmineGlobal] = executeOnTestFactory(jasmineGlobal)
+})
+
+function executeOnTestFactory(funcName) {
+  return function (/* arguments */) {
+    var args = arguments
+    onTest(function () {
+      global[funcName].apply(global, args)
+    })
+  }
+}
+
 
 ServerIntegrationTestFramework = function (options) {
   options = options || {}
@@ -152,6 +187,8 @@ _.extend(ServerIntegrationTestFramework.prototype, {
 
     this.ddpParentConnection.call('velocity/reports/reset', {framework: self.name})
 
+    frameworks.serverIntegration.setupEnvironment()
+
     // Load specs that were wrapped with Jasmine.onTest
     self._runOnTestCallbacks()
 
@@ -171,11 +208,11 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   _runOnTestCallbacks: function () {
     var self = this
 
-    if (Jasmine._registeredOnTestCallbacks.length > 0) {
+    if (wasJasmineOnTestCalled) {
       self.ddpParentConnection.call('jasmine/showOnTestDeprecationInfo')
     }
 
-    _.forEach(Jasmine._registeredOnTestCallbacks, function (callback) {
+    _.forEach(registeredOnTestCallbacks, function (callback) {
       callback()
     })
   },
