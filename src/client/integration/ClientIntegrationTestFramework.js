@@ -1,5 +1,10 @@
 /* globals ClientIntegrationTestFramework: true */
 
+// We need to check the initial URL as early as possible
+// because the app can redirect and remove the query from the URL.
+var shouldRunClientIntegrationTests = Meteor.isClient &&
+  /jasmine=true/.test(document.location.href.split('?')[1])
+
 ClientIntegrationTestFramework = function (options) {
   options = options || {}
 
@@ -83,7 +88,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
     Meteor.call('jasmine/environmentInfo', function(error, mirrorInfo) {
       if (error) {
         throw error
-      } else if (/jasmine=true/.test(document.location.href.split('?')[1])) {
+      } else if (shouldRunClientIntegrationTests) {
         Meteor.setTimeout(function() {
           log.info('Running Jasmine tests')
 
