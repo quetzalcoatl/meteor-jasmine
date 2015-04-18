@@ -8,23 +8,7 @@ _.extend(MirrorStarter.prototype, {
 
   lazyStartMirror: function (mirrorOptions) {
     var requestMirror = this.startMirror.bind(this, mirrorOptions)
-    var testsCursor = VelocityTestFiles.find(
-      {targetFramework: this.name}
-    )
-
-    if (testsCursor.count() > 0) {
-      requestMirror()
-    } else {
-      // Needed for `meteor --test`
-      log.debug('No tests for ' + this.name + ' found. Reporting completed.')
-      Meteor.call('velocity/reports/completed', {framework: this.name})
-      var testsObserver = testsCursor.observe({
-        added: function () {
-          testsObserver.stop()
-          requestMirror()
-        }
-      })
-    }
+    lazyStart(this.name, requestMirror)
   },
 
   startMirror: function (mirrorOptions) {

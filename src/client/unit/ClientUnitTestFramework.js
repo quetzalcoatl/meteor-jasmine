@@ -36,6 +36,9 @@ ClientUnitTestFramework.prototype = Object.create(JasmineTestFramework.prototype
 
 _.extend(ClientUnitTestFramework.prototype, {
   start: function () {
+    lazyStart(this.name, this.startKarma.bind(this))
+  },
+  startKarma: function () {
     var self = this
     var karmaId = this.name
     Karma.start(karmaId, this.getKarmaConfig())

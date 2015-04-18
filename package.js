@@ -53,6 +53,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'src/lib/freeport.js',
+    'src/lib/lazyStart.js',
     'src/lib/MirrorStarter.js'
   ], 'server')
 

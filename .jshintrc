@@ -100,6 +100,7 @@
     "ClientIntegrationTestFramework": false,
     "ClientUnitTestFramework": false,
     "freeport": false,
-    "PackageVersion": false
+    "PackageVersion": false,
+    "lazyStartTesting": false
   }
 }
