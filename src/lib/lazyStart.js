@@ -12,11 +12,14 @@ lazyStart = function (frameworkName, func) {
     // Needed for `meteor --test`
     log.debug('No tests for ' + frameworkName + ' found. Reporting completed.')
     Meteor.call('velocity/reports/completed', {framework: frameworkName})
-    testsCursor.observe({
-      added: function () {
-        this.stop()
+    var testsObserver = testsCursor.observe({
+      added: _.once(function () {
+        // Delay the stop because added can be called before observe returns
+        Meteor.setTimeout(function () {
+          testsObserver.stop()
+        }, 5000)
         func()
-      }
+      })
     })
   }
 }
