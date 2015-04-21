@@ -9,3 +9,4 @@ velocity:html-reporter
 audit-argument-checks
 package-to-include
 iron:router
+meteorhacks:fast-render

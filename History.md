@@ -1,3 +1,7 @@
+## 0.13.3
+
+* Fixes problem with meteorhacks:fast-render in Client Unit mode
+
 ## 0.13.2
 
 * Fix (Server Integration): Execute the test code after the app has initialized fully.

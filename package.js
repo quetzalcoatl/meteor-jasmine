@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.13.2',
+  version: '0.13.3',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -141,7 +141,8 @@ Package.onUse(function (api) {
     'src/client/unit/assets/adapter.js',
     'src/client/unit/assets/jasmine-jquery.js',
     'src/client/unit/assets/mocks/packages/autoupdate.js',
-    'src/client/unit/assets/mocks/packages/reload.js'
+    'src/client/unit/assets/mocks/packages/reload.js',
+    'src/client/unit/assets/mocks/packages/meteorhacks_fast-render.js'
   ], 'server', {isAsset: true})
 
 })
