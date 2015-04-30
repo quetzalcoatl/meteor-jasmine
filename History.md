@@ -1,3 +1,8 @@
+## 0.13.4
+
+* Fix (Client Unit): Loading assets
+* Fix (Client Unit): Loading the component mocker
+
 ## 0.13.3
 
 * Fixes problem with meteorhacks:fast-render in Client Unit mode
