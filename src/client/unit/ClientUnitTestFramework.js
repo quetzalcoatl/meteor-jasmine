@@ -128,7 +128,7 @@ _.extend(ClientUnitTestFramework.prototype, {
   },
   _getPreAppFiles: function () {
     return [
-      this._getAssetPath('client/unit/assets/__meteor_runtime_config__.js')
+      this._getAssetPath('src/client/unit/assets/__meteor_runtime_config__.js')
     ]
   },
   _getPackageFiles: function () {
@@ -153,7 +153,7 @@ _.extend(ClientUnitTestFramework.prototype, {
         ]
 
         if (_.contains(mockedFiles, file.path)) {
-          return this._getAssetPath('client/unit/assets/mocks/' + file.path)
+          return this._getAssetPath('src/client/unit/assets/mocks/' + file.path)
         } else {
           return '.meteor/local/build/programs/web.browser/' + file.path
         }
@@ -182,11 +182,11 @@ _.extend(ClientUnitTestFramework.prototype, {
   },
   _getHelperFiles: function () {
     return [
-      this._getAssetPath('client/unit/assets/jasmine-jquery.js'),
-      this._getAssetPath('package/node_modules/component-mocker/index.js'),
-      this._getAssetPath('lib/mock.js'),
-      this._getAssetPath('lib/VelocityTestReporter.js'),
-      this._getAssetPath('client/unit/assets/adapter.js')
+      this._getAssetPath('src/client/unit/assets/jasmine-jquery.js'),
+      this._getAssetPath('.npm/package/node_modules/component-mocker/index.js'),
+      this._getAssetPath('src/lib/mock.js'),
+      this._getAssetPath('src/lib/VelocityTestReporter.js'),
+      this._getAssetPath('src/client/unit/assets/adapter.js')
     ]
   },
   _getStubFiles: function () {
@@ -202,7 +202,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     ]
   },
   _getAssetPath: function (fileName) {
-    var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/src/'
+    var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/'
     return assetsPath + fileName;
   }
 });
