@@ -91,6 +91,11 @@ _.extend(ClientUnitTestFramework.prototype, {
         'karma-coffee-preprocessor'
       ],
       files: files,
+      urlRoot: '/karma/',
+      proxies: {
+        // Serve assets from main app
+        '/': Meteor.absoluteUrl()
+      },
       client: {
         args: [_.defaults({
           // Make those values constant to avoid unnecessary Karma restarts
@@ -165,7 +170,6 @@ _.extend(ClientUnitTestFramework.prototype, {
       })
       .value()
   },
-
   _getAppFiles: function () {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
