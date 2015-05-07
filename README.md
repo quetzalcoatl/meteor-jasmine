@@ -61,6 +61,8 @@ You can find a list of all available command options [here](https://github.com/m
 
 Each test mode (except server unit mode) creates a log file in the folder `.meteor/local/log/`. If something is not working you should have a look in the log file.
 
+If you need help, look for an existing GitHub issue that describes your problem. If you don't find one that is exactly the same issue, create a new one.
+
 ### Further reading
 
 * [Jasmine 2.1 Documentation](http://jasmine.github.io/2.1/introduction.html)
@@ -134,10 +136,10 @@ If you don't use some of the testing modes you can disable them with an environm
 Use the commmand:
 
 ```bash
-meteor --test --release velocity:METEOR@1.1.0.2_2
+meteor --test --release velocity:METEOR@1.1.0.2_3
 ```
 
-The release `velocity:METEOR@1.1.0.2_2` contains a fix for running
+The release `velocity:METEOR@1.1.0.2_3` contains a fix for running
 the client integration tests.
 
 ### Mocks
