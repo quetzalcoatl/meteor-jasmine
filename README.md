@@ -136,10 +136,10 @@ If you don't use some of the testing modes you can disable them with an environm
 Use the commmand:
 
 ```bash
-meteor --test --release velocity:METEOR@1.1.0.2_2
+meteor --test --release velocity:METEOR@1.1.0.2_3
 ```
 
-The release `velocity:METEOR@1.1.0.2_2` contains a fix for running
+The release `velocity:METEOR@1.1.0.2_3` contains a fix for running
 the client integration tests.
 
 ### Mocks
