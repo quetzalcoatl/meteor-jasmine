@@ -31,7 +31,7 @@ Package.onUse(function (api) {
     'tracker',
     'ddp',
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.6.0',
+    'velocity:core@0.6.2',
     'velocity:shim@0.1.0'
   ], ['server', 'client'])
 
