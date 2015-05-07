@@ -1,3 +1,7 @@
+## 0.13.5
+
+* Use velocity:core@0.6.3
+
 ## 0.13.4
 
 * Fix (Client Unit): Loading assets
