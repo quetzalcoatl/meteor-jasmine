@@ -32,11 +32,11 @@ Package.onUse(function (api) {
     'ddp',
     'practicalmeteor:loglevel@1.1.0_2',
     'velocity:core@0.6.3',
-    'velocity:shim@0.1.0'
+    'velocity:shim@0.1.0',
+    'velocity:meteor-stubs@1.1.0'
   ], ['server', 'client'])
 
   api.use([
-    'velocity:meteor-stubs@1.0.3',
     'sanjo:karma@1.5.1',
     'sanjo:meteor-version@1.0.0',
     'package-version-parser',

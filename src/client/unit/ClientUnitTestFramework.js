@@ -186,7 +186,8 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getAssetPath('.npm/package/node_modules/component-mocker/index.js'),
       this._getAssetPath('src/lib/mock.js'),
       this._getAssetPath('src/lib/VelocityTestReporter.js'),
-      this._getAssetPath('src/client/unit/assets/adapter.js')
+      this._getAssetPath('src/client/unit/assets/adapter.js'),
+      '.meteor/local/build/programs/server/assets/packages/velocity_meteor-stubs/index.js'
     ]
   },
   _getStubFiles: function () {
