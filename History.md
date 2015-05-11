@@ -1,3 +1,7 @@
+## 0.13.6
+
+* Make MeteorStubs available in all modes
+
 ## 0.13.5
 
 * Use velocity:core@0.6.3

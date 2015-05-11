@@ -158,8 +158,6 @@ afterEach(function () {
 });
 ```
 
-This is currently not available in the Client Unit mode.
-
 This is done automatically for server unit tests. To disable on the server for certain packages set the environment variable `JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS`. For example
 
     export JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS=dburles:factory 
