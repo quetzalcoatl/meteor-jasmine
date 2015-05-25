@@ -1,3 +1,7 @@
+## 0.13.7
+
+* Fix (Server Unit): Mocking of Infinity values
+
 ## 0.13.6
 
 * Make MeteorStubs available in all modes
