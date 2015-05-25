@@ -38,7 +38,7 @@ function getEnvironmentIgnoredPackages() {
 }
 
 function shouldIgnoreExport (exportName) {
-  var exportsToIgnore = ['MongoInternals']
+  var exportsToIgnore = ['MongoInternals', 'WebAppInternals']
 
   return _.contains(exportsToIgnore, exportName)
 }
@@ -74,7 +74,7 @@ MockGenerator = {
               packageExports[packageExportName] = ComponentMocker.getMetadata(packageExportObj)
             } catch (error) {
               console.error('Could not mock the export ' + packageExportName +
-              ' of the package ' + name + '. Will continue anyway.')
+              ' of the package ' + name + '. Will continue anyway.', error, error.stack)
             }
           }
         })
