@@ -1,6 +1,6 @@
 # jasmine
 
-Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code.
+Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code. To learn more about testing with Meteor you should buy the [Meteor Testing Manual](www.meteortesting.com/?utm_source=jasmine&utm_medium=banner&utm_campaign=jasmine).
 
 ### Installation
 
