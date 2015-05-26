@@ -1,6 +1,6 @@
 # jasmine
 
-Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code. To learn more about testing with Meteor you should buy the [Meteor Testing Manual](www.meteortesting.com/?utm_source=jasmine&utm_medium=banner&utm_campaign=jasmine).
+Easily write and run [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) tests for all your Meteor code.
 
 ### Installation
 
@@ -13,6 +13,12 @@ You also need to install a [Velocity Reporter package](https://github.com/meteor
 ```bash
 meteor add velocity:html-reporter
 ```
+
+### Getting started
+
+To learn more about testing with Meteor you should buy the [Meteor Testing Manual](http://www.meteortesting.com/?utm_source=jasmine&utm_medium=banner&utm_campaign=jasmine).
+
+[![](http://www.meteortesting.com/img/tmtm.gif)](http://www.meteortesting.com/?utm_source=jasmine&utm_medium=banner&utm_campaign=jasmine)
 
 ### History
 
