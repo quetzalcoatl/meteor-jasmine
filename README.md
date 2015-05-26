@@ -18,14 +18,6 @@ meteor add velocity:html-reporter
 
 You can find the latest changes [here](https://github.com/Sanjo/meteor-jasmine/blob/master/History.md).
 
-### Support
-
-If you find this package useful, please support the further development of
-this package and Velocity with a small tip. This allows me to spend more
-time into this project. Thanks! :-)
-
-<a href="https://gratipay.com/Sanjo/"><img src="https://img.shields.io/gratipay/Sanjo.svg"></a>
-
 ### Usage
 
 #### Testing an application
