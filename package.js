@@ -30,6 +30,7 @@ Package.onUse(function (api) {
     'underscore',
     'tracker',
     'ddp',
+    'jquery', // for jasmine-jquery
     'practicalmeteor:loglevel@1.1.0_2',
     'velocity:core@0.6.3',
     'velocity:shim@0.1.0',
@@ -79,6 +80,7 @@ Package.onUse(function (api) {
   api.addFiles([
     'src/client/integration/ClientIntegrationTestFramework.js',
     'src/client/integration/clientsideSetup.js',
+    'src/client/integration/assets/jasmine-jquery.js',
     'src/lib/mock.js'
   ], 'client')
 

@@ -91,6 +91,8 @@ Each testing mode has different characteristics. Each testing mode has an own fo
 
 #### Client
 
+In both client modes [jasmine-jquery](https://github.com/velesin/jasmine-jquery) is available.
+
 ##### Client Integration Test Mode
 
 * You can test client code.

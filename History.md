@@ -1,3 +1,7 @@
+## 0.14.0
+
+* Feature (Client Integration): Adds jasmine-jquery
+
 ## 0.13.7
 
 * Fix (Server Unit): Mocking of Infinity values
