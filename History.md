@@ -1,6 +1,7 @@
 ## 0.14.0
 
 * Feature (Client Integration): Adds jasmine-jquery
+* Fix (Client Integration): Tests didn't rerun when the route was changed in the mirror
 
 ## 0.13.7
 

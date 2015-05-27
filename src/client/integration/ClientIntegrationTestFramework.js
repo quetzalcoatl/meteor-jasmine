@@ -2,8 +2,17 @@
 
 // We need to check the initial URL as early as possible
 // because the app can redirect and remove the query from the URL.
-var shouldRunClientIntegrationTests = Meteor.isClient &&
-  /jasmine=true/.test(document.location.href.split('?')[1])
+// We store the decision to the local storage to persist it for reloads.
+var shouldRunClientIntegrationTests = false;
+
+if (Meteor.isClient) {
+  if (localStorage.getItem('shouldRunClientIntegrationTests')) {
+    shouldRunClientIntegrationTests = true;
+  } else if (/jasmine=true/.test(document.location.href.split('?')[1])) {
+    shouldRunClientIntegrationTests = true;
+    localStorage.setItem('shouldRunClientIntegrationTests', true)
+  }
+}
 
 ClientIntegrationTestFramework = function (options) {
   options = options || {}
