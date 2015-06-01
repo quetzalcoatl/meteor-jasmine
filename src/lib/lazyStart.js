@@ -1,4 +1,4 @@
-/* globals lazyStartTesting: true */
+/* globals lazyStart: true */
 
 // Run the func when tests for the framework are available.
 lazyStart = function (frameworkName, func) {
