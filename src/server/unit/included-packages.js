@@ -5,6 +5,7 @@
 packagesToIncludeInUnitTests = [
   'lodash',
   'stevezhu:lodash',
+  'erasaur:meteor-lodash',
   'underscore',
   'digilord:sugarjs',
   'momentjs:moment',
