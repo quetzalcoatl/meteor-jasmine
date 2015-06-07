@@ -17,7 +17,7 @@ Package.onUse(function(api) {
 });
 
 Package.onTest(function(api) {
-  api.use('sanjo:jasmine@0.13.3');
+  api.use('sanjo:jasmine@0.14.0');
   api.use('package-to-test');
   api.addFiles('tests/server/example-spec.js', 'server');
   api.addFiles('tests/client/example-spec.js', 'client');
