@@ -44,7 +44,7 @@ VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-rep
 For CI you just need to add the `--velocity` flag:
 
 ```bash
-VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity package-to-test
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity --release velocity:METEOR@1.1.0.2_3 package-to-test
 ```
 
 If your package is not located in an app you can test it with:
