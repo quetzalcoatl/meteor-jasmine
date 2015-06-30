@@ -41,6 +41,8 @@ You can run the tests for this package with:
 VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter package-to-test
 ```
 
+If you want to debug your server code, just add `--debug-port 5858` as argument to the command.
+
 For CI you just need to add the `--velocity` flag:
 
 ```bash
