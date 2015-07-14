@@ -41,6 +41,12 @@ You can run the tests for this package with:
 VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter package-to-test
 ```
 
+If your package is not located in an app you can test it with:
+
+```bash
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter ./
+```
+
 If you want to debug your server code, just add `--debug-port 5858` as argument to the command.
 
 For CI you just need to add the `--velocity` flag:
@@ -49,11 +55,7 @@ For CI you just need to add the `--velocity` flag:
 VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity --release velocity:METEOR@1.1.0.2_3 package-to-test
 ```
 
-If your package is not located in an app you can test it with:
 
-```bash
-VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter --velocity --release velocity:METEOR@1.1.0.2_3 ./
-```
 
 You can find a list of all available command options [here](https://github.com/meteor/meteor/blob/120febbf8a40f262e436d907ff36e469a19d7698/tools/commands.js#L1295-L1339).
 
