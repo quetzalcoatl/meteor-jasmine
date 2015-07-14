@@ -49,6 +49,8 @@ VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-rep
 
 If you want to debug your server code, just add `--debug-port 5858` as argument to the command.
 
+If you want to run your package tests besides your app, specify a free port by adding `--port 5000`.
+
 For CI you just need to add the `--velocity` flag:
 
 ```bash
