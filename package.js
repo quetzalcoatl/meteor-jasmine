@@ -144,7 +144,8 @@ Package.onUse(function (api) {
     'src/client/unit/assets/jasmine-jquery.js',
     'src/client/unit/assets/mocks/packages/autoupdate.js',
     'src/client/unit/assets/mocks/packages/reload.js',
-    'src/client/unit/assets/mocks/packages/meteorhacks_fast-render.js'
+    'src/client/unit/assets/mocks/packages/meteorhacks_fast-render.js',
+    'src/client/unit/assets/helpers/iron_router.js'
   ], 'server', {isAsset: true})
 
 })
