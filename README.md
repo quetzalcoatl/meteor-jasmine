@@ -127,6 +127,23 @@ JASMINE_BROWSER=PhantomJS meteor [options]
 If you want to use PhantomJS for running your tests, you must install PhantomJS
 globally with `npm install -g phantomjs`.
 
+###### Configure Karma
+
+You can configure some Karma options. This is useful when you want to do some more advanced things like using Sauce Labs.
+
+Create a server file with the content:
+
+```js
+if (Package['sanjo:jasmine']) {
+  Jasmine.setKarmaConfig({
+    // TODO: Add config options
+  });
+}
+```
+
+You can find a list of all Karma options [here](http://karma-runner.github.io/0.13/config/configuration-file.html).
+Also plugins have extra options. You cannot change the Karma options that would break Karma with Meteor.
+
 ### Disabling testing modes
 
 By default all test modes are activated.

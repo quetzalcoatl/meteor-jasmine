@@ -29,19 +29,22 @@ ClientUnitTestFramework = function (options) {
     jasmineRequire: null
   })
 
+  this.userKarmaConfig = {}
+
   JasmineTestFramework.call(this, options)
 }
 
 ClientUnitTestFramework.prototype = Object.create(JasmineTestFramework.prototype)
 
 _.extend(ClientUnitTestFramework.prototype, {
+
   start: function () {
     lazyStart(this.name, this.startKarma.bind(this))
   },
+
   startKarma: function () {
     var self = this
-    var karmaId = this.name
-    Karma.start(karmaId, this.getKarmaConfig())
+    Karma.start(self.name, this.getKarmaConfig())
 
     // Listen for SIGUSR2/SIGHUP, which signals that a client asset has changed.
 
@@ -53,11 +56,25 @@ _.extend(ClientUnitTestFramework.prototype, {
     process.on(reloadSignal, Meteor.bindEnvironment(function () {
       // Wait a bit to get the updated file catalog
       Meteor.setTimeout(function () {
-        log.debug('Client assets have changed. Updating Karma config.')
-        Karma.setConfig(karmaId, self.getKarmaConfig())
+        log.debug('Client assets have changed. Updating Karma config file.')
+        Karma.setConfig(self.name, self.getKarmaConfig())
       }, 100)
     }));
   },
+
+  setUserKarmaConfig: function (config) {
+    var blacklist = [
+      'autoWatch', 'autoWatchBatchDelay',
+      'basePath', 'browserDisconnectTimeout', 'browserDisconnectTolerance',
+      'browserNoActivityTimeout', 'browsers', 'captureTimeout', 'client',
+      'exclude', 'files', 'frameworks', 'hostname', 'port', 'proxies', 'singleRun',
+      'urlRoot'
+    ]
+    this.userKarmaConfig = _.omit(config, blacklist)
+    log.debug('User has changed Karma config. Updating Karma config file.')
+    Karma.setConfig(this.name, this.getKarmaConfig())
+  },
+
   getKarmaConfig: function () {
     var files = this._getPreAppFiles().concat(
       this._getPackageFiles(),
@@ -80,7 +97,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     var launcherPlugin = launcherPlugins[browser];
 
     /* jshint camelcase: false */
-    var startOptions = {
+    var startOptions = _.extend({}, this.userKarmaConfig, {
       port: 9876,
       basePath: Velocity.getAppPath(),
       frameworks: ['jasmine'],
@@ -121,16 +138,26 @@ _.extend(ClientUnitTestFramework.prototype, {
           return path.replace(/\.(coffee|litcoffee|coffee\\.md)$/, '.js');
         }
       }
-    }
+    })
     /* jshint camelcase: true */
+
+    if (this.userKarmaConfig.plugins) {
+      startOptions.plugins = startOptions.plugins.concat(this.userKarmaConfig.plugins)
+    }
+
+    if (this.userKarmaConfig.preprocessors) {
+      _.extend(startOptions.preprocessors, this.userKarmaConfig.preprocessors)
+    }
 
     return startOptions
   },
+
   _getPreAppFiles: function () {
     return [
       this._getAssetPath('src/client/unit/assets/__meteor_runtime_config__.js')
     ]
   },
+
   _getPackageFiles: function () {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
@@ -160,6 +187,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       }, this)
       .value()
   },
+
   _getCssFiles: function () {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
@@ -170,6 +198,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       })
       .value()
   },
+
   _getAppFiles: function () {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
@@ -180,6 +209,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       })
       .value()
   },
+
   _getHelperFiles: function () {
     return [
       this._getAssetPath('src/client/unit/assets/jasmine-jquery.js'),
@@ -191,11 +221,13 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getAssetPath('src/client/unit/assets/helpers/iron_router.js')
     ]
   },
+
   _getStubFiles: function () {
     return [
       'tests/jasmine/client/unit/**/*-{stub,stubs,mock,mocks}.{js,coffee,litcoffee,coffee.md}'
     ]
   },
+
   _getTestFiles: function () {
     // Use a match pattern directly.
     // That allows Karma to detect changes and rerun the tests.
@@ -203,6 +235,7 @@ _.extend(ClientUnitTestFramework.prototype, {
       'tests/jasmine/client/unit/**/*.{js,coffee,litcoffee,coffee.md}'
     ]
   },
+
   _getAssetPath: function (fileName) {
     var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/'
     return assetsPath + fileName;

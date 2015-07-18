@@ -85,3 +85,9 @@ if (process.env.VELOCITY !== '0') {
   }
 
 }
+
+Jasmine.setKarmaConfig = function (config) {
+  if (frameworks.clientUnit) {
+    frameworks.clientUnit.setUserKarmaConfig(config)
+  }
+}
