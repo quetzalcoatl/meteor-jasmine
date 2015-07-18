@@ -2,9 +2,9 @@
 
 Foo = {}
 
-var a = new Mongo.Collection('a');
-var b = new Mongo.Collection('b');
-var c = new Mongo.Collection('c');
+a = new Mongo.Collection('a');
+b = new Mongo.Collection('b');
+c = new Mongo.Collection('c');
 
 if (Meteor.isServer) {
   a.insert({});
