@@ -74,7 +74,7 @@ ServerIntegrationTestFramework = function (options) {
 
   _.defaults(options, {
     name: 'jasmine-server-integration',
-    regex: '^tests/jasmine/server/integration/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
+    regex: '^tests/jasmine/server/integration/.+\\.(js|es6|jsx|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {

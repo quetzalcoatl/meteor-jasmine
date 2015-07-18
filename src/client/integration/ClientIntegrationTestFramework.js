@@ -19,7 +19,7 @@ ClientIntegrationTestFramework = function (options) {
 
   _.defaults(options, {
     name: 'jasmine-client-integration',
-    regex: '^tests/jasmine/client/integration/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
+    regex: '^tests/jasmine/client/integration/.+\\.(js|es6|jsx|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {
