@@ -108,11 +108,6 @@ _.extend(ClientUnitTestFramework.prototype, {
         'karma-coffee-preprocessor'
       ],
       files: files,
-      urlRoot: '/karma/',
-      proxies: {
-        // Serve assets from main app
-        '/': Meteor.absoluteUrl()
-      },
       client: {
         args: [_.defaults({
           // Make those values constant to avoid unnecessary Karma restarts
@@ -182,7 +177,10 @@ _.extend(ClientUnitTestFramework.prototype, {
         if (_.contains(mockedFiles, file.path)) {
           return this._getAssetPath('src/client/unit/assets/mocks/' + file.path)
         } else {
-          return '.meteor/local/build/programs/web.browser/' + file.path
+          return {
+            pattern: '.meteor/local/build/programs/web.browser/' + file.path,
+            nocache: true
+          }
         }
       }, this)
       .value()
@@ -194,7 +192,10 @@ _.extend(ClientUnitTestFramework.prototype, {
         return file.type === 'css'
       })
       .map(function (file) {
-        return '.meteor/local/build/programs/web.browser/' + file.path
+        return {
+          pattern: '.meteor/local/build/programs/web.browser/' + file.path,
+          nocache: true
+        }
       })
       .value()
   },
@@ -205,7 +206,10 @@ _.extend(ClientUnitTestFramework.prototype, {
         return file.type === 'js' && file.path.indexOf('packages/') !== 0
       })
       .map(function (file) {
-        return '.meteor/local/build/programs/web.browser/' + file.path
+        return {
+          pattern: '.meteor/local/build/programs/web.browser/' + file.path,
+          nocache: true
+        }
       })
       .value()
   },
