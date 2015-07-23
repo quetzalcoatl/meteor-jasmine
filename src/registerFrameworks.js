@@ -87,7 +87,7 @@ if (process.env.VELOCITY !== '0') {
 }
 
 Jasmine.setKarmaConfig = function (config) {
-  if (frameworks.clientUnit) {
+  if (frameworks.clientUnit && isMainApp()) {
     frameworks.clientUnit.setUserKarmaConfig(config)
   }
 }
