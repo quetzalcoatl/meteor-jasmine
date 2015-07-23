@@ -1,3 +1,7 @@
+## 0.15.1
+
+* Fix (Server Integration): Binding async tests to environment correctly
+
 ## 0.15.0
 
 * Update (Client Unit): Use latest Karma
