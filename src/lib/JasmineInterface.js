@@ -23,4 +23,22 @@ JasmineInterface = function (options) {
   var env = options.jasmine.getEnv()
 
   _.extend(this, jasmineRequire.interface(options.jasmine, env))
+
+  if (Meteor.isServer) {
+    _.forEach(['describe', 'xdescribe', 'fdescribe', 'it', 'fit'], function (word) {
+      var originalFunction = this[word]
+      this[word] = function (/* arguments */) {
+        arguments[1] = Meteor.bindEnvironment(arguments[1])
+        return originalFunction.apply(this, arguments)
+      }
+    }, this)
+
+    _.forEach(['beforeEach', 'afterEach', 'beforeAll', 'afterAll'], function (word) {
+      var originalFunction = this[word]
+      this[word] = function (/* arguments */) {
+        arguments[0] = Meteor.bindEnvironment(arguments[0])
+        return originalFunction.apply(this, arguments)
+      }
+    }, this)
+  }
 }
