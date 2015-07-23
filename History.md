@@ -1,3 +1,11 @@
+## 0.15.0
+
+* Update (Client Unit): Use latest Karma
+* Feature (Client Unit): Make Karma configurable
+* Fix (Client Unit): Iron Router is now automatically disabled
+* Fix (Server Integration): Async tests that execute unbound functions now work
+* Feature (Client Integration, Server Integration): Specs can also be written with ES2015
+
 ## 0.14.0
 
 * Feature (Client Integration): Adds jasmine-jquery

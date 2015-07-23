@@ -14,7 +14,8 @@ cd test-app
 #### Publish a new version
 
 1. Increase the version in `package.js` (follow [Semantic Versioning conventions](http://semver.org/))
-2. `meteor publish`
-3. Commit "Release of X.X.X"
-4. Create a tag with the version "X.X.X"
-5. Push (`git push && git push --tags`)
+2. Document changes in History.md
+3. `meteor publish`
+4. Commit "Release of X.X.X"
+5. Create a tag with the version "X.X.X"
+6. Push (`git push && git push --tags`)
