@@ -89,6 +89,25 @@ Each testing mode has different characteristics. Each testing mode has an own fo
 * You can run unit and integration tests inside a copy of your app.
 * Place your server integration tests in the folder `tests/jasmine/server/integration/` or a subfolder of it.
 
+###### Async tests
+
+If you execute asynchronous functions that are not bound to the Meteor environment (fiber), you need to
+bind the callback manually with `Meteor.bindEnvironment`. If you don't do this, the following tests will not run.
+
+__Example:__
+
+```js
+describe('Async spec', function () {
+  it('async passes', function (done) {
+    // setTimeout is not running in the Fiber
+    setTimeout(Meteor.bindEnvironment(function () {
+      expect(true).toBe(true);
+      done();
+    }), 100);
+  });
+});  
+```
+
 ##### Server Unit Test Mode
 
 * You can unit test server app code.

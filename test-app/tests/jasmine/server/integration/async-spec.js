@@ -1,15 +1,15 @@
 describe('Async spec', function () {
-  it('first async passed', function (done) {
-    setTimeout(function () {
+  it('first async passes', function (done) {
+    setTimeout(Meteor.bindEnvironment(function () {
       expect(true).toBe(true)
       done()
-    }, 100);
+    }), 100)
   })
 
-  it('second async passed', function (done) {
-    setTimeout(function () {
+  it('second async passes', function (done) {
+    setTimeout(Meteor.bindEnvironment(function () {
       expect(true).toBe(true)
       done()
-    }, 100);
+    }), 100)
   })
 })
