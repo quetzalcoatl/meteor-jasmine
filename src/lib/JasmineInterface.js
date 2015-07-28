@@ -23,37 +23,4 @@ JasmineInterface = function (options) {
   var env = options.jasmine.getEnv()
 
   _.extend(this, jasmineRequire.interface(options.jasmine, env))
-
-  if (Meteor.isServer) {
-    var generateBoundFunction = function (func) {
-      var boundFunction = Meteor.bindEnvironment(func)
-      if (func.length > 0) {
-        // Async test
-        return function (done) {
-          return boundFunction.apply(this, arguments)
-        }
-      } else {
-        // Sync test
-        return function () {
-          return boundFunction.call(this)
-        }
-      }
-    }
-
-    _.forEach(['describe', 'xdescribe', 'fdescribe', 'it', 'fit'], function (word) {
-      var originalFunction = this[word]
-      this[word] = function (/* arguments */) {
-        arguments[1] = generateBoundFunction(arguments[1])
-        return originalFunction.apply(this, arguments)
-      }
-    }, this)
-
-    _.forEach(['beforeEach', 'afterEach', 'beforeAll', 'afterAll'], function (word) {
-      var originalFunction = this[word]
-      this[word] = function (/* arguments */) {
-        arguments[0] = generateBoundFunction(arguments[0])
-        return originalFunction.apply(this, arguments)
-      }
-    }, this)
-  }
 }
