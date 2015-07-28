@@ -1,3 +1,7 @@
+## 0.15.2
+
+* Fix (Server Integration): Tests with exceptions did no longer fail since 0.15.1
+
 ## 0.15.1
 
 * Fix (Server Integration): Binding async tests to environment correctly
