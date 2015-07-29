@@ -59,6 +59,7 @@ Package.onUse(function (api) {
   ], 'server')
 
   api.addFiles([
+    'src/lib/parseStack.js',
     'src/lib/JasmineTestFramework.js',
     'src/lib/JasmineInterface.js',
     'src/lib/VelocityTestReporter.js'
