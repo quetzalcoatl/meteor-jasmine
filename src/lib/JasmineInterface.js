@@ -24,10 +24,25 @@ JasmineInterface = function (options) {
 
   _.extend(this, jasmineRequire.interface(options.jasmine, env))
 
+  var markBottom = function (func) {
+    var boundFunction = parseStack.markBottom(func)
+    if (func.length > 0) {
+      // Async test
+      return function (done) {
+        return boundFunction.apply(this, arguments)
+      }
+    } else {
+      // Sync test
+      return function () {
+        return boundFunction.call(this)
+      }
+    }
+  }
+
   _.forEach(['describe', 'xdescribe', 'fdescribe', 'it', 'fit'], function (word) {
     var originalFunction = this[word]
     this[word] = function (/* arguments */) {
-      arguments[1] = parseStack.markBottom(arguments[1])
+      arguments[1] = markBottom(arguments[1])
       return originalFunction.apply(this, arguments)
     }
   }, this)
@@ -35,7 +50,7 @@ JasmineInterface = function (options) {
   _.forEach(['beforeEach', 'afterEach', 'beforeAll', 'afterAll'], function (word) {
     var originalFunction = this[word]
     this[word] = function (/* arguments */) {
-      arguments[0] = parseStack.markBottom(arguments[0])
+      arguments[0] = markBottom(arguments[0])
       return originalFunction.apply(this, arguments)
     }
   }, this)
