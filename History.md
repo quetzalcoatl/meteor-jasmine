@@ -1,3 +1,7 @@
+## 0.15.4
+
+* Fix: Bug with marking stacks (introduced in 0.15.3)
+
 ## 0.15.3
 
 * Fix (Client Integration): Error when running app tests when package tests have been run
