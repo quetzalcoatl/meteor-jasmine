@@ -110,6 +110,10 @@ describe('Async spec', function () {
 
 ##### Server Unit Test Mode
 
+__Warning: Not recommended to use right now.__ The current implementation has [several flaws}(https://github.com/Sanjo/meteor-jasmine/issues?q=is%3Aopen+is%3Aissue+label%3Aserver-unit-mode).
+You should use the server integration mode to write your server unit tests for now, until
+I have rewritten the implementation.
+
 * You can unit test server app code.
 * The Meteor API and all packages are stubbed in this mode.
 * Place your server unit tests in the folder `tests/jasmine/server/unit/` or a subfolder of it.
