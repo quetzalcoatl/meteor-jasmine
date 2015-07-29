@@ -110,7 +110,7 @@ describe('Async spec', function () {
 
 ##### Server Unit Test Mode
 
-__Warning: Not recommended to use right now.__ The current implementation has [several flaws}(https://github.com/Sanjo/meteor-jasmine/issues?q=is%3Aopen+is%3Aissue+label%3Aserver-unit-mode).
+__Warning: Not recommended to use right now.__ The current implementation has [several flaws](https://github.com/Sanjo/meteor-jasmine/issues?q=is%3Aopen+is%3Aissue+label%3Aserver-unit-mode).
 You should use the server integration mode to write your server unit tests for now, until
 I have rewritten the implementation.
 
