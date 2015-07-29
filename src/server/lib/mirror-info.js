@@ -2,7 +2,8 @@ Meteor.methods({
   'jasmine/environmentInfo': function () {
     var mirrorInfo = {
       isMirror: isMirror(),
-      isTestPackagesMode: isTestPackagesMode()
+      isTestPackagesMode: isTestPackagesMode(),
+      framework: process.env.FRAMEWORK
     };
 
     if (isTestPackagesMode()) {

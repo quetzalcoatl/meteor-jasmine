@@ -38,6 +38,7 @@ _.extend(MirrorStarter.prototype, {
   },
 
   startSelfMirror: function (mirrorOptions) {
+    mirrorOptions = mirrorOptions || {}
     VelocityMirrors.upsert(
       {framework: this.name},
       {

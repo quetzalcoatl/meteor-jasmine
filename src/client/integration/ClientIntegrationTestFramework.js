@@ -1,19 +1,5 @@
 /* globals ClientIntegrationTestFramework: true */
 
-// We need to check the initial URL as early as possible
-// because the app can redirect and remove the query from the URL.
-// We store the decision to the local storage to persist it for reloads.
-var shouldRunClientIntegrationTests = false;
-
-if (Meteor.isClient) {
-  if (localStorage.getItem('shouldRunClientIntegrationTests')) {
-    shouldRunClientIntegrationTests = true;
-  } else if (/jasmine=true/.test(document.location.href.split('?')[1])) {
-    shouldRunClientIntegrationTests = true;
-    localStorage.setItem('shouldRunClientIntegrationTests', true)
-  }
-}
-
 ClientIntegrationTestFramework = function (options) {
   options = options || {}
 
@@ -62,9 +48,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
 
   startMirror: function () {
     var mirrorStarter = new MirrorStarter(this.name)
-    var mirrorOptions = {
-      rootUrlPath: '?jasmine=true'
-    }
+    var mirrorOptions = {}
 
     if (isTestPackagesMode()) {
       mirrorStarter.startSelfMirror(mirrorOptions)
@@ -91,66 +75,70 @@ _.extend(ClientIntegrationTestFramework.prototype, {
     }
   },
 
+  shouldRunTests: function (mirrorInfo) {
+    return mirrorInfo.isTestPackagesMode ||
+           (mirrorInfo.isMirror && mirrorInfo.framework === this.name)
+  },
+
   runTests: function () {
     var self = this
 
     Meteor.call('jasmine/environmentInfo', function(error, mirrorInfo) {
       if (error) {
         throw error
-      } else if (shouldRunClientIntegrationTests) {
-        Meteor.setTimeout(function() {
+      } else if (self.shouldRunTests(mirrorInfo)) {
+        Meteor.defer(function() {
           log.info('Running Jasmine tests')
 
           var ddpConnection = mirrorInfo.isTestPackagesMode ?
             Meteor :
             DDP.connect(mirrorInfo.parentUrl)
+          window.initJasmineJquery()
           self._executeClientTests(ddpConnection)
-        }, 0)
-      } else if (!mirrorInfo.isMirror) {
-        var iframeId = 'jasmine-mirror'
-
-        var getMirrorUrl = function (mirrorInfo) {
-          return mirrorInfo.rootUrl + mirrorInfo.rootUrlPath;
-        }
-
-        var insertMirrorIframe = _.once(function (mirrorInfo) {
-          var iframe = document.createElement('iframe')
-          iframe.id = iframeId
-          iframe.src = getMirrorUrl(mirrorInfo);
-          // Make the iFrame invisible
-          iframe.style.display = 'block'
-          iframe.style.position = 'absolute'
-          iframe.style.width = 0
-          iframe.style.height = 0
-          iframe.style.border = 0
-          document.body.appendChild(iframe)
         })
+      } else if (!mirrorInfo.isMirror) {
+        self.createMirrorIframe()
+      }
+    })
+  },
 
-        var updateMirrorIframe = function (mirrorInfo) {
-          var iframe = document.getElementById(iframeId)
-          if (iframe) {
-            iframe.src = getMirrorUrl(mirrorInfo)
-          } else {
-            insertMirrorIframe(mirrorInfo)
-          }
-        }
+  createMirrorIframe: function () {
+    var self = this
+    var iframeId = 'jasmine-mirror'
 
-        if (mirrorInfo.isTestPackagesMode) {
-          updateMirrorIframe({
-            rootUrl: Meteor.absoluteUrl(),
-            rootUrlPath: '?jasmine=true'
-          })
-        } else {
-          Tracker.autorun(function () {
-            var mirror = VelocityMirrors.findOne(
-              {framework: self.name, state: 'ready'},
-              {fields: {state: 1, rootUrl: 1, rootUrlPath: 1, lastModified: 1}}
-            )
-            if (mirror) {
-              updateMirrorIframe(mirror)
-            }
-          })
-        }
+    var getMirrorUrl = function (mirrorInfo) {
+      return mirrorInfo.rootUrl;
+    }
+
+    var insertMirrorIframe = _.once(function (mirrorInfo) {
+      var iframe = document.createElement('iframe')
+      iframe.id = iframeId
+      iframe.src = getMirrorUrl(mirrorInfo);
+      // Make the iFrame invisible
+      iframe.style.display = 'block'
+      iframe.style.position = 'absolute'
+      iframe.style.width = 0
+      iframe.style.height = 0
+      iframe.style.border = 0
+      document.body.appendChild(iframe)
+    })
+
+    var updateMirrorIframe = function (mirrorInfo) {
+      var iframe = document.getElementById(iframeId)
+      if (iframe) {
+        iframe.src = getMirrorUrl(mirrorInfo)
+      } else {
+        insertMirrorIframe(mirrorInfo)
+      }
+    }
+
+    Tracker.autorun(function () {
+      var mirror = VelocityMirrors.findOne(
+        {framework: self.name, state: 'ready'},
+        {fields: {state: 1, rootUrl: 1, lastModified: 1}}
+      )
+      if (mirror) {
+        updateMirrorIframe(mirror)
       }
     })
   },
