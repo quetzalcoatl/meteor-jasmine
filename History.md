@@ -1,3 +1,9 @@
+## 0.15.3
+
+* Fix (Client Integration): Error when running app tests when package tests have been run
+    on the same host and port before.
+* Improvement: Improves test error stack trace. Shows only relevant stack trace lines in an improved format.
+
 ## 0.15.2
 
 * Fix (Server Integration): Tests with exceptions did no longer fail since 0.15.1
