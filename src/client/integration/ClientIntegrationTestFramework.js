@@ -96,10 +96,18 @@ _.extend(ClientIntegrationTestFramework.prototype, {
           window.initJasmineJquery()
           self._executeClientTests(ddpConnection)
         })
-      } else if (!mirrorInfo.isMirror) {
+      } else if (!mirrorInfo.isMirror && !self.inIframe()) {
         self.createMirrorIframe()
       }
     })
+  },
+
+  inIframe: function() {
+    try {
+      return window.self !== window.top;
+    } catch (error) {
+      return true;
+    }
   },
 
   createMirrorIframe: function () {
