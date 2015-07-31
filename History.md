@@ -1,3 +1,7 @@
+## 0.15.5
+
+* Fix (Client Integration): Don't create mirror iFrame when already in iFrame
+
 ## 0.15.4
 
 * Fix: Bug with marking stacks (introduced in 0.15.3)
