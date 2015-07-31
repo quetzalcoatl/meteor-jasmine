@@ -35,6 +35,12 @@ The test results are outputted by the reporter that you have additionally instal
 
 You can also test packages directly. You can find an example [here](https://github.com/Sanjo/meteor-jasmine/tree/master/test-app/packages/package-to-test).
 
+##### Execute tests with the Velocity CLI tool
+
+The Velocity CLI tool gives you simple commands to execute package tests. You need to have node.js installed and [install the Velocity CLI tool](https://www.npmjs.com/package/velocity-cli) globally.
+
+##### Execute tests with the Meteor CLI tool
+
 You can run the tests for this package with:
 
 ```bash
