@@ -5,5 +5,4 @@
 #export LONG_RUNNING_CHILD_PROCESS_LOG_LEVEL=debug
 #export VELOCITY_USE_CHECKED_OUT_METEOR=1
 
-export JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS=package-to-include
-meteor --settings settings.json --release velocity:METEOR@1.1.0.2_3 --port 9000
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter package-to-test --port 9999

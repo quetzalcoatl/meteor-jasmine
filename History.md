@@ -1,3 +1,7 @@
+## 0.16.1
+
+* Fix (Server Integration): Source map support on server side
+
 ## 0.16.0
 
 * Improvement (Integration modes): Much better error stack traces for client tests.
