@@ -32,7 +32,7 @@ Package.onUse(function (api) {
     'ddp',
     'jquery', // for jasmine-jquery
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.9.0',
+    'velocity:core@0.9.1',
     'velocity:shim@0.1.0',
     'velocity:meteor-stubs@1.1.0'
   ], ['server', 'client'])
