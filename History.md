@@ -1,3 +1,7 @@
+## 0.16.0
+
+* Improvement (Integration modes): Much better error stack traces for client tests.
+
 ## 0.15.5
 
 * Fix (Client Integration): Don't create mirror iFrame when already in iFrame

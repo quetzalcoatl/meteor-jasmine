@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Easily use Jasmine in Meteor',
-  version: '0.15.5',
+  version: '0.16.0',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -32,7 +32,7 @@ Package.onUse(function (api) {
     'ddp',
     'jquery', // for jasmine-jquery
     'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.6.3',
+    'velocity:core@0.9.0',
     'velocity:shim@0.1.0',
     'velocity:meteor-stubs@1.1.0'
   ], ['server', 'client'])

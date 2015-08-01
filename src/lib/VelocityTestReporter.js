@@ -32,7 +32,7 @@
         timestamp: new Date()
       }
       if (test.failedExpectations[0]){
-        var stack = parseStack.parse({stack: filterStack(test.failedExpectations[0].stack)})
+        var stack = removeStackTraceClutter(parseStack.parse({stack: filterStack(test.failedExpectations[0].stack)}))
         var message = _.extend({
           message: test.failedExpectations[0].message,
           stack: stack
@@ -109,6 +109,33 @@
         return stackLine.indexOf('/node_modules/jasmine-core/') === -1;
       }).join('\n');
       return filteredStack;
+    }
+
+    function removeStackTraceClutter(parsedStackTrace) {
+      return _.chain(parsedStackTrace)
+        .map(_.clone)
+        .map(function makeFileUrlRelative(frame) {
+          var rootUrl = Meteor.absoluteUrl();
+          if (frame.file.indexOf(rootUrl) === 0) {
+            frame.file = frame.file.substr(rootUrl.length);
+          }
+          return frame;
+        })
+        .map(function removeCacheBustingQuery(frame) {
+          frame.file = frame.file.replace(/\?[a-z0-9]+$/, '');
+          return frame;
+        })
+        .map(function normalizePackageName(frame) {
+          frame.file = frame.file.replace('local-test:', '');
+          return frame;
+        })
+        .map(function removeUselessFunc(frame) {
+          if (frame.func === 'Object.<anonymous>') {
+            frame.func = null;
+          }
+          return frame;
+        })
+        .value();
     }
 
     function formatMessage(messages) {
