@@ -1,3 +1,8 @@
+## 0.16.2
+
+* Chore (Client Unit): Upgrade Karma from 0.13.2 to 0.13.3
+* Fix (Client Unit): Potential fix for Karma mtime error
+
 ## 0.16.1
 
 * Fix (Server Integration): Source map support on server side
