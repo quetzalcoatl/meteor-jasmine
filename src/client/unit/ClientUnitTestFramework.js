@@ -228,7 +228,7 @@ _.extend(ClientUnitTestFramework.prototype, {
 
   _getStubFiles: function () {
     return [
-      'tests/jasmine/client/unit/**/*-{stub,stubs,mock,mocks}.{js,coffee,litcoffee,coffee.md}'
+      'tests/jasmine/client/unit/**/*-+(stub|stubs|mock|mocks).+(js|coffee|litcoffee|coffee.md)'
     ]
   },
 
@@ -236,7 +236,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     // Use a match pattern directly.
     // That allows Karma to detect changes and rerun the tests.
     return [
-      'tests/jasmine/client/unit/**/*.{js,coffee,litcoffee,coffee.md}'
+      'tests/jasmine/client/unit/**/*.+(js|coffee|litcoffee|coffee.md)'
     ]
   },
 
