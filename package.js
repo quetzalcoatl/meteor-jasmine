@@ -5,7 +5,7 @@
 
 Package.describe({
   name: 'sanjo:jasmine',
-  summary: 'Easily use Jasmine in Meteor',
+  summary: 'Velocity integration of the Jasmine testing framework',
   version: '0.16.2',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
