@@ -71,11 +71,6 @@ parseStack.parse = function (err) {
       // future we may want to sew them together (possibly in the opposite
       // order?)
       stop = true;
-    } else if (_.isEmpty(ret)) {
-      // We haven't found any stack frames, so probably we have newlines in the
-      // error message. Just skip this line.
-    } else {
-      throw new Error("Couldn't parse stack frame: '" + frame + "'");
     }
   });
 
