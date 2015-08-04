@@ -1,3 +1,8 @@
+## 0.16.3
+
+* Chore: Update dependencies
+* Fix: Let parseStack.parse just skip unmatched lines
+
 ## 0.16.2
 
 * Chore (Client Unit): Upgrade Karma from 0.13.2 to 0.13.3
