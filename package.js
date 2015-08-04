@@ -31,8 +31,8 @@ Package.onUse(function (api) {
     'tracker',
     'ddp',
     'jquery', // for jasmine-jquery
-    'practicalmeteor:loglevel@1.1.0_2',
-    'velocity:core@0.9.1',
+    'practicalmeteor:loglevel@1.2.0_2',
+    'velocity:core@0.9.2',
     'velocity:shim@0.1.0',
     'velocity:meteor-stubs@1.1.0'
   ], ['server', 'client'])
@@ -41,7 +41,7 @@ Package.onUse(function (api) {
     'sanjo:karma@1.6.1',
     'sanjo:meteor-version@1.0.0',
     'package-version-parser',
-    'sanjo:meteor-files-helpers@1.1.0_4'
+    'sanjo:meteor-files-helpers@1.1.0_7'
   ], 'server')
 
   api.addFiles([

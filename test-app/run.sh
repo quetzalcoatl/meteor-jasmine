@@ -6,4 +6,4 @@
 #export VELOCITY_USE_CHECKED_OUT_METEOR=1
 
 export JASMINE_PACKAGES_TO_INCLUDE_IN_UNIT_TESTS=package-to-include
-meteor --settings settings.json --release velocity:METEOR@1.1.0.2_3 --port 9000
+meteor --settings settings.json --release velocity:METEOR@1.1.0.3_1 --port 9000
