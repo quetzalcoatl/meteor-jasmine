@@ -1,3 +1,8 @@
+## 0.16.4
+
+* Improves test result name to not contain redundant text
+* Reports to Velocity if the test result is for client or server
+
 ## 0.16.3
 
 * Chore: Update dependencies
