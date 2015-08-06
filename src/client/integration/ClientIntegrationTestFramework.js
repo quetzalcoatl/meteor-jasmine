@@ -191,7 +191,8 @@ _.extend(ClientIntegrationTestFramework.prototype, {
       framework: self.name,
       env: env,
       timer: new self.jasmine.Timer(),
-      ddpParentConnection: window.ddpParentConnection
+      ddpParentConnection: window.ddpParentConnection,
+      isClient: true
     })
 
     /**

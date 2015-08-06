@@ -198,7 +198,8 @@ _.extend(ServerIntegrationTestFramework.prototype, {
       env: self.env,
       onComplete: self._reportCompleted.bind(self),
       timer: new self.jasmine.Timer(),
-      ddpParentConnection: self.ddpParentConnection
+      ddpParentConnection: self.ddpParentConnection,
+      isServer: true
     })
 
     self.env.addReporter(velocityReporter)

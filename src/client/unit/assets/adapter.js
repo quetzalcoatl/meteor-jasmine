@@ -236,12 +236,14 @@
           var velocityResult = {
             id: 'jasmine:' + options.mode + ' | ' + specResult.id,
             framework: options.framework,
-            name: specResult.fullName,
+            name: specResult.description,
+            fullName: specResult.fullName,
             pending: specResult.status === 'pending',
             result: specResult.status,
             duration: time,
             ancestors: ancestors,
-            timestamp: new Date()
+            timestamp: new Date(),
+            isClient: true
           }
           if (specResult.failedExpectations[0]){
             velocityResult.failureMessage = specResult.failedExpectations[0].message

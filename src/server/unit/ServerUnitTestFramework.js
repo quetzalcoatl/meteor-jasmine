@@ -203,7 +203,8 @@ _.extend(ServerUnitTestFramework.prototype, {
       framework: this.name,
       env: env,
       onComplete: this._reportCompleted.bind(this),
-      timer: new jasmine.Timer()
+      timer: new jasmine.Timer(),
+      isServer: true
     })
 
     env.addReporter(velocityReporter)

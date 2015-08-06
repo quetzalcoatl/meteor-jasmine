@@ -22,14 +22,17 @@
         id: 'jasmine:' + self.mode + ' | ' + test.id,
         //async: test.async,
         framework: options.framework,
-        name: test.fullName,
+        name: test.description,
+        fullName: test.fullName,
         pending: test.status === 'pending',
         result: test.status,
         duration: timer.elapsed(),
         //timeOut: test._timeout,
         //timedOut: test.timedOut,
         ancestors: ancestors,
-        timestamp: new Date()
+        timestamp: new Date(),
+        isClient: !!options.isClient,
+        isServer: !!options.isServer
       }
       if (test.failedExpectations[0]){
         var stack = removeStackTraceClutter(parseStack.parse({stack: filterStack(test.failedExpectations[0].stack)}))
