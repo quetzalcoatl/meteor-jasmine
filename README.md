@@ -1,6 +1,6 @@
 # Jasmine
 
-The Meteor Velocity integration for the [Jasmine 2.1](http://jasmine.github.io/2.1/introduction.html) testing framework.
+The Meteor Velocity integration for the [Jasmine 2.3](http://jasmine.github.io/2.3/introduction.html) testing framework.
 Makes it easy to test your Meteor app and packages with unit and integration tests.
 
 ## Installation
