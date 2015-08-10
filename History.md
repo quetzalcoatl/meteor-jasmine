@@ -1,3 +1,7 @@
+## 0.17.0
+
+* Upgrades Jasmine to 2.3.4 (from 2.1)
+
 ## 0.16.4
 
 * Improves test result name to not contain redundant text
