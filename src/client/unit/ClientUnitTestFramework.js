@@ -1,5 +1,9 @@
 /* globals ClientUnitTestFramework: true, __meteor_runtime_config__: false */
 
+var path = Npm.require('path');
+var fs = Npm.require('fs');
+var mkdirp = Npm.require('mkdirp');
+
 ClientUnitTestFramework = function (options) {
   options = options || {}
 
@@ -44,6 +48,9 @@ _.extend(ClientUnitTestFramework.prototype, {
 
   startKarma: function () {
     var self = this
+
+    self._generateContextHtml();
+    self._generateDebugHtml();
     Karma.start(self.name, this.getKarmaConfig())
 
     // Listen for SIGUSR2/SIGHUP, which signals that a client asset has changed.
@@ -57,9 +64,35 @@ _.extend(ClientUnitTestFramework.prototype, {
       // Wait a bit to get the updated file catalog
       Meteor.setTimeout(function () {
         log.debug('Client assets have changed. Updating Karma config file.')
+        self._generateContextHtml();
+        self._generateDebugHtml();
         Karma.setConfig(self.name, self.getKarmaConfig())
       }, 100)
     }));
+  },
+
+  _generateContextHtml: function () {
+    this._generateKarmaHtml('context')
+  },
+
+  _generateDebugHtml: function () {
+    this._generateKarmaHtml('debug')
+  },
+
+  _generateKarmaHtml: function (type) {
+    var fileName = type + '.html'
+    var htmlPath = this._getKarmaHtmlPath(type);
+    mkdirp.sync(path.dirname(htmlPath))
+    var headHtml = this._getHeadHtml() || ''
+    var contextHtml = Assets.getText('src/client/unit/assets/' + fileName)
+      .replace('%HEAD%', headHtml)
+    fs.writeFileSync(htmlPath, contextHtml, {encoding: 'utf8'})
+  },
+
+  _getKarmaHtmlPath: function (type) {
+    var fileName = type + '.html'
+    var karmaConfigPath = path.dirname(Karma.getConfigPath(this.name))
+    return path.join(karmaConfigPath, fileName)
   },
 
   setUserKarmaConfig: function (config) {
@@ -76,14 +109,15 @@ _.extend(ClientUnitTestFramework.prototype, {
   },
 
   getKarmaConfig: function () {
-    var files = this._getPreAppFiles().concat(
-      this._getPackageFiles(),
-      this._getHelperFiles(),
-      this._getStubFiles(),
-      this._getCssFiles(),
-      this._getAppFiles(),
-      this._getTestFiles()
-    )
+    var files = [];
+    var proxies = {};
+
+    this._addPreAppFiles(files, proxies)
+    this._addPackageFiles(files, proxies)
+    this._addHelperFiles(files, proxies)
+    this._addStubFiles(files, proxies)
+    this._addAppFiles(files, proxies)
+    this._addTestFiles(files, proxies)
 
     var launcherPlugins = {
       'Chrome': 'karma-chrome-launcher',
@@ -96,10 +130,12 @@ _.extend(ClientUnitTestFramework.prototype, {
     var browser = process.env.JASMINE_BROWSER || 'Chrome';
     var launcherPlugin = launcherPlugins[browser];
 
+    var basePath = Velocity.getAppPath()
+
     /* jshint camelcase: false */
     var startOptions = _.extend({}, this.userKarmaConfig, {
       port: 9876,
-      basePath: Velocity.getAppPath(),
+      basePath: basePath,
       frameworks: ['jasmine'],
       browsers: [browser],
       plugins: [
@@ -108,7 +144,10 @@ _.extend(ClientUnitTestFramework.prototype, {
         'karma-coffee-preprocessor'
       ],
       files: files,
+      proxies: proxies,
       client: {
+        contextFile: this._getKarmaHtmlPath('context'),
+        debugFile: this._getKarmaHtmlPath('debug'),
         args: [_.defaults({
           // Make those values constant to avoid unnecessary Karma restarts
           autoupdateVersion: 'unknown',
@@ -147,27 +186,25 @@ _.extend(ClientUnitTestFramework.prototype, {
     return startOptions
   },
 
-  _getPreAppFiles: function () {
-    return [
+  _addPreAppFiles: function (files) {
+    files.push(
       this._getAssetPath('src/client/unit/assets/__meteor_runtime_config__.js')
-    ]
+    )
   },
 
-  _getPackageFiles: function () {
-    return _.chain(WebApp.clientPrograms['web.browser'].manifest)
+  _addPackageFiles: function (files, proxies) {
+    _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
-        return file.type === 'js' && file.path.indexOf('packages/') === 0
+        return file.path.indexOf('packages/') === 0
       })
       .filter(function (file) {
         var ignoredFiles = [
           'packages/sanjo_jasmine.js',
-          'packages/velocity_core.js',
-          'packages/velocity_test-proxy.js',
           'packages/velocity_html-reporter.js'
         ]
         return !_.contains(ignoredFiles, file.path)
       })
-      .map(function (file) {
+      .forEach(function (file) {
         var mockedFiles = [
           'packages/autoupdate.js',
           'packages/reload.js',
@@ -175,47 +212,42 @@ _.extend(ClientUnitTestFramework.prototype, {
         ]
 
         if (_.contains(mockedFiles, file.path)) {
-          return this._getAssetPath('src/client/unit/assets/mocks/' + file.path)
+          files.push(this._getAssetPath('src/client/unit/assets/mocks/' + file.path))
         } else {
-          return {
-            pattern: '.meteor/local/build/programs/web.browser/' + file.path,
-            nocache: true
-          }
+          this._addFile(file, files, proxies)
         }
       }, this)
       .value()
   },
 
-  _getCssFiles: function () {
+  _addAppFiles: function (files, proxies) {
     return _.chain(WebApp.clientPrograms['web.browser'].manifest)
       .filter(function (file) {
-        return file.type === 'css'
+        return file.path.indexOf('packages/') !== 0
       })
-      .map(function (file) {
-        return {
-          pattern: '.meteor/local/build/programs/web.browser/' + file.path,
-          nocache: true
-        }
-      })
+      .forEach(function (file) {
+        this._addFile(file, files, proxies)
+      }, this)
       .value()
   },
 
-  _getAppFiles: function () {
-    return _.chain(WebApp.clientPrograms['web.browser'].manifest)
-      .filter(function (file) {
-        return file.type === 'js' && file.path.indexOf('packages/') !== 0
-      })
-      .map(function (file) {
-        return {
-          pattern: '.meteor/local/build/programs/web.browser/' + file.path,
-          nocache: true
-        }
-      })
-      .value()
+  _addFile: function (file, files, proxies) {
+    var basePath = '.meteor/local/build/programs/web.browser/'
+    files.push({
+      pattern: basePath + file.path,
+      watched: true,
+      included: _.contains(['js', 'css'], file.type),
+      served: true,
+      nocache: false
+    });
+
+    if (file.type === 'asset') {
+      proxies[file.url] = '/base/' + basePath + file.path
+    }
   },
 
-  _getHelperFiles: function () {
-    return [
+  _addHelperFiles: function (files) {
+    files.push(
       this._getAssetPath('src/client/unit/assets/jasmine-jquery.js'),
       this._getAssetPath('.npm/package/node_modules/component-mocker/index.js'),
       this._getAssetPath('src/lib/mock.js'),
@@ -223,25 +255,36 @@ _.extend(ClientUnitTestFramework.prototype, {
       this._getAssetPath('src/client/unit/assets/adapter.js'),
       '.meteor/local/build/programs/server/assets/packages/velocity_meteor-stubs/index.js',
       this._getAssetPath('src/client/unit/assets/helpers/iron_router.js')
-    ]
+    )
   },
 
-  _getStubFiles: function () {
-    return [
+  _addStubFiles: function (files) {
+    files.push(
       'tests/jasmine/client/unit/**/*-+(stub|stubs|mock|mocks).+(js|coffee|litcoffee|coffee.md)'
-    ]
+    )
   },
 
-  _getTestFiles: function () {
+  _addTestFiles: function (files) {
     // Use a match pattern directly.
     // That allows Karma to detect changes and rerun the tests.
-    return [
+    files.push(
       'tests/jasmine/client/unit/**/*.+(js|coffee|litcoffee|coffee.md)'
-    ]
+    )
   },
 
   _getAssetPath: function (fileName) {
     var assetsPath = '.meteor/local/build/programs/server/assets/packages/sanjo_jasmine/'
     return assetsPath + fileName;
+  },
+
+  _getHeadHtml: function () {
+    try {
+      return fs.readFileSync(
+        path.join(Velocity.getAppPath(), '.meteor/local/build/programs/web.browser/head.html'),
+        {encoding: 'utf8'}
+      );
+    } catch (error) {
+      return null;
+    }
   }
 });
