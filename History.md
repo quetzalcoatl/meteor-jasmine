@@ -1,3 +1,10 @@
+## 0.18.0
+
+* Fix (Client unit): Assets and the head are now loaded correctly.
+    Now Karma mimics the loading of Meteor very closely.
+    This allows to use the client unit mode in most instances
+    instead of the client integration mode.
+
 ## 0.17.0
 
 * Upgrades Jasmine to 2.3.4 (from 2.1)

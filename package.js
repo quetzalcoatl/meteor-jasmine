@@ -6,7 +6,7 @@
 Package.describe({
   name: 'sanjo:jasmine',
   summary: 'Velocity integration of the Jasmine testing framework',
-  version: '0.17.0',
+  version: '0.18.0',
   git: 'https://github.com/Sanjo/meteor-jasmine.git',
   debugOnly: true
 })
@@ -38,7 +38,7 @@ Package.onUse(function (api) {
   ], ['server', 'client'])
 
   api.use([
-    'sanjo:karma@1.6.1',
+    'sanjo:karma@1.7.0',
     'sanjo:meteor-version@1.0.0',
     'package-version-parser',
     'sanjo:meteor-files-helpers@1.1.0_7'
@@ -140,6 +140,8 @@ Package.onUse(function (api) {
     'src/lib/mock.js',
     'src/server/lib/contextSpec.js',
     'src/lib/VelocityTestReporter.js',
+    'src/client/unit/assets/context.html',
+    'src/client/unit/assets/debug.html',
     'src/client/unit/assets/__meteor_runtime_config__.js',
     'src/client/unit/assets/adapter.js',
     'src/client/unit/assets/jasmine-jquery.js',
