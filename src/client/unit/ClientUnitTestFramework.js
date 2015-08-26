@@ -49,25 +49,28 @@ _.extend(ClientUnitTestFramework.prototype, {
   startKarma: function () {
     var self = this
 
+    log.debug('WebApp has been (re)started, starting Karma.');
     self._generateContextHtml();
     self._generateDebugHtml();
     Karma.start(self.name, this.getKarmaConfig())
 
-    // Listen for SIGUSR2/SIGHUP, which signals that a client asset has changed.
+    // Listen for message 'refresh:client' that signals incoming 'refreshable' autoupdate
+    process.on('message', Meteor.bindEnvironment(function (m) {
+      log.debug('client-refresh noticed, stopping Karma');
+      if (m && m.refresh === 'client') {
+        Karma.stop(self.name);
 
-    var meteorVersion = MeteorVersion.getSemanticVersion();
-    var reloadSignal = (meteorVersion && PackageVersion.lessThan(meteorVersion, '1.0.4')) ?
-      'SIGUSR2' :
-      'SIGHUP'
-
-    process.on(reloadSignal, Meteor.bindEnvironment(function () {
-      // Wait a bit to get the updated file catalog
-      Meteor.setTimeout(function () {
-        log.debug('Client assets have changed. Updating Karma config file.')
-        self._generateContextHtml();
-        self._generateDebugHtml();
-        Karma.setConfig(self.name, self.getKarmaConfig())
-      }, 100)
+        // Listen for message 'on-listening' that signals that the application has been rebuild
+        // and is ready to serve
+        // * This callback *must* be registered here in 'on-message-refresh-client'
+        // * because onListening is a short-lived registration that is removed after firing once
+        WebApp.onListening(function () {
+          log.debug('WebApp has been updated. Updating Karma config file and starting it up.');
+          self._generateContextHtml();
+          self._generateDebugHtml();
+          Karma.restartWithConfig(self.name, self.getKarmaConfig());
+        });
+      }
     }));
   },
 
@@ -235,7 +238,7 @@ _.extend(ClientUnitTestFramework.prototype, {
     var basePath = '.meteor/local/build/programs/web.browser/'
     files.push({
       pattern: basePath + file.path,
-      watched: true,
+      watched: false,
       included: _.contains(['js', 'css'], file.type),
       served: true,
       nocache: false
