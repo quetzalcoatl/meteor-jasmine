@@ -124,13 +124,14 @@ _.extend(ClientUnitTestFramework.prototype, {
 
     var launcherPlugins = {
       'Chrome': 'karma-chrome-launcher',
+      'HiddenChrome': 'karma-chrome-launcher',
       'ChromeCanary': 'karma-chrome-launcher',
       'Firefox': 'karma-firefox-launcher',
       'PhantomJS': 'karma-phantomjs-launcher',
       'SauceLabs': 'karma-sauce-launcher'
     }
 
-    var browser = process.env.JASMINE_BROWSER || 'Chrome';
+    var browser = process.env.JASMINE_BROWSER || 'HiddenChrome';
     var launcherPlugin = launcherPlugins[browser];
 
     var basePath = Velocity.getAppPath()
@@ -141,6 +142,12 @@ _.extend(ClientUnitTestFramework.prototype, {
       basePath: basePath,
       frameworks: ['jasmine'],
       browsers: [browser],
+      customLaunchers: {
+        HiddenChrome: {
+          base: 'Chrome',
+          flags: ['--window-size=1024,768', '--window-position=-1024,0'],
+        }
+      },
       plugins: [
         'karma-jasmine',
         launcherPlugin,
