@@ -253,6 +253,7 @@
             knownPaths: [
               { prefix: 'base/tests/jasmine/client/unit/', name: 'TESTS/' },
               { prefix: 'base/.meteor/local/build/programs/web.browser/', name: 'BRWSR/' },
+              // + prefix for Cordova, others?
             ],
           };
           JasmineVelocityTools.translateFailuresToVelocityStackAndMessage(velocityResult, specResult, formatOptions);
