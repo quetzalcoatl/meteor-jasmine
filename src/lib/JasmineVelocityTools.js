@@ -30,8 +30,13 @@
         .map(_.clone)
         .map(function makeFileUrlRelative(frame) {
           var rootUrl = options.rootUrl;
-          console.log(frame);
-          console.log(rootUrl);
+          var aliases = options.knownPaths;
+          _.each(aliases, function(alias){
+            var fullprefix = rootUrl + alias.prefix;
+            if (frame.file.indexOf(fullprefix) === 0) {
+              frame.file = alias.name + frame.file.substr(fullprefix.length);
+            }
+          });
           if (frame.file.indexOf(rootUrl) === 0) {
             frame.file = frame.file.substr(rootUrl.length);
           }
