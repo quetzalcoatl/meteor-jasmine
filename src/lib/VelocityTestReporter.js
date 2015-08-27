@@ -34,15 +34,9 @@
         isClient: !!options.isClient,
         isServer: !!options.isServer
       }
-      if (test.failedExpectations[0]){
-        var stack = removeStackTraceClutter(parseStack.parse({stack: filterStack(test.failedExpectations[0].stack)}))
-        var message = _.extend({
-          message: test.failedExpectations[0].message,
-          stack: stack
-        }, stack[0])
-        result.failureMessage = message.message
-        result.failureStackTrace = formatMessage([message])
-      }
+
+      var formatOptions = { rootUrl: Meteor.absoluteUrl() };
+      JasmineVelocityTools.translateFailuresToVelocityStackAndMessage(result, test, formatOptions);
 
       if (Meteor.isClient || process.env.IS_MIRROR) {
         ddpParentConnection.call('velocity/reports/submit', result, function (error){
@@ -105,108 +99,6 @@
       if (!skipped) {
         saveTestResult(result)
       }
-    }
-
-    function filterStack(stack) {
-      var filteredStack = stack.split('\n').filter(function(stackLine) {
-        return stackLine.indexOf('/node_modules/jasmine-core/') === -1;
-      }).join('\n');
-      return filteredStack;
-    }
-
-    function removeStackTraceClutter(parsedStackTrace) {
-      return _.chain(parsedStackTrace)
-        .map(_.clone)
-        .map(function makeFileUrlRelative(frame) {
-          var rootUrl = Meteor.absoluteUrl();
-          if (frame.file.indexOf(rootUrl) === 0) {
-            frame.file = frame.file.substr(rootUrl.length);
-          }
-          return frame;
-        })
-        .map(function removeCacheBustingQuery(frame) {
-          frame.file = frame.file.replace(/\?[a-z0-9]+$/, '');
-          return frame;
-        })
-        .map(function normalizePackageName(frame) {
-          frame.file = frame.file.replace('local-test:', '');
-          return frame;
-        })
-        .map(function removeUselessFunc(frame) {
-          if (frame.func === 'Object.<anonymous>') {
-            frame.func = null;
-          }
-          return frame;
-        })
-        .value();
-    }
-
-    function formatMessage(messages) {
-      var out = '';
-      var already = {};
-      var indent = '';
-
-      _.each(messages, function (message) {
-        var stack = message.stack || [];
-
-        var line = indent;
-        if (message.file) {
-          line+= message.file;
-          if (message.line) {
-            line += ":" + message.line;
-            if (message.column) {
-              // XXX maybe exclude unless specifically requested (eg,
-              // for an automated tool that's parsing our output?)
-              line += ":" + message.column;
-            }
-          }
-          line += ": ";
-        } else {
-          // not sure how to display messages without a filenanme.. try this?
-          line += "error: ";
-        }
-        // XXX line wrapping would be nice..
-        line += message.message;
-        if (message.func && stack.length <= 1) {
-          line += " (at " + message.func + ")";
-        }
-        line += "\n";
-
-        if (stack.length > 1) {
-          _.each(stack, function (frame) {
-            // If a nontrivial stack trace (more than just the file and line
-            // we already complained about), print it.
-            var where = "";
-            if (frame.file) {
-              where += frame.file;
-              if (frame.line) {
-                where += ":" + frame.line;
-                if (frame.column) {
-                  where += ":" + frame.column;
-                }
-              }
-            }
-
-            if (! frame.func && ! where)
-              return; // that's a pretty lame stack frame
-
-            line += "  at ";
-            if (frame.func)
-              line += frame.func + " (" + where + ")\n";
-            else
-              line += where + "\n";
-          });
-          line += "\n";
-        }
-
-        // Deduplicate messages (only when exact duplicates, including stack)
-        if (! (line in already)) {
-          out += line;
-          already[line] = true;
-        }
-      });
-
-      return out;
     }
   }
 

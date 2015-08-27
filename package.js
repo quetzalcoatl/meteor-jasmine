@@ -62,6 +62,7 @@ Package.onUse(function (api) {
     'src/lib/parseStack.js',
     'src/lib/JasmineTestFramework.js',
     'src/lib/JasmineInterface.js',
+    'src/lib/JasmineVelocityTools.js',
     'src/lib/VelocityTestReporter.js'
   ], ['server', 'client'])
 
@@ -139,6 +140,8 @@ Package.onUse(function (api) {
     'src/server/unit/metadata-reader.js.tpl',
     'src/lib/mock.js',
     'src/server/lib/contextSpec.js',
+    'src/lib/parseStack.js',
+    'src/lib/JasmineVelocityTools.js',
     'src/lib/VelocityTestReporter.js',
     'src/client/unit/assets/context.html',
     'src/client/unit/assets/debug.html',

@@ -244,11 +244,12 @@
             ancestors: ancestors,
             timestamp: new Date(),
             isClient: true
-          }
-          if (specResult.failedExpectations[0]){
-            velocityResult.failureMessage = specResult.failedExpectations[0].message
-            velocityResult.failureStackTrace = specResult.failedExpectations[0].stack
-          }
+          };
+
+          // Meteor.absoluteUrl() == localhost:3000
+          // Karma runs at localhost:9876 (hardcoded in 'startOptions' in ClientUnitTestFramework:getKarmaConfig)
+          var formatOptions = { rootUrl: 'http://localhost:9876/' };
+          JasmineVelocityTools.translateFailuresToVelocityStackAndMessage(velocityResult, specResult, formatOptions);
 
           ddpParentConnection.call('velocity/reports/submit', velocityResult, function (error){
             if (error){
