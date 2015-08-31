@@ -248,7 +248,14 @@
 
           // Meteor.absoluteUrl() == localhost:3000
           // Karma runs at localhost:9876 (hardcoded in 'startOptions' in ClientUnitTestFramework:getKarmaConfig)
-          var formatOptions = { rootUrl: 'http://localhost:9876/' };
+          var formatOptions = {
+            rootUrl: 'http://localhost:9876/',
+            knownPaths: [
+              { prefix: 'base/tests/jasmine/client/unit/', name: 'TESTS/' },
+              { prefix: 'base/.meteor/local/build/programs/web.browser/', name: 'BRWSR/' },
+              // + prefix for Cordova, others?
+            ],
+          };
           JasmineVelocityTools.translateFailuresToVelocityStackAndMessage(velocityResult, specResult, formatOptions);
 
           ddpParentConnection.call('velocity/reports/submit', velocityResult, function (error){

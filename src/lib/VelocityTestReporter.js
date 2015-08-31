@@ -35,7 +35,15 @@
         isServer: !!options.isServer
       }
 
-      var formatOptions = { rootUrl: Meteor.absoluteUrl() };
+      var formatOptions = {
+        rootUrl: Meteor.absoluteUrl(),
+        knownPaths: [
+          { prefix: 'tests/jasmine/client/integration/', name: 'TESTS/' },
+          { prefix: '', name: 'BRWSR/' }, // root url
+          // does client-integration always pick 'web.browser'?
+          // how is it for Cordova and others?
+        ],
+      };
       JasmineVelocityTools.translateFailuresToVelocityStackAndMessage(result, test, formatOptions);
 
       if (Meteor.isClient || process.env.IS_MIRROR) {
